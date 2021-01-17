@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Religion</title>
+<style>
+div.grid_container{
+	display: grid;
+	grid-template-columns: 15% 85%;
+	grid-template-rows: 10% 90%;
+	grid-column-gap: 4em;
+	}
+
+nav {
+	font-size: .7em;
+	height:100%;
+	overflow:auto;
+}
+.center li {
+	text-align: justify;
+}
+
+.floater div.map img {
+	width:100%;
+	max-width: 100%;
+}
+
+.left a {
+	font-size: 14px;
+	display: block;
+	border-bottom: none;
+}
+.left {
+	grid-column: 1;
+	grid-row: 1;
+	position:fixed;
+	width: 15%;
+	height:100%;
+	overflow: scroll;
+}
+.center {
+	padding: 0 10px;
+	max-width: 100%;
+	grid-column: 2;
+	grid-row:1;
+	position:fixed;
+	overflow: scroll;
+	left: calc(15% + 2em);
+	padding-bottom: 20em;
+	height: 100%;
+}
+.center p, .center ol, .center ul {
+	max-width: 30em;
+}
+.center p, .center ol, .center ul {
+	max-width: 40em;
+}
+*{
+	box-sizing:border-box;
+}
+a, img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+html, body {
+	height: 100%;
+	margin: 0;
+	font-family: "Tahoma";
+}
+body {
+	/*background-color: rgb(228,223,204);*/
+}
+p {
+	text-align: justify;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: "Tahoma";
+
+}
+
+h3,h4,h5 {
+color: rgb(88,24,13);
+}
+h1, h2, h3 {
+	border-bottom: 1px solid #aaaaaa;
+	max-width: 50em;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px grey dotted;
+}
+
+
+table {
+	border-collapse: collapse;
+	margin: 2rem;
+	margin-top: 0;
+	text-align: left;
+	}
+th, td {
+	padding: .2em 1em;
+	border: 1px solid black;
+	text-align: left;
+	}
+table.text_table {
+	text-align: left;
+}
+table.text_table .even {
+	background-color: initial;
+}
+table ul {
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+}
+div.boxed {
+	border: 1px solid black;
+	max-width: 30em;
+	padding: 0 1em;
+}
+
+div.horizontal {
+	display: flex;
+}
+.def h3 {
+	margin-bottom: 0;
+}
+.def p{
+	padding-left: 1em;
+	margin-top: 0;
+}
+
+div.map svg {
+	background-size: 100% 100%;
+}
+.hexes svg a text{
+	font-size: 40px;
+	fill: white;
+	stroke-width:2px;
+	stroke: black;
+}
+
+</style>
+<script>
+"use strict"
+
+function create_floater(){
+    let div = document.createElement('div')
+    div.className = 'floater'
+    let x = 0
+    let y = 0
+    let mouse_x = -1000
+    let mouse_y = -1000
+    function mousedown(e){
+        const rect = div.getBoundingClientRect()
+        x = rect.x
+        y = rect.y
+        mouse_x = e.clientX
+        mouse_y = e.clientY
+        div.style.cursor = 'move'
+        e.stopPropagation()
+    }
+    function mousemove(e){
+        if(mouse_x != -1000 && mouse_y != -1000){
+            let diff_x = e.clientX - mouse_x
+            let diff_y = e.clientY - mouse_y
+            x = x + diff_x
+            y = y + diff_y
+            if (x < 0)
+                x = 0
+            if (y < 0)
+                y = 0
+            const rect = div.getBoundingClientRect()
+            if (x + rect.width > window.innerWidth)
+                x = window.innerWidth - rect.width
+            if (y + rect.height > window.innerHeight)
+                y = window.innerHeight - rect.height
+            div.style.left = x + "px"
+            div.style.top = y + "px"
+            mouse_x = e.clientX
+            mouse_y = e.clientY
+            e.stopPropagation()
+        }
+    }
+    function mouseup(e){
+        if(mouse_x != -1000 && mouse_y != -1000){
+            let diff_x = e.clientX - mouse_x
+            let diff_y = e.clientY - mouse_y
+            div.style.left = x + diff_x + "px"
+            div.style.top = y + diff_y + "px"
+            mouse_x = -1000
+            mouse_y = -1000
+            div.style.cursor = 'auto'
+            e.stopPropagation()
+        }
+    }
+    div.addEventListener('mousedown', mousedown)
+    window.addEventListener('mousemove', mousemove)
+    window.addEventListener('mouseup', mouseup)
+    let button_container = document.createElement('div')
+    button_container.className = 'buttonContainer'
+    div.appendChild(button_container)
+    let old_width = 0
+    function make_button(content, func){
+        let button = document.createElement('span')
+        button.className = 'button close'
+        button.innerHTML = content
+        button_container.appendChild(button)
+        button.addEventListener('click', func)
+    }
+    make_button('X', function(){
+        document.body.removeChild(div)
+        window.removeEventListener('mousemove', mousemove)
+        window.removeEventListener('mouseup', mouseup)
+    })
+    make_button('—', function(){
+        const rect = div.getBoundingClientRect()
+        if(! old_width)
+            old_width = rect.width
+        div.style.width = rect.width - 25 + "px"
+        div.style.maxWidth = "100%"
+    })
+    make_button('+', function(){
+        const rect = div.getBoundingClientRect()
+        if(! old_width)
+            old_width = rect.width
+        div.style.width = rect.width + 25 + "px"
+        div.style.maxWidth = "100%"
+    })
+    make_button('=', function(){
+        if(old_width)
+            div.style.width = old_width + "px"
+    })
+    make_button('M', function(){
+        const rect = div.getBoundingClientRect()
+        if(! old_width)
+            old_width = rect.width
+        div.style.width = "100%"
+        div.style.maxWidth = "100%"
+        div.style.left = "0px"
+        div.style.maxHeight = "100%"
+    })
+    make_button('L', function(){
+        const rect = div.getBoundingClientRect()
+        if(! old_width)
+            old_width = rect.width
+        div.style.width = "50%"
+        div.style.left = "0px"
+        div.style.maxHeight = "100%"
+    })
+    make_button('R', function(){
+        const rect = div.getBoundingClientRect()
+        if(! old_width)
+            old_width = rect.width
+        div.style.width = "50%"
+        div.style.left = "50%"
+        div.style.maxHeight = "100%"
+    })
+    make_button('F',function(){
+        let old_z = +window.document.defaultView.getComputedStyle(div).getPropertyValue('z-index')
+        div.style.zIndex = (old_z+1)+""
+    })
+    make_button('B', function(){
+        let old_z = +window.document.defaultView.getComputedStyle(div).getPropertyValue('z-index')
+        div.style.zIndex = (old_z-1)+""
+    })
+    
+    return div
+}
+
+function create_object(element, e){
+    e.preventDefault()
+    const obj = document.createElement('object')
+    obj.data = element.href
+    obj.width = "100%"
+    obj.height = "100%"
+    const floater = create_floater()
+    floater.appendChild(obj)
+    floater.style.height = "80%"
+    floater.style.width = "80%"
+    document.body.appendChild(floater)
+    e.stopPropagation()
+}
+
+function linkify(){
+    const as = document.getElementsByTagName('a')
+    for (let i = 0; i < as.length; i++){
+        const a = as[i]
+        let is_srd = a.href.includes('d20srd.org')
+        let is_monsters = a.href.includes('monsters.html') && a.href.includes('#')
+        if (!is_srd && !is_monsters)
+                continue
+        a.addEventListener('click', create_object.bind({}, a))
+    }
+}
+
+document.addEventListener("DOMContentLoaded", linkify)
+
+
+function show_data_element(element, e){
+    const text = data_blob[element.innerText]
+    let template = document.createElement('template')
+    template.innerHTML = text;
+    const div = create_floater()
+    div.appendChild(template.content.firstChild)
+    document.body.appendChild(div)
+    e.stopPropagation()
+}
+
+</script>
+<script>
+data_blob={}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+</head>
+<body>
+<div class="grid_container">
+<div class="left">
+<nav id="TOC">
+<ul>
+<li><a href="#old-and-new-gods-anganach-and-futurus">Old and New Gods: Anganach and Futurus</a></li>
+<li><a href="#deities">Deities</a><ul>
+<li><a href="#herne-the-hunter">Herne the Hunter (Venator Cervus)</a></li>
+<li><a href="#silvanus">Silvanus (Virdiis Voltus)</a></li>
+<li><a href="#crom">Crom (Cromm Cruach)</a></li>
+<li><a href="#arcantryl">Arcantryl (Magus)</a></li>
+<li><a href="#st-ygg">St. Ygg (Veridicus) </a></li>
+<li><a href="#impurax">Impurax (Impuratus) </a></li>
+<li><a href="#set">Set (Jakuul Mortis) </a></li>
+<li><a href="#orcus">Orcus (Malum Mortis) </a></li>
+<li><a href="#nergal">Nergal (Ossum Mortis) </a></li>
+</ul></li>
+</ul>
+<hr>
+</nav>
+</div>
+<div class="center">
+
+
+<h1 id="religion-faith-and-the-gods">Religion, Faith, and The Gods</h1>
+<div>
+<h2 id="old-and-new-gods-anganach-and-futurus">Old and New Gods: Anganach and Futurus</h2>
+<div>
+
+<p>
+The Ancient Ones, called the Anganach by the folk of the region, represent
+the elder gods. Whether they preexisted in the forests, swamps, and old
+streams of the land, or whether they were brought with the first humans, few
+can say. The humans who founded Ironguard Motte, Velyx, and Bogtown (called
+the Second Settlement by local sages) found protection in the worship of
+Silvanus (Green Man), Herne the Hunter, Cromm Cruach, Impurax, and to a
+lesser extent, Nergal. Through respect and reverence for the wilderness and
+its deities, the human settlers learned to survive and established their
+villages. With the migration of the new gods from the civilized kingdoms
+after the invasion by the Karynthian empire, the Anganach were in decline.
+They have been on the rise recently due to the withdrawl of imperial forces
+from the region.
+</p>
+<p>
+The New Gods, called the Futurus, include the faiths of St. Ygg and
+Arcantryl, and the more clandestine cults devoted to Orcus and Set. Their
+followers arrived with the Karynthians, who banned worship of the old gods.
+These laws are no longer enforced.
+</p>
+<p>
+Although the cults of Orcus and Set are not openly
+worshipped their influence has started to grow in the dark corners of the
+region.
+</p>
+<p>
+Despite its isolation from the outside world, the people of the moor
+(particularly those in Ironguard Motte) have heard tales of foreign religions
+including Kor the Sun God, Athena the Goddess of Military Strategy, Thor the
+God of Thunder and Lightning, and others.
+</p>
+<p>
+Only St. Ygg, Crom, Arcantryl support general player character clerics.
+Additionally, dwarven clerics can worship Moradin (domains: earth, law,
+protection), elven and half-elven clerics can worship Corellon (domains:
+Magic, Protection, War).
+</p>
+</div>
+</div>
+<div>
+<h2 id="deities">Deities</h2>
+<div>
+<h3 id="herne-the-hunter">Herne the Hunter (Venator Cervus)</h3>
+<div>
+
+<ul>
+<li> also called the Horned God</li>
+<li> Demi-God of the Hunt, Swamps and Forests </li>
+<li> Lawful Neutral (Good) </li>
+<li> Symbol: An antlered human face or stag head </li>
+</ul>
+</div>
+<div>
+
+<p>
+Herne is one of the Anganach or Ancient Ones. The worship of St. Ygg has
+replaced Herne in recent years, but there are those who still pray and
+offer sacrifices to him. Herne is the god of the northern woodlands,
+swamps, and the creatures that inhabit them. He prefers to take the form of
+a deer, or a man with an antlered deer’s head. Herne chooses a favoured
+son, a druid, barbarian, ranger, or warrior, to serve him as the Guardian
+of the Forest. Some believe Herne is the son of Silvanus. The people of the
+region often use the phrase “Herne protect us” or “Herne protect you” as a
+toast or when parting company.
+</p>
+</div>
+</div>
+<div>
+<h3 id="silvanus">Silvanus (Virdiis Voltus)</h3>
+<div>
+
+<ul>
+<li> also called Green Man</li>
+<li> God of Nature and the Balance </li>
+<li> Neutral </li>
+<li> Symbol: A face carved of leaves </li>
+</ul>
+</div>
+<div>
+
+<p>
+As one of the Anganach, Silvanus’ faith arrived with the first human
+settlements. His religion has been largely, but not exclusively, replaced
+by the worship of St. Ygg. Silvanus, also called Green Man, oversees the
+balance in nature: law and chaos, light and dark, growth and decay, life
+and death. For generations the rangers and druids looked to Silvanus for
+guidance and protection. He is also considered by some to oversee the
+spheres of rebirth and fertility. Faces of Silvanus have been carved into
+trees and rocks for centuries in the region. Tales say good fortune befalls
+those who chance upon his face in the wild.
+</p>
+</div>
+</div>
+<div>
+<h3 id="crom">Crom (Cromm Cruach)</h3>
+<div>
+
+<ul>
+<li> God of Strength and Battle </li>
+<li> Chaotic Good</li>
+<li> Symbol: A silver crown over a white capped mountain </li>
+<li> Domains: Protection, War, Strength</li>
+</ul>
+</div>
+<div>
+
+<p>
+An Ancient One, Crom is worshipped largely by fighters, rangers,
+barbarians, and clerics. Due to the constant threat of monsters and
+monstrous humanoids from the Barrowmoor and the surrounding forests, Crom’s
+faith among warriors and mercenaries has remained steady in comparison to
+that of Silvanus and Herne. The clerics of Crom seek to advance their faith
+through strength of arms and feats of daring in battle.
+</p>
+</div>
+</div>
+<div>
+<h3 id="arcantryl">Arcantryl (Magus)</h3>
+<div>
+
+<ul>
+<li> Goddess of Magic</li>
+<li> Lawful Neutral</li>
+<li> Symbol: A star within a star </li>
+<li> Domains: magic, knowledge, law.</li>
+</ul>
+</div>
+<div>
+
+<p>
+Arcantryl is one of the new gods or Futurus. Arcantryl derives her power
+from knowledge of the laws of the universe and existence. She believes in
+understanding the structure of the cosmos and harnessing (and bending) that
+knowledge to express magical energies. Instead of branching out immediately
+to the smaller villages of Velyx and Bogtown, the clerics of Arcantryl have
+focused on developing followers at Ironguard Motte where they have
+established a small shrine. A large stone temple is currently under
+construction and will facilitate the instruction of both clerics and
+magic-users when complete.
+</p>
+</div>
+</div>
+<div>
+<h3 id="st-ygg">St. Ygg (Veridicus) </h3>
+<div>
+
+<ul>
+<li> God of Righteousness</li>
+<li> Lawful Good</li>
+<li> Domains: Law, Good, Healing</li>
+<li> Symbol: A red cross on a white field </li>
+</ul>
+</div>
+<div>
+
+<p>
+St. Ygg is the lawful deity of righteousness and light. St. Ygg believes in
+the highest moral standards. He is self-righteous and possesses an
+indignant temper with those who fail to see the just nature of his actions.
+St. Ygg is the most influential of the “civilized” or Futurus deities in
+the region. His clerics have been aggressive to convert the followers of
+Herne and Silvanus to the faith. St. Ygg demands his followers destroy
+undead as he views them as an abomination of the highest order. His
+followers include clerics and a rare group of paladins known as the Order
+of the Crimson Cross. Paladins are very rare in the region but are more
+common in the Karynthian empire.
+</p>
+</div>
+</div>
+<div>
+<h3 id="impurax">Impurax (Impuratus) </h3>
+<div>
+
+<ul>
+<li> God of Decay, Corruption, and Pestilence </li>
+<li> Neutral Evil</li>
+<li> Symbol: A rotting raven’s head </li>
+</ul>
+</div>
+<div>
+
+<p>
+Little is known about the ancient deity Impurax. It is believed his
+faithful consisted of a secret order of corrupt druids. These witches and
+warlocks lived in the Barrowmoor and possessed a strange power over select
+creatures and monsters, but little has been heard of his faith for decades.
+Impurax is the natural enemy of Silvanus and Herne the Hunter. Folk tales
+say Herne’s favoured son died decades ago in a great battle against the
+followers of Impurax. Impurax aligns himself with Nergal, historically.
+</p>
+</div>
+</div>
+<div>
+<h3 id="set">Set (Jakuul Mortis) </h3>
+<div>
+
+<ul>
+<li> God of Serpents, Death, and the Underworld </li>
+<li> Lawful Evil</li>
+<li> Symbol: Two snake heads facing each other </li>
+</ul>
+</div>
+<div>
+
+<p>
+Set and his brother Orcus deposed their father Nergal for control of the
+underworld. After completing the task they turned on each other to
+establish complete control over their father’s spheres of power. A war for
+control of the underworld began. A stalemate ensued with each son
+controlling a portion of Nergal’s power.  Followers of Set are committed to
+the destruction of Orcus and his faithful. Set and Orcus currently share
+the spheres of Death and the Underworld.
+</p>
+</div>
+</div>
+<div>
+<h3 id="orcus">Orcus (Malum Mortis) </h3>
+<div>
+
+<ul>
+<li> God of the Undead, Death, and the Underworld </li>
+<li> Chaotic Evil</li>
+<li> Symbol: A white ram head on a black field </li>
+</ul>
+</div>
+<div>
+
+<p>
+Orcus and his brother Set combined their power to overthrow Nergal. A civil
+war resulted with both brothers possessing a portion of their father’s
+power. The acolytes of Orcus are committed to annihilation of Set and
+his followers. Set and Orcus currently share the spheres of Death and the
+Underworld.
+</p>
+</div>
+</div>
+<div>
+<h3 id="nergal">Nergal (Ossum Mortis) </h3>
+<div>
+
+<ul>
+<li> Greater God of Death, Undead, and the Underworld (Presumed Dead)</li>
+<li> Chaotic Evil</li>
+<li> Symbol: A single white skull </li>
+</ul>
+</div>
+<div>
+
+<p>
+One of the Anganach, Nergal once ruled the Underworld and the spheres of
+Death and the Undead. He was deposed and presumably destroyed by his sons
+Orcus and Set. Legends tell of his most powerful artifacts: the Tablet of
+Chaos and the Pit of Chaos, which grant vast power over the underworld.
+Whether they still exist or were destroyed long ago is unknown.
+Whether Nergal still exists is unknown.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</body>
+</html>
