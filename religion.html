@@ -4,6 +4,57 @@
 <meta charset="UTF-8">
 <title>Religion</title>
 <style>
+div.grid_container{
+	display: grid;
+	grid-template-columns: 15% 85%;
+	grid-template-rows: 10% 90%;
+	grid-column-gap: 4em;
+	}
+
+nav {
+	font-size: .7em;
+	height:100%;
+	overflow:auto;
+}
+.center li {
+	text-align: justify;
+}
+
+.floater div.map img {
+	width:100%;
+	max-width: 100%;
+}
+
+.left a {
+	font-size: 14px;
+	display: block;
+	border-bottom: none;
+}
+.left {
+	grid-column: 1;
+	grid-row: 1;
+	position:fixed;
+	width: 15%;
+	height:100%;
+	overflow: scroll;
+}
+.center {
+	padding: 0 10px;
+	max-width: 100%;
+	grid-column: 2;
+	grid-row:1;
+	position:fixed;
+	overflow: scroll;
+	left: calc(15% + 2em);
+	padding-bottom: 20em;
+	height: 100%;
+}
+.center p, .center ol, .center ul {
+	max-width: 30em;
+}
+.center p, .center ol, .center ul {
+	max-width: 40em;
+}
 *{
 	box-sizing:border-box;
 }
@@ -78,11 +129,14 @@ div.boxed {
 div.horizontal {
 	display: flex;
 }
-.def h3 {
+.def h3, .def h4 {
 	margin-bottom: 0;
 }
 .def p{
 	padding-left: 1em;
+	margin-top: 0;
+}
+.def ul {
 	margin-top: 0;
 }
 
@@ -93,57 +147,6 @@ div.map svg {
 	fill: white;
 	stroke-width:1px;
 	stroke: black;
-}
-div.grid_container{
-	display: grid;
-	grid-template-columns: 15% 85%;
-	grid-template-rows: 10% 90%;
-	grid-column-gap: 4em;
-	}
-
-nav {
-	font-size: .7em;
-	height:100%;
-	overflow:auto;
-}
-.center li {
-	text-align: justify;
-}
-
-.floater div.map img {
-	width:100%;
-	max-width: 100%;
-}
-
-.left a {
-	font-size: 14px;
-	display: block;
-	border-bottom: none;
-}
-.left {
-	grid-column: 1;
-	grid-row: 1;
-	position:fixed;
-	width: 15%;
-	height:100%;
-	overflow: scroll;
-}
-.center {
-	padding: 0 10px;
-	max-width: 100%;
-	grid-column: 2;
-	grid-row:1;
-	position:fixed;
-	overflow: scroll;
-	left: calc(15% + 2em);
-	padding-bottom: 20em;
-	height: 100%;
-}
-.center p, .center ol, .center ul {
-	max-width: 30em;
-}
-.center p, .center ol, .center ul {
-	max-width: 40em;
 }
 
 </style>
