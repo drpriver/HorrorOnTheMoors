@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Characters</title>
+<style>
+*{
+	box-sizing:border-box;
+}
+a, img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+html, body {
+	height: 100%;
+	margin: 0;
+	font-family: "Tahoma";
+}
+body {
+	/*background-color: rgb(228,223,204);*/
+}
+p {
+	text-align: justify;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: "Tahoma";
+
+}
+
+h3,h4,h5 {
+color: rgb(88,24,13);
+}
+h1, h2, h3 {
+	border-bottom: 1px solid #aaaaaa;
+	max-width: 50em;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px grey dotted;
+}
+
+
+table {
+	border-collapse: collapse;
+	margin: 2rem;
+	margin-top: 0;
+	text-align: left;
+	}
+th, td {
+	padding: .2em 1em;
+	border: 1px solid black;
+	text-align: left;
+	}
+table.text_table {
+	text-align: left;
+}
+table.text_table .even {
+	background-color: initial;
+}
+table ul {
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+}
+div.boxed {
+	border: 1px solid black;
+	max-width: 30em;
+	padding: 0 1em;
+}
+
+div.horizontal {
+	display: flex;
+}
+.def h3, .def h4 {
+	margin-bottom: 0;
+}
+.def p{
+	padding-left: 1em;
+	margin-top: 0;
+}
+.def ul {
+	margin-top: 0;
+}
+
+div.map svg {
+	background-size: 100% 100%;
+}
+.hexes svg a text{
+	fill: black;
+	background-color: white;
+}
+div.grid_container{
+	display: grid;
+	grid-template-columns: 15% 85%;
+	grid-template-rows: 10% 90%;
+	grid-column-gap: 4em;
+	}
+
+nav {
+	font-size: .7em;
+	height:100%;
+	overflow:auto;
+}
+.center li {
+	text-align: justify;
+}
+
+.floater div.map img {
+	width:100%;
+	max-width: 100%;
+}
+
+.left a {
+	font-size: 14px;
+	display: block;
+	border-bottom: none;
+}
+.left {
+	grid-column: 1;
+	grid-row: 1;
+	position:fixed;
+	width: 15%;
+	height:100%;
+	overflow: scroll;
+}
+.center {
+	padding: 0 10px;
+	max-width: 100%;
+	grid-column: 2;
+	grid-row:1;
+	position:fixed;
+	overflow: scroll;
+	left: calc(15% + 2em);
+	padding-bottom: 20em;
+	height: 100%;
+}
+.center p, .center ol, .center ul {
+	max-width: 30em;
+}
+.center p, .center ol, .center ul {
+	max-width: 40em;
+}
+
+</style>
+<script>
+"use strict"
+
+
+</script>
+<script>
+data_blob={}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+</head>
+<body>
+<div class="grid_container">
+<div class="left">
+<nav id="TOC">
+<ul>
+<li><a href="#some-tomb-robbing-rules">Some Tomb Robbing Rules</a><ul>
+<li><a href="#dungeon-turn">Dungeon Turn</a></li>
+<li><a href="#bricked-up-walls">Bricked-Up Walls</a></li>
+<li><a href="#sealed-mounds">Sealed Mounds</a></li>
+<li><a href="#buried-mounds">Buried Mounds</a></li>
+<li><a href="#searching-a-lot-of-small-containers">Searching a lot of small containers</a></li>
+</ul></li>
+<li><a href="#stats">Stats</a></li>
+<li><a href="#multiple-characters">Multiple characters</a></li>
+<li><a href="#fear-points">Fear Points</a></li>
+<li><a href="#perception-saves">Perception Saves</a></li>
+<li><a href="#spell-recovery">Spell Recovery</a></li>
+<li><a href="#xp-and-stuff">Xp and Stuff</a><ul>
+<li><a href="#level-table">Level table</a></li>
+</ul></li>
+<li><a href="#magic-item-acquistion">Magic Item Acquistion</a></li>
+<li><a href="#favored-class">Favored Class</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#class-tweaks">Class Tweaks</a><ul>
+<li><a href="#fighters">Fighters</a></li>
+<li><a href="#monks">Monks</a></li>
+<li><a href="#paladins">Paladins</a></li>
+<li><a href="#druids">Druids</a></li>
+<li><a href="#rangers">Rangers</a></li>
+<li><a href="#rogue">Rogue</a></li>
+<li><a href="#bard">Bard</a></li>
+<li><a href="#sorcerer">Sorcerer</a></li>
+<li><a href="#barbarian">Barbarian</a></li>
+<li><a href="#wizard">Wizard</a></li>
+<li><a href="#cleric">Cleric</a></li>
+</ul></li>
+<li><a href="#resurrection">Resurrection</a></li>
+<li><a href="#prestige-classes">Prestige Classes</a></li>
+<li><a href="#multiclassing">Multiclassing</a><ul>
+<li><a href="#warrior">Warrior</a></li>
+<li><a href="#priest">Priest</a></li>
+<li><a href="#mage">Mage</a></li>
+<li><a href="#thief">Thief</a></li>
+</ul></li>
+<li><a href="#races">Races</a></li>
+<li><a href="#combat">Combat</a></li>
+<li><a href="#running-away">Running Away</a><ul>
+<li><a href="#heroic-sacrifice">Heroic Sacrifice</a></li>
+</ul></li>
+<li><a href="#encumbrance">Encumbrance</a></li>
+<li><a href="#supplies">Supplies</a></li>
+<li><a href="#spells">Spells</a></li>
+<li><a href="#feats">Feats</a><ul>
+<li><a href="#feat-tweaks">Feat Tweaks</a></li>
+</ul></li>
+<li><a href="#homebrew-feats">Homebrew Feats</a></li>
+<li><a href="#starting-gold">Starting Gold</a></li>
+<li><a href="#languages">Languages</a></li>
+</ul>
+<hr>
+</nav>
+</div>
+<div class="center">
+
+<div>
+<h2 id="some-tomb-robbing-rules">Some Tomb Robbing Rules</h2>
+<div>
+<h3 id="dungeon-turn">Dungeon Turn</h3>
+<div>
+
+<p>
+The below rules refer to "turns" in an exploration context. These should be
+interpreted as 10 minute intervals.
+</p>
+</div>
+</div>
+<div>
+<h3 id="bricked-up-walls">Bricked-Up Walls</h3>
+<div>
+
+<p>
+You might encountered walls that have been bricked up. These walls are
+breakable with the right tools and some time.
+</p>
+</div>
+<div>
+
+<table>
+<thead>
+<tr class="table_header">
+<th>No. of Sledge Hammers </th>
+<th> Time Spent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 Character           </td>
+<td> 3 turns</td>
+</tr>
+<tr class="even">
+<td>2 Characters          </td>
+<td> 2 turns</td>
+</tr>
+<tr class="odd">
+<td>3 Characters          </td>
+<td> 1 turn</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+
+<p>
+Breaking down a brick wall is quite loud and will likely attract the
+attention of any monsters wandering nearby.
+</p>
+</div>
+</div>
+<div>
+<h3 id="sealed-mounds">Sealed Mounds</h3>
+<div>
+
+<p>
+Some Burial Mounds are sealed with stone doors. A Sledge Hammer and spike
+will be needed to break it open. This takes 2 turns and makes a hell of a
+lot of noise, or 1 turn with two working at it (each needs tools).
+</p>
+</div>
+</div>
+<div>
+<h3 id="buried-mounds">Buried Mounds</h3>
+<div>
+
+<p>
+Some burial mounds have been buried in dirt over the years and will need to
+be excavated to be entered.
+</p>
+<p>
+Excavation requires 3d4+4 hours (1 hour equals 6 turns) of digging with
+appropriate digging tools (shovels, etc) and equipment purchased in town.
+For each 2 PCs or hirelings devoted to the task the result will be reduced
+by 1 hour to a minimum of 2 hours to excavate the entrance to the mound.
+</p>
+</div>
+</div>
+<div>
+<h3 id="searching-a-lot-of-small-containers">Searching a lot of small containers</h3>
+<div>
+
+<p>
+There are locations with a huge number of small containers or alcoves to
+search. A character can search 10 such containers in 10 minutes. For
+example, 5 characters searching 145 alcoves will take 3 turns (5 * 10 * 3 =
+150).
+</p>
+</div>
+</div>
+</div>
+<div>
+<h2 id="stats">Stats</h2>
+<div>
+
+<p>
+Pick one of these:
+</p>
+</div>
+<div>
+
+<ol>
+<li> 15, 14, 13, 10, 9, 8;</li>
+<li> 4d6kh3 in order, clamp to 7-16, reroll one stat.</li>
+</ol>
+</div>
+</div>
+<div>
+<h2 id="multiple-characters">Multiple characters</h2>
+<div>
+
+<p>
+You can play a character + 1 pure-class fighter. Secondary character must use
+the 15, 14, etc. array.
+</p>
+</div>
+</div>
+<div>
+<h2 id="fear-points">Fear Points</h2>
+<div>
+
+<p>
+Encounters with spooky monsters and other events will cause accumulation of
+fear points. Each encounter with the undead causes each party member to gain
+1 fear point. A failed save against a fear effect from an undead causes that
+party member to gain 3 fear points. A character who has 20 fear points goes
+insane. Spending a week in town reduces the character’s fear points by 2. A
+month passes between sessions.
+</p>
+</div>
+</div>
+<div>
+<h2 id="perception-saves">Perception Saves</h2>
+<div>
+
+<p>
+A new saving throw category, perception saves are made when you would trigger
+a trap and against illusions. See <a href="#class-tweaks">class tweaks</a> for whether it is a good save
+or not for you. Perception saves key off Int. This is a last-chance check to
+avoid a trap - detecting a trap in the first place is done through searching
+or player logic.
+</p>
+</div>
+</div>
+<div>
+<h2 id="spell-recovery">Spell Recovery</h2>
+<div>
+
+<p>
+After 24 hours of resting and light activity, 1st level spells are regained.
+Another 24 hours later, 2nd level spells, etc.
+</p>
+</div>
+</div>
+<div>
+<h2 id="xp-and-stuff">Xp and Stuff</h2>
+<div>
+
+<p>
+XP for gold (coins, gems, jewelry). This treasure must be gained by risking
+life and limb. Gems and jewelry must be sold to gain XP. Magic items do not
+grant XP, but can be sold. They do not grant xp when sold.
+</p>
+<p>
+100xp per level for journal entries
+</p>
+</div>
+<div>
+<h3 id="level-table">Level table</h3>
+<table>
+<thead>
+<tr class="table_header">
+<th>Level   </th>
+<th> Total XP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Level 1 </td>
+<td> 0 xp</td>
+</tr>
+<tr class="even">
+<td>Level 2 </td>
+<td> 2000xp</td>
+</tr>
+<tr class="odd">
+<td>Level 3 </td>
+<td> 4000xp</td>
+</tr>
+<tr class="even">
+<td>Level 4 </td>
+<td> 8000xp</td>
+</tr>
+<tr class="odd">
+<td>Level 5 </td>
+<td> 16,000xp</td>
+</tr>
+<tr class="even">
+<td>Level 6 </td>
+<td> 32,000xp</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+
+<p>
+After level 6, a character receives a bonus feat every 32,000xp. You then go
+back to 32,000xp. You are still level 6 and if you lose a level, you go to
+level 5.
+</p>
+<p>
+If a level is lost for whatever reason (level drain, raise dead, etc.), your
+xp is set to the minimum xp of the previous level. If you lose a level at
+level 6, you become level 5.
+</p>
+<p>
+For multiclass characters, they require twice as much XP at each level and
+cap out at level 5 instead of level 6. They still gain a bonus feat every
+32,000 XP after reaching level 5.
+</p>
+</div>
+</div>
+<div>
+<h2 id="magic-item-acquistion">Magic Item Acquistion</h2>
+<div>
+
+<p>
+Magic items are normally found as treasure, but can also be traded from NPCs.
+</p>
+<p>
+There is a magic item shops, with random inventory that changes occasionally.
+</p>
+<p>
+Magic Items can’t be crafted. Any feature that grants a crafting feat or
+requires a crafting feat instead grants/requires a similarity themed feat.
+For example, wizards get a metamagic feat instead of scribe scroll.
+</p>
+</div>
+</div>
+<div>
+<h2 id="favored-class">Favored Class</h2>
+<div>
+
+<p>
+does nothing.
+</p>
+</div>
+</div>
+<div>
+<h2 id="skills">Skills</h2>
+<div>
+
+<ul>
+<li> No class skills (all skills can be purchased at 1 point per rank).</li>
+<li> All classes get an extra 2 skill points per level (8 extra points at level 1).</li>
+<li> Hide/move silently merged into stealth. Monster’s have CR-dependant perception DC. “Sneaky” monsters have x% chance to surprise, modified by circumstance, player choices (such as posting guards), etc.</li>
+<li> Spot/listen dropped.</li>
+<li> Searching is done in 10’ cubes or 20’ x 5’ x 10’ volumes. Searching such a volume takes 5 minutes and will reveal traps/secrets/hidden compartments.</li>
+<li> Craft(alchemy) can be used to identify potions (DC 25).</li>
+</ul>
+</div>
+</div>
+<div>
+<h2 id="class-tweaks">Class Tweaks</h2>
+<div>
+
+<ul>
+<li> No trading away familiars.</li>
+<li> PHB classes only.</li>
+<li> Warrior classes can purchase maneuvers with feats (no restrictions on martial study or whatever it is called). They count as full initiator level.</li>
+</ul>
+</div>
+<div>
+<h3 id="fighters">Fighters</h3>
+<div>
+
+<ul>
+<li> Fighters have all good saves</li>
+<li> Fighters get a bonus feat every level instead of the fighter bonus feat schedule.</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="monks">Monks</h3>
+<div>
+
+<ul>
+<li> Monks get an extra +4 ac but do not add wisdom to their AC</li>
+<li> Monks have full BAB, Good perception save.</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="paladins">Paladins</h3>
+<div>
+
+<ul>
+<li> Paladin warhorses are immortal but take 1 week to reform when slain. Warhorses can cast cure light wounds 1/paladin level per day.</li>
+<li> All good saves.</li>
+<li> Bad Perception save</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="druids">Druids</h3>
+<div>
+
+<ul>
+<li> Druids are banned</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="rangers">Rangers</h3>
+<div>
+
+<ul>
+<li> Rangers get animal companions at the progression that druids would in normal 3e.</li>
+<li> Rangers have d10 hit dice.</li>
+<li> Good perception save</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="rogue">Rogue</h3>
+<div>
+
+<ul>
+<li> Good perception save.</li>
+<li> Rogues can flank.</li>
+<li> Rogues must be members of the thieves guild or else be ex-thieves guild member and be enemies of the thieves guild. Highlights include being attacked by thugs.</li>
+<li> Sneak attacks can crit, but no auto crit spells.</li>
+<li> When rogues sneak, they actually turn invisible. When they get within 10 feet of someone, that person can roll to see them. When they attack, it ends. If the rogue takes damage, it ends.</li>
+<li> In a dungeon scenario, a thief is assumed to be sneaking when the party is generically walking through the dungeon, when the party is preparing to open a door and then opening the door and in general when the thief is not doing much.  The thief is not sneaking when he is searching, opening locks, talking to the party about what to do and other active activities.</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="bard">Bard</h3>
+<div>
+
+<ul>
+<li> Bards are banned for sucking and I don’t want to homebrew a fix unless you really want to play a bard.</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="sorcerer">Sorcerer</h3>
+<div>
+
+<ul>
+<li> Bad Perception save</li>
+<li> Shift their spell-progression and spells known table down one level (so they have 4 level 1 spells at level 1, can cast 2nd level spells at level 3, etc.)</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="barbarian">Barbarian</h3>
+<div>
+
+<ul>
+<li> Good perception save, trap sense adds to perception saves.</li>
+<li> Improved Uncanny dodge: additionally, grants blind-fight feat.</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="wizard">Wizard</h3>
+<div>
+
+<ul>
+<li> Bad perception save</li>
+<li> Instead of scribe scroll, any metamagic feat.</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="cleric">Cleric</h3>
+<div>
+
+<ul>
+<li> Bad Perception save.</li>
+<li> Domains that grant unusual forms of turning do not grant separate uses: they instead provide an alternative use for normal turning.</li>
+</ul>
+</div>
+</div>
+</div>
+<div>
+<h2 id="resurrection">Resurrection</h2>
+<div>
+
+<p>
+Major Temples can cast raise dead for 10,000gp. A raised character loses a level.
+</p>
+<p>
+Druid Groves can cast reincarnate. You reincarnate into a random humanoid, lose a level, but is free. This requires the druids to like you.
+</p>
+</div>
+</div>
+<div>
+<h2 id="prestige-classes">Prestige Classes</h2>
+<div>
+
+<p>
+No prestige classes.
+</p>
+</div>
+</div>
+<div>
+<h2 id="multiclassing">Multiclassing</h2>
+<div>
+
+<p>
+Classes are categorized into metaclasses. You can only multiclass across
+metaclasses. Multiclassing begins at level 1. You pick either 2 or 3 classes
+to multiclass. You evenly divide your xp across your classes. Your hit dice
+is the average of the classe’s hit dice. For example, a Barbarian/Sorcerer
+(d12 and d4) would be a d8. A  muticlass character cannot reach level 6. Upon
+reaching level 5 they receive a bonus feat every 32,000xp.
+</p>
+<p>
+You get the better of the classes’ skill points, BAB, saves. Other features
+are acquired like a character of that level (but in general you will be one
+level lower than a pure class character).
+</p>
+<p>
+This is probably imba, so we will spot-check specific combos.
+</p>
+<p>
+Warrior/Mages can cast in elven chain mail with no spell failure chance.
+</p>
+<p>
+Paladins and Monks can’t multiclass. Barbarians can’t multiclass.
+</p>
+</div>
+<div>
+<h3 id="warrior">Warrior</h3>
+<div>
+
+<p>
+Fighter, Ranger
+</p>
+</div>
+</div>
+<div>
+<h3 id="priest">Priest</h3>
+<div>
+
+<p>
+Cleric
+</p>
+</div>
+</div>
+<div>
+<h3 id="mage">Mage</h3>
+<div>
+
+<p>
+Sorcerer, Wizard
+</p>
+</div>
+</div>
+<div>
+<h3 id="thief">Thief</h3>
+<div>
+
+<p>
+Rogue
+</p>
+</div>
+</div>
+</div>
+<div>
+<h2 id="races">Races</h2>
+<div>
+
+<p>
+PHB races + 1 goofy one that people request.
+</p>
+</div>
+</div>
+<div>
+<h2 id="combat">Combat</h2>
+<div>
+
+<ul>
+<li> Movement is 5e-style, though you still have to spend a move action to be granted that movement in the first place</li>
+<li> In other words, you can move, take an action then finish your move</li>
+<li> 5-ft step cannot move you out of someone’s threatened zone (can move into someones threatened zone though)</li>
+<li> Side-based initiative, with interleaved turns, but without rerolling each round</li>
+<li> At beginning of combat, roll a d20 + median initiative modifier vs their same roll to see who goes first.</li>
+<li> Really basic grid +battlemaps + abstract tokens</li>
+<li> No concentration Skill</li>
+<li> If you take damage while casting, there is a flat 50% chance you fizzle the spell.</li>
+<li> Casting while engaged in melee ordinarily provokes (with the usual caveats for swift-action casting, etc.)</li>
+<li> Melee range attack spells (such as inflict wounds) do not provoke and area spells originating from you (like burning hands) do not provoke.</li>
+<li> No Touch AC (things that target touch instead target AC, but at +4)</li>
+<li> Melee full attacking is a standard action, ranged full attacking is full-action as normal</li>
+<li> Spell Resistance works on all spells (including nonsense SR: no spells)</li>
+<li> Spell Resistance = Psionic Resistance</li>
+<li> Undead/Constructs can be critically-hit/snuck attacked</li>
+<li> Flanking is gone, except thieves can flank</li>
+<li> That one stance is its own thing that gives +2 with adjacent allies</li>
+<li> Bull rush doesn’t provoke</li>
+<li> Touch Spells discharge after 4 hours (or per spell description)</li>
+<li> Sunder, bull rush, trip doesn’t provoke attacks of opportunity</li>
+<li> Grapple doesn’t need a touch attack</li>
+<li> Grapple can be defended against by strength (bab+str+other), dex (bab+dex+other), or escape artist (escape ranks + dex + other)</li>
+<li> Soft Cover is reduced to +2 AC instead of +4. We'll be flexible on whether or not you can get a clear shot in theater-of-the-mind combats</li>
+<li> Soft cover still prevents attacks of opportunity (aka spears from the second rank)</li>
+<li> Targeting is from center of square to center of square for cover, line of sight, etc. in combat.</li>
+<li> Reserve Feats are spell-like abilities</li>
+<li> Damage reduction N/- stacks with everything</li>
+</ul>
+</div>
+</div>
+<div>
+<h2 id="running-away">Running Away</h2>
+<div>
+
+<p>
+The party can run away by creating an opportunity for such.
+</p>
+</div>
+<div>
+<h3 id="heroic-sacrifice">Heroic Sacrifice</h3>
+<div>
+
+<p>
+A player sacrifices his character holding off the enemy. This is always succesful.
+</p>
+</div>
+</div>
+</div>
+<div>
+<h2 id="encumbrance">Encumbrance</h2>
+<div>
+
+<p>
+You can carry your strength score in slots without being encumbered
+</p>
+</div>
+<div>
+
+<ul>
+<li> Assume hirelings have 10 in all stats.</li>
+<li> You can carry up to double this amount and be heavily encumbered</li>
+</ul>
+</div>
+<div>
+
+<p>
+Heavily Encumbered means:
+</p>
+</div>
+<div>
+
+<ul>
+<li> Move at half speed (unless you're a dwarf)</li>
+<li> -4 penalty to dex (unless you're a dwarf)</li>
+<li> Extra -4 penalty to ACP (especially if you're a dwarf)</li>
+</ul>
+</div>
+<div>
+<h3>Weapons</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>1-handed</td>
+<td>1 slot</td>
+</tr>
+<tr class="even">
+<td>2-handed</td>
+<td>2 slots</td>
+</tr>
+<tr class="odd">
+<td>Javelin</td>
+<td>5 per slot</td>
+</tr>
+<tr class="even">
+<td>40 ammo (bullets/arrows/bolts)</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Armors</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>Light Armor</td>
+<td>1 slot</td>
+</tr>
+<tr class="even">
+<td>Medium</td>
+<td>3 slots</td>
+</tr>
+<tr class="odd">
+<td>Heavy</td>
+<td>5 slots</td>
+</tr>
+<tr class="even">
+<td>Light Shields</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Heavy Shields</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Tower Shield</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Gear</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>Things like rope</td>
+<td>1 slot</td>
+</tr>
+<tr class="even">
+<td>Lockpicks</td>
+<td>hand waved</td>
+</tr>
+<tr class="odd">
+<td>10 torches</td>
+<td>1 slot</td>
+</tr>
+<tr class="even">
+<td>Sledge Hammer</td>
+<td>2 slots</td>
+</tr>
+<tr class="odd">
+<td>Shovel</td>
+<td>2 slots</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Supplies</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>Day of supplies</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Potions</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>4 potions</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Scrolls</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>10 to a case</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Coins</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>250 coins</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+<h2 id="supplies">Supplies</h2>
+<div>
+
+<ul>
+<li> You need supplies or you die.</li>
+<li> After 1 day without supplies, you become fatigued.</li>
+<li> Half a day later you become exhausted.</li>
+<li> Half a day after that you die.</li>
+</ul>
+</div>
+</div>
+<div>
+<h2 id="spells">Spells</h2>
+<div>
+
+<p>
+Srd and phb2 spells
+</p>
+<p>
+Failure to use a scroll for any reason still uses the scroll (the magic
+starts discharging when you start using it, the question is whether it has
+the spell effect, a mishap or no effect).
+</p>
+<p>
+Summoning spells are banned.
+</p>
+<p>
+Buffs must be measured in tens of minutes or longer to be pre-cast. No
+pre-casting buffs with a duration shorter than that.
+</p>
+</div>
+</div>
+<div>
+<h2 id="feats">Feats</h2>
+<div>
+<h3 id="feat-tweaks">Feat Tweaks</h3>
+<div>
+
+<ul>
+<li> No persist spell</li>
+<li> No shock trooper</li>
+<li> No invisible spell</li>
+<li> No Scribe Scroll and no magic item crafting feats</li>
+<li> Feats that reduce the cost of metamagic cannot reduce the spell’s level adjustment to 0 or less, calculated independently.</li>
+<li> Dodge is just +1 dodge bonus to AC instead of what it does.</li>
+<li> Rapid shot and rapid reload merged into one feat with rapid shot’s prerequisites.</li>
+</ul>
+</div>
+</div>
+<div>
+
+<p>
+If the campaign lasts long enough to get towards level cap, I'll add some
+level-cap only feats.
+</p>
+</div>
+</div>
+<div>
+<h2 id="homebrew-feats">Homebrew Feats</h2>
+</div>
+<div>
+<h2 id="starting-gold">Starting Gold</h2>
+<div>
+
+<table>
+<thead>
+<tr class="table_header">
+<th>Class      </th>
+<th> Gold</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Barbarian  </td>
+<td> (4d4) x 10gp</td>
+</tr>
+<tr class="even">
+<td>Cleric     </td>
+<td> (5d4) x 10gp</td>
+</tr>
+<tr class="odd">
+<td>Fighter    </td>
+<td> (6d4) x 10gp</td>
+</tr>
+<tr class="even">
+<td>Monk       </td>
+<td> 5d4gp</td>
+</tr>
+<tr class="odd">
+<td>Paladin    </td>
+<td> (6d4) x 10gp</td>
+</tr>
+<tr class="even">
+<td>Ranger     </td>
+<td> (6d4) x 10gp</td>
+</tr>
+<tr class="odd">
+<td>Rogue      </td>
+<td> (5d4) x 10gp</td>
+</tr>
+<tr class="even">
+<td>Sorcerer   </td>
+<td> (3d4) x 10gp</td>
+</tr>
+<tr class="odd">
+<td>Wizard     </td>
+<td> (3d4) x 10gp</td>
+</tr>
+<tr class="even">
+<td>Multiclass </td>
+<td> Higher of the two</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+
+<p>
+You can buy anything in the PHB. You’ll probably want to buy some number of
+shovels and pickaxes and sacks. There will be equipment for sale in town, but
+it will be more limited and vary in stock.
+</p>
+</div>
+</div>
+<div>
+<h2 id="languages">Languages</h2>
+<div>
+
+<ul>
+<li> Dwarven</li>
+<li> Elven</li>
+<li> Goblin</li>
+<li> Draconic</li>
+<li> Sylvan</li>
+<li> Demonic</li>
+<li> Celestial</li>
+<li> Orc</li>
+<li> The Black Tongue</li>
+<li> Common</li>
+<li> Old Common</li>
+<li> Giant</li>
+<li> Gnome</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
