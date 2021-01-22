@@ -96,6 +96,8 @@ div.map svg {
 	fill: black;
 	background-color: white;
 }
+
+
 div.grid_container{
 	display: grid;
 	grid-template-columns: 15% 85%;
@@ -146,6 +148,39 @@ nav {
 }
 .center p, .center ol, .center ul {
 	max-width: 40em;
+}
+@media only screen and (max-width: 720px) {
+    body {
+    }
+    .center {
+        max-width: 100%;
+        padding-left:16px;
+	padding-right:16px;
+        margin:0;
+	position: initial;
+	left: 0;
+    }
+    nav li ul {
+        display: none;
+    }
+    .left, .top {
+        display:none;
+    }
+div.grid_container{
+    display: block;
+    height:100%;
+    width:100%;
+    }
+table{
+    overflow-x: scroll;
+    margin:16px;
+}
+th, td {
+    padding: 4px 4px;
+    border: 1px solid black;
+    text-align: left;
+}
+
 }
 
 </style>
