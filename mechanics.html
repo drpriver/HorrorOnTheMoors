@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mechanics</title>
+<style>
+*{
+	box-sizing:border-box;
+}
+a, img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+html, body {
+	height: 100%;
+	margin: 0;
+	font-family: "Tahoma";
+}
+body {
+	/*background-color: rgb(228,223,204);*/
+}
+p {
+	text-align: justify;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: "Tahoma";
+
+}
+
+h3,h4,h5 {
+color: rgb(88,24,13);
+}
+h1, h2, h3 {
+	border-bottom: 1px solid #aaaaaa;
+	max-width: 50em;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px grey dotted;
+}
+
+
+table {
+	border-collapse: collapse;
+	margin: 2rem;
+	margin-top: 0;
+	text-align: left;
+	}
+th, td {
+	padding: .2em 1em;
+	border: 1px solid black;
+	text-align: left;
+	}
+table.text_table {
+	text-align: left;
+}
+table.text_table .even {
+	background-color: initial;
+}
+table ul {
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+}
+div.boxed {
+	border: 1px solid black;
+	max-width: 30em;
+	padding: 0 1em;
+}
+
+div.horizontal {
+	display: flex;
+}
+.def h3, .def h4 {
+	margin-bottom: 0;
+}
+.def p{
+	padding-left: 1em;
+	margin-top: 0;
+}
+.def ul {
+	margin-top: 0;
+}
+
+div.map svg {
+	background-size: 100% 100%;
+}
+.hexes svg a text{
+	fill: black;
+	background-color: white;
+}
+
+
+div.grid_container{
+	display: grid;
+	grid-template-columns: 15% 85%;
+	grid-template-rows: 10% 90%;
+	grid-column-gap: 4em;
+	}
+
+nav {
+	font-size: .7em;
+	height:100%;
+	overflow:auto;
+}
+.center li {
+	text-align: justify;
+}
+
+.floater div.map img {
+	width:100%;
+	max-width: 100%;
+}
+
+.left a {
+	font-size: 14px;
+	display: block;
+	border-bottom: none;
+}
+.left {
+	grid-column: 1;
+	grid-row: 1;
+	position:fixed;
+	width: 15%;
+	height:100%;
+	overflow: scroll;
+}
+.center {
+	padding: 0 10px;
+	max-width: 100%;
+	grid-column: 2;
+	grid-row:1;
+	position:fixed;
+	overflow: scroll;
+	left: calc(15% + 2em);
+	padding-bottom: 20em;
+	height: 100%;
+}
+.center p, .center ol, .center ul {
+	max-width: 30em;
+}
+.center p, .center ol, .center ul {
+	max-width: 40em;
+}
+@media only screen and (max-width: 720px) {
+    body {
+    }
+    .center {
+        max-width: 100%;
+        padding-left:16px;
+	padding-right:16px;
+        margin:0;
+	position: initial;
+	left: 0;
+    }
+    nav li ul {
+        display: none;
+    }
+    .left, .top {
+        display:none;
+    }
+div.grid_container{
+    display: block;
+    height:100%;
+    width:100%;
+    }
+table{
+    overflow-x: scroll;
+    margin:16px;
+}
+th, td {
+    padding: 4px 4px;
+    border: 1px solid black;
+    text-align: left;
+}
+
+}
+
+</style>
+<script>
+"use strict"
+
+
+</script>
+<script>
+data_blob={}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+</head>
+<body>
+<div class="grid_container">
+<div class="left">
+<nav id="TOC">
+<ul>
+<li><a href="#links">Links</a></li>
+<li><a href="#spell-recovery">Spell Recovery</a></li>
+<li><a href="#recruiting-npcs">Recruiting NPCs</a><ul>
+<li><a href="#classed-npcs">Classed NPCs</a></li>
+<li><a href="#men-at-arms">Men-at-arms</a></li>
+<li><a href="#unskilled-hirelings">Unskilled Hirelings</a></li>
+<li><a href="#skilled-experts">Skilled Experts</a></li>
+</ul></li>
+<li><a href="#some-tomb-robbing-rules">Some Tomb Robbing Rules</a><ul>
+<li><a href="#dungeon-turn">Dungeon Turn</a></li>
+<li><a href="#bricked-up-walls">Bricked-Up Walls</a></li>
+<li><a href="#sealed-mounds">Sealed Mounds</a></li>
+<li><a href="#buried-mounds">Buried Mounds</a></li>
+<li><a href="#searching-a-lot-of-small-containers">Searching a lot of small containers</a></li>
+</ul></li>
+<li><a href="#character-upkeep">Character Upkeep</a></li>
+<li><a href="#fear-points">Fear Points</a></li>
+<li><a href="#resurrection">Resurrection</a></li>
+</ul>
+<hr>
+</nav>
+</div>
+<div class="center">
+
+<div>
+<h2 id="links">Links</h2>
+<div>
+
+<p>
+<a href="index.html">Index</a>
+</p>
+</div>
+</div>
+<div>
+<h2 id="spell-recovery">Spell Recovery</h2>
+<div>
+
+<p>
+After 24 hours of resting and light activity, 1st level spells are regained.
+Another 24 hours later, 2nd level spells, etc.
+</p>
+<p>
+Some special abilities (for example, healing devotion) will be ruled to be
+spell-like and recharge by like a spell of an appropriate level.
+</p>
+</div>
+</div>
+<div>
+<h2 id="recruiting-npcs">Recruiting NPCs</h2>
+<div>
+
+<p>
+Hirelings are limited by local availability. Hirelings can be recruited from
+taverns, from mercenary companies, or from paying for an announcement from
+the village crier. You can do more than one at once. Each attempt will cost
+5-ish gp and result in a random pool of candidates. You don't have to hire
+everyone.
+</p>
+<p>
+There are generally 4 types of characters that can be recruited to help the
+party: classed NPCs, men-at-arms, unskilled hirelings and skilled experts.
+If too many hirelings die, base morale for hirelings may be reduced and/or
+higher wages may be demanded. Fear points are not tracked for men-at-arms and
+unskilled hirelings, as that concept is rolled into morale.
+</p>
+</div>
+<div>
+<h3 id="classed-npcs">Classed NPCs</h3>
+<div>
+
+<p>
+Classed NPCs are adventurers, equal in status to the PCs. These characters
+will generally join an adventure for a share of the loot and will
+contribute to shared expenses, but others might negotiate better deals,
+especially if their skills are rare or they are higher level than the
+party. Generally, this will be roleplayed in person. These characters do
+not need to roll morale.
+</p>
+</div>
+</div>
+<div>
+<h3 id="men-at-arms">Men-at-arms</h3>
+<div>
+
+<p>
+Men-at-arms are warrior-types with average stats for their race (ex: all
+10s for a human). They are typically level 1 warriors, but higher level
+men-at-arms exist. They must be paid a fortnight's wage up-front, even if
+the adventure is shorter. The minimum wage for men-at-arms is 1gp per day,
+but a bad reputation may drive this price higher. If the men-at-arms are to
+go in the dungeon, they must be paid double as hazard pay. The 1gp/day is
+for mercenaries who are just hired to protect the party in overland travel
+or to guard the campsite, etc. Additionally, higher wages will boost the
+morale of men-at-arms, making them less likely to abandon the party, flee
+in the face of supernatural monsters or when outnumbered, etc.
+</p>
+<p>
+Men-at-arms have 8hp, proficiency in simple, martial weapons, armor,
+shields.  They have +1 bab, +2 fort save and no significant secondary
+skills.  They also get a special ability (usually a feat which they
+shouldn't qualify for, but YOLO).
+</p>
+<p>
+In this region, men-at-arms fall into the following equipment load-outs.
+</p>
+</div>
+<div class="def">
+<h4 id="glavier">Glavier</h4>
+<ul>
+<li>
+Glaive, Scale Mail
+</li>
+<li>
+AC 14, 1d10 damage, reach, 8 hp
+</li>
+<li>
+Mobility feat
+</li>
+<li>
+5 free slots
+</li>
+</ul>
+</div>
+<div class="def">
+<h4 id="crossbowman">Crossbowman</h4>
+<ul>
+<li>
+Light Crossbow, Leather Armor, 20 bolts
+</li>
+<li>
+AC 12, 1d8 damage, ranged, 8 hp
+</li>
+<li>
+Precise shot feat
+</li>
+<li>
+6 free slots
+</li>
+</ul>
+</div>
+<div class="def">
+<h4 id="defender">Defender</h4>
+<ul>
+<li>
+Scale Mail, Heavy Wooden Shield, Longsword
+</li>
+<li>
+AC 16, 1d8 damage, 11 hp
+</li>
+<li>
+Toughness feat
+</li>
+<li>
+4 free slots
+</li>
+</ul>
+</div>
+<div class="def">
+<h4 id="reaver">Reaver</h4>
+<ul>
+<li>
+Scale Mail, Greataxe
+</li>
+<li>
+AC 14, 1d12 damage, 8 hp
+</li>
+<li>
+Cleave feat
+</li>
+<li>
+5 free slots
+</li>
+</ul>
+</div>
+<div class="def">
+<h4 id="dwarf">Dwarf</h4>
+<ul>
+<li>
+Scale Mail, Dwarven Waraxe, Heavy Steel Shield
+</li>
+<li>
+AC 16, 1d10 damage, 9 hp
+</li>
+<li>
+Weapon Focus: Axes
+</li>
+<li>
+4 free slots (note that dwarves suffer reduced heavy encumbrance penalties)
+</li>
+<li>
+Double wages
+</li>
+</ul>
+</div>
+<div class="def">
+<h4 id="elf">Elf</h4>
+<ul>
+<li>
+Leather, Longbow, 20 arrows
+</li>
+<li>
+AC: 13, 1d8 damage, 7 hp
+</li>
+<li>
++1 to ranged attack due to dex
+</li>
+<li>
+Precise shot feat
+</li>
+<li>
+6 free slots
+</li>
+<li>
+Double wages
+</li>
+</ul>
+</div>
+<div>
+
+<p>
+You can change out a men-at-arms equipment, but you must provide it. It
+must fit their style or they will be annoyed at you, lowering their morale
+(defenders don't want to use greataxes). They will not pay for it. Their
+money is for food, drugs, alcohol and women. You can loan them equipment.
+Note that if a character dies, it is assumed their armor is badly
+damaged/destroyed.
+</p>
+</div>
+</div>
+<div>
+<h3 id="unskilled-hirelings">Unskilled Hirelings</h3>
+<div>
+
+<p>
+Unskilled hirelings are commoner-types with average stats for their race.
+They have no signficant combat skill and will choose to run or cower
+instead of fighting. They are useful for holding torches, carrying
+supplies, lifting things, cooking meals, etc. 3sp/day is the minimum wage
+for them.  Unskilled hirelings are also paid a fortnight's wages up front
+if going on an adventure (day laborers for tasks in town are paid daily).
+If they are to go in the dungeon, they should be paid double as hazard
+pay.
+</p>
+<p>
+Hirelings will generally not do dangerous things willingly and will not
+fight in combat. If forced to fight, they will instead flee or cower. They
+still occupy space in the party's ranks and may be targeted by monsters. In
+the face of the supernatural or otherwise particulary scary monsters, they
+must check morale. Higher wages and good treatment improves their morale.
+</p>
+<p>
+Unskilled hirelings have 3 hp, no weapon or armor proficiencies, no save
+bonuses.
+</p>
+</div>
+</div>
+<div>
+<h3 id="skilled-experts">Skilled Experts</h3>
+<div>
+
+<p>
+These are characters who possess a particular skill, but are not otherwise
+adventurers. They generally will not fight. Payment is negotiated based on
+the task.
+</p>
+</div>
+</div>
+</div>
+<div>
+<h2 id="some-tomb-robbing-rules">Some Tomb Robbing Rules</h2>
+<div>
+<h3 id="dungeon-turn">Dungeon Turn</h3>
+<div>
+
+<p>
+The below rules refer to "turns" in an exploration context. These should be
+interpreted as 10 minute intervals.
+</p>
+</div>
+</div>
+<div>
+<h3 id="bricked-up-walls">Bricked-Up Walls</h3>
+<div>
+
+<p>
+You might encountered walls that have been bricked up. These walls are
+breakable with the right tools and some time.
+</p>
+</div>
+<div>
+
+<table>
+<thead>
+<tr class="table_header">
+<th>No. of Sledge Hammers </th>
+<th> Time Spent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 Character           </td>
+<td> 3 turns</td>
+</tr>
+<tr class="even">
+<td>2 Characters          </td>
+<td> 2 turns</td>
+</tr>
+<tr class="odd">
+<td>3 Characters          </td>
+<td> 1 turn</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+
+<p>
+Breaking down a brick wall is quite loud and will likely attract the
+attention of any monsters wandering nearby.
+</p>
+</div>
+</div>
+<div>
+<h3 id="sealed-mounds">Sealed Mounds</h3>
+<div>
+
+<p>
+Some Burial Mounds are sealed with stone doors. A Sledge Hammer and spike
+will be needed to break it open. This takes 2 turns and makes a hell of a
+lot of noise, or 1 turn with two working at it (each needs tools).
+</p>
+</div>
+</div>
+<div>
+<h3 id="buried-mounds">Buried Mounds</h3>
+<div>
+
+<p>
+Some burial mounds have been buried in dirt over the years and will need to
+be excavated to be entered.
+</p>
+<p>
+Excavation requires 3d4+4 hours (1 hour equals 6 turns) of digging with
+appropriate digging tools (shovels, etc) and equipment purchased in town.
+For each 2 PCs or hirelings devoted to the task the result will be reduced
+by 1 hour to a minimum of 2 hours to excavate the entrance to the mound.
+</p>
+</div>
+</div>
+<div>
+<h3 id="searching-a-lot-of-small-containers">Searching a lot of small containers</h3>
+<div>
+
+<p>
+There are locations with a huge number of small containers or alcoves to
+search. A character can search 10 such containers in 10 minutes. For
+example, 5 characters searching 145 alcoves will take 3 turns (5 * 10 * 3 =
+150).
+</p>
+</div>
+</div>
+</div>
+<div>
+<h2 id="character-upkeep">Character Upkeep</h2>
+<div>
+
+<p>
+When staying in town, characters need to either rent rooms at the inn
+(2gp/day), purchase a house to stay in or befriend locals. Additionally, they
+must eat at the cost of 5sp/day. These costs represent good meals and good
+rooms.  If a character cannot afford this, they do not lose fear points.
+Additionally, until they spend a week in good living conditions they suffer a
+-1 penalty to attacks, saving throws and skill checks.
+</p>
+</div>
+</div>
+<div>
+<h2 id="fear-points">Fear Points</h2>
+<div>
+
+<p>
+Encounters with spooky monsters and other events will cause accumulation of
+fear points. Each encounter with the undead causes each party member to gain
+1 fear point. A failed save against a fear effect from an undead causes that
+party member to gain 3 fear points. A character who has 20 fear points goes
+insane. Spending a week in town reduces the character’s fear points by 3.
+</p>
+</div>
+</div>
+<div>
+<h2 id="resurrection">Resurrection</h2>
+<div>
+
+<p>
+Major Temples can cast raise dead for 10,000gp. A raised character loses a level.
+</p>
+<p>
+Druid Groves can cast reincarnate. You reincarnate into a random humanoid,
+lose a level, but is free. This requires the druids to like you.
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
