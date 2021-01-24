@@ -217,6 +217,21 @@ data_blob={}
 <li><a href="#character-upkeep">Character Upkeep</a></li>
 <li><a href="#fear-points">Fear Points</a></li>
 <li><a href="#resurrection">Resurrection</a></li>
+<li><a href="#supplies">Supplies</a></li>
+<li><a href="#encumbrance">Encumbrance</a></li>
+<li><a href="#combat">Combat</a><ul>
+<li><a href="#running-away">Running Away</a></li>
+</ul></li>
+<li><a href="#overland-travel">Overland Travel</a><ul>
+<li><a href="#forced-march">Forced March</a></li>
+<li><a href="#partial-movement">Partial Movement</a></li>
+<li><a href="#navigation">Navigation</a></li>
+<li><a href="#being-lost">Being Lost</a></li>
+<li><a href="#searching">Searching</a></li>
+<li><a href="#random-encounters">Random Encounters</a></li>
+<li><a href="#camping">Camping</a></li>
+<li><a href="#mounts">Mounts</a></li>
+</ul></li>
 </ul>
 <hr>
 </nav>
@@ -599,6 +614,577 @@ Major Temples can cast raise dead for 10,000gp. A raised character loses a level
 Druid Groves can cast reincarnate. You reincarnate into a random humanoid,
 lose a level, but is free. This requires the druids to like you.
 </p>
+</div>
+</div>
+<div>
+<h2 id="supplies">Supplies</h2>
+<ul>
+<li>
+Supplies can be purchased for 5sp.
+</li>
+<li>
+Supplies represent food, clean water, dry socks, etc.
+</li>
+<li>
+You need supplies or you die.
+<ul>
+<li>
+After 1 day without supplies, you become fatigued.
+</li>
+</ul>
+<ul>
+<li>
+Half a day later you become exhausted.
+</li>
+</ul>
+<ul>
+<li>
+Half a day after that you die.
+</li>
+</ul>
+</li>
+<li>
+Supplies take up a slot for a single day and are consumed in the morning
+when in the wilderness.
+</li>
+</ul>
+</div>
+<div>
+<h2 id="encumbrance">Encumbrance</h2>
+<div>
+
+<p>
+You can carry your strength score in slots without being encumbered
+</p>
+</div>
+<ul>
+<li>
+Assume hirelings have 10 in all stats.
+</li>
+<li>
+You can carry up to double this amount and be heavily encumbered
+</li>
+</ul>
+<div>
+
+<p>
+Heavily Encumbered means:
+</p>
+</div>
+<ul>
+<li>
+Move at half speed (unless you're a dwarf)
+</li>
+<li>
+-4 penalty to dex (unless you're a dwarf)
+</li>
+<li>
+Extra -4 penalty to ACP (especially if you're a dwarf)
+</li>
+</ul>
+<div>
+<h3>Weapons</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>1-handed</td>
+<td>1 slot</td>
+</tr>
+<tr class="even">
+<td>2-handed</td>
+<td>2 slots</td>
+</tr>
+<tr class="odd">
+<td>Javelin</td>
+<td>5 per slot</td>
+</tr>
+<tr class="even">
+<td>40 ammo (bullets/arrows/bolts)</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Armors</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>Light Armor</td>
+<td>1 slot</td>
+</tr>
+<tr class="even">
+<td>Medium</td>
+<td>3 slots</td>
+</tr>
+<tr class="odd">
+<td>Heavy</td>
+<td>5 slots</td>
+</tr>
+<tr class="even">
+<td>Light Shields</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Heavy Shields</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Tower Shield</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Gear</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>Things like rope</td>
+<td>1 slot</td>
+</tr>
+<tr class="even">
+<td>Lockpicks</td>
+<td>hand waved</td>
+</tr>
+<tr class="odd">
+<td>10 torches</td>
+<td>1 slot</td>
+</tr>
+<tr class="even">
+<td>Sledge Hammer</td>
+<td>2 slots</td>
+</tr>
+<tr class="odd">
+<td>Shovel</td>
+<td>2 slots</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Supplies</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>Day of supplies</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Potions</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>4 potions</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Scrolls</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>10 to a case</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3>Coins</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>250 coins</td>
+<td>1 slot</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+<h2 id="combat">Combat</h2>
+<ul>
+<li>
+Movement is 5e-style, though you still have to spend a move action to be granted
+that movement in the first place
+</li>
+<li>
+In other words, you can move, take an action then finish your move
+</li>
+<li>
+5-ft step cannot move you out of someone’s threatened zone (can move into someones threatened zone though)
+</li>
+<li>
+Side-based initiative, with interleaved turns, but without rerolling each round
+</li>
+<li>
+At beginning of combat, roll a d20 + median initiative modifier vs their same roll to see who goes first.
+</li>
+<li>
+Really basic grid +battlemaps + abstract tokens
+</li>
+<li>
+No concentration Skill
+</li>
+<li>
+If you take damage while casting, there is a flat 50% chance you fizzle the spell.
+</li>
+<li>
+Casting while engaged in melee ordinarily provokes (with the usual caveats for swift-action casting, etc.)
+</li>
+<li>
+Melee range attack spells (such as inflict wounds) do not provoke and area spells originating from you (like burning hands) do not provoke.
+</li>
+<li>
+No Touch AC (things that target touch instead target AC, but at +4)
+</li>
+<li>
+Melee full attacking is a standard action, ranged full attacking is full-action as normal
+</li>
+<li>
+Spell Resistance works on all spells (including nonsense SR: no spells)
+</li>
+<li>
+Spell Resistance = Psionic Resistance
+</li>
+<li>
+Undead/Constructs can be critically-hit/snuck attacked
+</li>
+<li>
+Flanking is gone, except thieves can flank
+</li>
+<li>
+That one stance is its own thing that gives +2 with adjacent allies
+</li>
+<li>
+Bull rush doesn’t provoke
+</li>
+<li>
+Touch Spells discharge after 4 hours (or per spell description)
+</li>
+<li>
+Sunder, bull rush, trip doesn’t provoke attacks of opportunity
+</li>
+<li>
+Grapple doesn’t need a touch attack
+</li>
+<li>
+Grapple can be defended against by strength (bab+str+other), dex (bab+dex+other), or escape artist (escape ranks + dex + other)
+</li>
+<li>
+Soft Cover is reduced to +2 AC instead of +4. We'll be flexible on whether or not
+you can get a clear shot in theater-of-the-mind combats
+</li>
+<li>
+Soft cover still prevents attacks of opportunity (aka spears from the second rank)
+</li>
+<li>
+Targeting is from center of square to center of square for cover, line of sight,
+etc. in combat.
+</li>
+<li>
+Reserve Feats are spell-like abilities
+</li>
+<li>
+Damage reduction N/- stacks with everything
+</li>
+</ul>
+<div>
+<h3 id="running-away">Running Away</h3>
+<div>
+
+<p>
+The party can run away by creating an opportunity for such.
+</p>
+</div>
+<div>
+<h4 id="heroic-sacrifice">Heroic Sacrifice</h4>
+<div>
+
+<p>
+A player sacrifices his character holding off the enemy. This is always succesful.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h2 id="overland-travel">Overland Travel</h2>
+<div>
+
+<p>
+When traveling on the overland hexmap (6 mile scale), each day is played out
+as follows.
+</p>
+<p>
+Each day the party has 4 movement points. The referee will rule on partial
+days.  Moving 1 clear six mile hex costs 1 movement point. If the terrain is
+difficult, it costs 2 and some terrain costs 3.
+</p>
+</div>
+<div>
+
+<table>
+<thead>
+<tr class="table_header">
+<th>Terrain                                            </th>
+<th> Movement Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Clear (plains, steppe, farmland)                   </td>
+<td> 1</td>
+</tr>
+<tr class="even">
+<td>Rough (Hills, woods, desert, marsh)                </td>
+<td> 2</td>
+</tr>
+<tr class="odd">
+<td>Brutal (Mountains, Jungle, particulary bad swamps) </td>
+<td> 3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+
+<table>
+<thead>
+<tr class="table_header">
+<th>Hex Condition                             </th>
+<th> Cost Modifier</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bad Weather (heavy rain, snow, thick fog) </td>
+<td> +1</td>
+</tr>
+<tr class="even">
+<td>Temperature Extremes                      </td>
+<td> +1</td>
+</tr>
+<tr class="odd">
+<td>Good Roads                                </td>
+<td> -1 (see below)</td>
+</tr>
+<tr class="even">
+<td>Encumbered                                </td>
+<td> x2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+
+<table>
+<thead>
+<tr class="table_header">
+<th>Daily Modifiers                              </th>
+<th> Movement modifier</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Large Party (>12 characters)                 </td>
+<td> -1 movement</td>
+</tr>
+<tr class="even">
+<td>Characters unable to move on their own       </td>
+<td> -1</td>
+</tr>
+<tr class="odd">
+<td>Characters all have speeds of 40' or greater </td>
+<td> +1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+
+<p>
+Good roads bonus is applied at most once per day and at least two hexes of good
+roads must be covered that day.
+</p>
+<p>
+When exploring uncharted terrain, a blank hexmap is used. When you enter a
+hex, adjacent hexes are revealed. Mountains and some hill hexes might be
+revealed from farther away depending on general conditions.
+</p>
+<p>
+Generally, every 3 hours of adventuring/dungeon-crawling counts as 1 overland
+movement point.
+</p>
+</div>
+<div>
+<h3 id="forced-march">Forced March</h3>
+<div>
+
+<p>
+A forced march allows the party to add one movement point for that day.
+A forced march causes you to become fatigued. A full day of rest is needed
+to recover. NPCs don't like forced marching and will ask for rest. Refusal
+can provoke morale checks.
+</p>
+</div>
+</div>
+<div>
+<h3 id="partial-movement">Partial Movement</h3>
+<div>
+
+<p>
+If the party has leftover movement points at the end of the day, they can
+partially move into the next hex. They remain in their current hex, but
+they are credited with moving towards that hex. This credit is not
+transferrable &mdash; if they decide during the night they need to go a
+different direction, the points are wasted, and if you need to go the
+opposite way they are actually subtracted from the next day's allowance to
+get back to neutral.
+</p>
+</div>
+</div>
+<div>
+<h3 id="navigation">Navigation</h3>
+<div>
+
+<p>
+Each time the party attempts to move into a hex, they roll a survival
+check to see if they get lost. The DC is set by local conditions.  A
+reliable map gives a +5 or greater bonus to this check. You cannot take 10
+on this check if the hex is new to the navigator. You cannot take 10 if you
+are lost. This check may be skipped if following a river or a good trail.
+</p>
+<p>
+A navigator who has navigated through a hex twice can take 10 at further
+checks to navigate through the hex (but not for searching).
+</p>
+</div>
+</div>
+<div>
+<h3 id="being-lost">Being Lost</h3>
+<div>
+
+<p>
+If the navigation check fails, they are lost in their current hex. To find
+their way, the party must spend hex points equal to the cost spent to enter
+the hex they are in, and then make another navigation check (generally same
+difficulty as the navigation check was). Failure means that the party is
+still lost.  Repeat this process until the party finds their way (either by
+a successful roll or by some other process). After each failure, the
+referee will roll to see if the party has wandered into a different hex.
+</p>
+</div>
+</div>
+<div>
+<h3 id="searching">Searching</h3>
+<div>
+
+<p>
+There are generally 3 kinds of features in a hex, overt, hidden and secret.
+An overt feature is something like a town and is automatically encountered
+with no special effort by the PCs. Hidden features must be searched for to
+be found and secret features can generally only be found if the party knows
+they exist and have some information on where the secret is.
+</p>
+<p>
+To search a hex, spend the same number of movement points as if you were
+entering the hex. Additionally, a navigation check is made (you cannot take
+10 on this check). Failure means the party is lost, which is resolved in
+the same manner as above. A success reveals one of the hidden features of
+the hex. Some hexes have no features, some hexes have several.
+</p>
+<p>
+Lost characters may randomly stumble into hidden features.
+</p>
+</div>
+</div>
+<div>
+<h3 id="random-encounters">Random Encounters</h3>
+<div>
+
+<p>
+Each movement into a hex will require a check for wandering monsters, as
+will searching a hex and attempts to cease being lost. If you are just
+moving and the navigator has achieved competency for that hex, a reactive
+survival check is allowed to avoid the encounter.
+</p>
+<p>
+The base encounter chance is 1-in-6, but the referee may adjust this
+probability based on party actions, party size, conditions on the ground,
+etc. A suitably large mercenary force may scare away encounters.
+</p>
+</div>
+</div>
+<div>
+<h3 id="camping">Camping</h3>
+<div>
+
+<p>
+When camping in the wilderness, the referee will check to see if something
+happens. Finding a good campsite in a hex is DC 15 and can be done at the
+cost of 1 movement point. The DC can be adjusted based on local conditions.
+Once a campsite in a hex is found, you can return to that campsite when in
+that hex at no additional movement cost. A good campsite halves the chance
+of a nighttime encounter.
+</p>
+</div>
+</div>
+<div>
+<h3 id="mounts">Mounts</h3>
+<div>
+
+<p>
+Mounts have their own movement allowance. If the entire party is mounted,
+the party can move at this higher allowance. Mounts have restrictions on
+what terrain they can enter. Also consult this if you have pack animals.
+A party travels at the rate of its slowest member.
+</p>
+</div>
+<div>
+
+<table>
+<thead>
+<tr class="table_header">
+<th>Creature            </th>
+<th> Movement Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Donkey/Mule         </td>
+<td> 5</td>
+</tr>
+<tr class="even">
+<td>Giant Riding Lizard </td>
+<td> 5</td>
+</tr>
+<tr class="odd">
+<td>Draught Horse       </td>
+<td> 5</td>
+</tr>
+<tr class="even">
+<td>Riding Horse        </td>
+<td> 6</td>
+</tr>
+<tr class="odd">
+<td>War Horse           </td>
+<td> 5</td>
+</tr>
+<tr class="even">
+<td>Ox                  </td>
+<td> 4</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
