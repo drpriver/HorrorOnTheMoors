@@ -137,7 +137,8 @@ nav {
 }
 .center {
 	padding: 0 10px;
-	max-width: 100%;
+	max-width: 44em;
+	/* max-width: 100%; */
 	grid-column: 2;
 	grid-row:1;
 	position:fixed;
@@ -145,9 +146,6 @@ nav {
 	left: calc(15% + 2em);
 	padding-bottom: 20em;
 	height: 100%;
-}
-.center p, .center ol, .center ul {
-	max-width: 30em;
 }
 .center p, .center ol, .center ul {
 	max-width: 40em;
@@ -674,7 +672,7 @@ Extra -4 penalty to ACP (especially if you're a dwarf)
 </ul>
 </div>
 <div>
-<h3 id="weapons">Weapons</h3><table><tbody>
+<h3 id="encumbrance-weapons">Weapons</h3><table><tbody>
 <tr>
 <td>1-handed
 </td>
@@ -702,7 +700,7 @@ Extra -4 penalty to ACP (especially if you're a dwarf)
 </tbody></table>
 </div>
 <div>
-<h3 id="armors">Armors</h3><table><tbody>
+<h3 id="encumbrance-armors">Armors</h3><table><tbody>
 <tr>
 <td>Light Armor
 </td>
@@ -742,7 +740,7 @@ Extra -4 penalty to ACP (especially if you're a dwarf)
 </tbody></table>
 </div>
 <div>
-<h3 id="gear">Gear</h3><table><tbody>
+<h3 id="encumbrance-gear">Gear</h3><table><tbody>
 <tr>
 <td>Things like rope
 </td>
@@ -792,7 +790,7 @@ Extra -4 penalty to ACP (especially if you're a dwarf)
 </tbody></table>
 </div>
 <div>
-<h3 id="potions">Potions</h3><table><tbody>
+<h3 id="encubmrance-potions">Potions</h3><table><tbody>
 <tr>
 <td>4 potions
 </td>
@@ -802,7 +800,7 @@ Extra -4 penalty to ACP (especially if you're a dwarf)
 </tbody></table>
 </div>
 <div>
-<h3 id="scrolls">Scrolls</h3><table><tbody>
+<h3 id="encumbrance-scrolls">Scrolls</h3><table><tbody>
 <tr>
 <td>10 to a case
 </td>
@@ -812,11 +810,21 @@ Extra -4 penalty to ACP (especially if you're a dwarf)
 </tbody></table>
 </div>
 <div>
-<h3 id="coins">Coins</h3><table><tbody>
+<h3 id="encumbrance-coins">Coins</h3><table><tbody>
 <tr>
 <td>250 coins
 </td>
 <td>1 slot
+</td>
+</tr>
+</tbody></table>
+</div>
+<div>
+<h3 id="encumbrance-misc">Misc</h3><table><tbody>
+<tr>
+<td>Incapacitated person
+</td>
+<td>10 slots
 </td>
 </tr>
 </tbody></table>
@@ -1307,13 +1315,14 @@ The smith in Velyx takes 6 workdays to craft a suit of splint armor.
 <li><a href="#supplies">Supplies</a></li>
 <li><a href="#encumbrance">Encumbrance</a>
 <ul>
-<li><a href="#weapons">Weapons</a></li>
-<li><a href="#armors">Armors</a></li>
-<li><a href="#gear">Gear</a></li>
+<li><a href="#encumbrance-weapons">Weapons</a></li>
+<li><a href="#encumbrance-armors">Armors</a></li>
+<li><a href="#encumbrance-gear">Gear</a></li>
 <li><a href="#encumbrance-supplies">Supplies</a></li>
-<li><a href="#potions">Potions</a></li>
-<li><a href="#scrolls">Scrolls</a></li>
-<li><a href="#coins">Coins</a></li>
+<li><a href="#encubmrance-potions">Potions</a></li>
+<li><a href="#encumbrance-scrolls">Scrolls</a></li>
+<li><a href="#encumbrance-coins">Coins</a></li>
+<li><a href="#encumbrance-misc">Misc</a></li>
 </ul>
 </li>
 <li><a href="#misc-gear-rules">Misc Gear Rules</a>
