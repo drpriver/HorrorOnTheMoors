@@ -66,6 +66,13 @@ div.calday ul li {
 .center {
 	max-width: 100% !important;
 }
+
+.left{
+	display: none;
+}
+div.center {
+    left: 0;
+}
 *{
 	box-sizing:border-box;
 	scrollbar-width: none;
@@ -160,71 +167,73 @@ div.map svg {
 	background-color: white;
 }
 div.grid_container{
-	display: grid;
-	grid-template-columns: 15% 85%;
-	grid-template-rows: 10% 90%;
-	grid-column-gap: 4em;
-	}
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 10% 90%;
+    grid-column-gap: 4em;
+    }
 
 nav {
-	font-size: .7em;
-	height:100%;
-	overflow:auto;
+    font-size: .7em;
+    height:100%;
+    overflow:auto;
 }
 .center li {
-	text-align: justify;
+    text-align: justify;
 }
 
 .floater div.map img {
-	width:100%;
-	max-width: 100%;
+    width:100%;
+    max-width: 100%;
 }
 
 .left a {
-	font-size: 14px;
-	display: block;
-	border-bottom: none;
+    font-size: 14px;
+    display: block;
+    border-bottom: none;
 }
 .left {
-	grid-column: 1;
-	grid-row: 1;
-	position:fixed;
-	width: 15%;
-	height:100%;
-	overflow: scroll;
+    grid-column: 1;
+    grid-row: 1;
+    position:fixed;
+    width: 15%;
+    height:100%;
+    overflow: scroll;
 }
 .center {
-	padding: 0 10px;
-	max-width: 44em;
-	/* max-width: 100%; */
-	grid-column: 2;
-	grid-row:1;
-	position:fixed;
-	overflow: scroll;
-	left: calc(15% + 2em);
-	padding-bottom: 20em;
-	height: 100%;
+    padding: 0 10px;
+    max-width: 44em;
+    /* max-width: 100%; */
+    grid-column: 2;
+    grid-row:1;
+    position:fixed;
+    overflow: scroll;
+    left: calc(15% + 2em);
+    padding-bottom: 20em;
+    height: 100%;
 }
 .center p, .center ol, .center ul {
-	max-width: 40em;
+    max-width: 40em;
 }
-@media only screen and (max-width: 720px) {
-    body {
-    }
-    .center {
-        max-width: 100%;
-        padding-left:16px;
-	padding-right:16px;
-        margin:0;
-	position: initial;
-	left: 0;
-    }
-    nav li ul {
-        display: none;
-    }
-    .left, .top {
-        display:none;
-    }
+@media only screen and (max-width: 800px) {
+
+body {
+
+}
+.center {
+    max-width: 100%;
+    padding-left:16px;
+    padding-right:16px;
+    margin:0;
+    position: initial;
+    left: 0;
+}
+nav li ul {
+    display: none;
+}
+.left, .top {
+    display:none;
+}
 div.grid_container{
     display: block;
     height:100%;
@@ -249,6 +258,7 @@ th, td {
 <body>
 <div class="grid_container">
 <div class="center">
+<div>
 <div>
 <h2 id="links">Links</h2>
 <p>
@@ -510,7 +520,8 @@ Party heads out.
 Contract for Toombs and Hurbash begins. (14 day duration).
 </li>
 <li>
-Attacked by swarm of moths that evening that turns into flaming swarm of moths.
+Attacked by swarm of moths that evening that turns into flaming swarm
+ of moths.
 </li>
 </ul>
 </div>
@@ -753,14 +764,38 @@ Battle Gotnam's undead corpse in the tunnels under the big mound.
 <li>
 Go back to the campsite to eat lunch.
 </li>
+<li>
+Re-enter the dungeon
+</li>
+<li>
+Kaleel is cut down by the crab-claw of a strange humanoid creature.
+</li>
 </ul>
 </div>
 </div>
 <div class="calday">
 <h4>30</h4>
+<div>
+<ul>
+<li>
+Extreme heat, party travels in the morning and then spends the day avoiding
+ the temperature.
+</li>
+</ul>
+</div>
 </div>
 <div class="calday">
 <h4>31</h4>
+<div>
+<ul>
+<li>
+Sunny, warm day.
+</li>
+<li>
+Party arrives back to town mid-day.
+</li>
+</ul>
+</div>
 </div>
 <div class="calday nonday">
 </div>
@@ -804,6 +839,13 @@ Go back to the campsite to eat lunch.
 </div>
 <div class="calday">
 <h4>1</h4>
+<div>
+<ul>
+<li>
+Party enters a binge
+</li>
+</ul>
+</div>
 </div>
 <div class="calday">
 <h4>2</h4>
@@ -829,15 +871,55 @@ Last day of Kaleel, Kaulder contract.
 </div>
 <div class="calday">
 <h4>7</h4>
+<div>
+<ul>
+<li>
+Last day of binge
+</li>
+</ul>
+</div>
 </div>
 <div class="calday">
 <h4>8</h4>
+<div>
+<ul>
+<li>
+Party heads out
+</li>
+<li>
+Overcast
+</li>
+</ul>
+</div>
 </div>
 <div class="calday">
 <h4>9</h4>
+<div>
+<ul>
+<li>
+Party awakens in their normal campsite near the mounds.
+</li>
+<li>
+Light Rain
+</li>
+<li>
+Do some adventuring underground
+</li>
+</ul>
+</div>
 </div>
 <div class="calday">
 <h4>10</h4>
+<div>
+<ul>
+<li>
+Overcast
+</li>
+<li>
+Travel back, get ambushed by froglings, fight them off.
+</li>
+</ul>
+</div>
 </div>
 <div class="calday">
 <h4>11</h4>
@@ -1297,6 +1379,7 @@ Last Day of Hurbash Contract.
 <div class="calday nonday">
 </div>
 <div class="calday nonday">
+</div>
 </div>
 </div>
 </div>

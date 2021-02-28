@@ -102,71 +102,73 @@ div.map svg {
 	background-color: white;
 }
 div.grid_container{
-	display: grid;
-	grid-template-columns: 15% 85%;
-	grid-template-rows: 10% 90%;
-	grid-column-gap: 4em;
-	}
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 10% 90%;
+    grid-column-gap: 4em;
+    }
 
 nav {
-	font-size: .7em;
-	height:100%;
-	overflow:auto;
+    font-size: .7em;
+    height:100%;
+    overflow:auto;
 }
 .center li {
-	text-align: justify;
+    text-align: justify;
 }
 
 .floater div.map img {
-	width:100%;
-	max-width: 100%;
+    width:100%;
+    max-width: 100%;
 }
 
 .left a {
-	font-size: 14px;
-	display: block;
-	border-bottom: none;
+    font-size: 14px;
+    display: block;
+    border-bottom: none;
 }
 .left {
-	grid-column: 1;
-	grid-row: 1;
-	position:fixed;
-	width: 15%;
-	height:100%;
-	overflow: scroll;
+    grid-column: 1;
+    grid-row: 1;
+    position:fixed;
+    width: 15%;
+    height:100%;
+    overflow: scroll;
 }
 .center {
-	padding: 0 10px;
-	max-width: 44em;
-	/* max-width: 100%; */
-	grid-column: 2;
-	grid-row:1;
-	position:fixed;
-	overflow: scroll;
-	left: calc(15% + 2em);
-	padding-bottom: 20em;
-	height: 100%;
+    padding: 0 10px;
+    max-width: 44em;
+    /* max-width: 100%; */
+    grid-column: 2;
+    grid-row:1;
+    position:fixed;
+    overflow: scroll;
+    left: calc(15% + 2em);
+    padding-bottom: 20em;
+    height: 100%;
 }
 .center p, .center ol, .center ul {
-	max-width: 40em;
+    max-width: 40em;
 }
-@media only screen and (max-width: 720px) {
-    body {
-    }
-    .center {
-        max-width: 100%;
-        padding-left:16px;
-	padding-right:16px;
-        margin:0;
-	position: initial;
-	left: 0;
-    }
-    nav li ul {
-        display: none;
-    }
-    .left, .top {
-        display:none;
-    }
+@media only screen and (max-width: 800px) {
+
+body {
+
+}
+.center {
+    max-width: 100%;
+    padding-left:16px;
+    padding-right:16px;
+    margin:0;
+    position: initial;
+    left: 0;
+}
+nav li ul {
+    display: none;
+}
+.left, .top {
+    display:none;
+}
 div.grid_container{
     display: block;
     height:100%;
@@ -192,7 +194,9 @@ th, td {
 <div class="grid_container">
 <div class="center">
 <div>
+<div>
 <h2 id="links">Links</h2>
+<div>
 <div>
 <ul>
 <li>
@@ -216,6 +220,7 @@ th, td {
 </ul>
 </div>
 </div>
+</div>
 <h1 id="horror-on-the-moors">Horror on the Moors</h1>
 <div>
 <p>
@@ -230,6 +235,7 @@ ancient tombs of the natives, it’s time to crack open some sealed burial
 mounds. What the imperials said about unleashing ancient evils is just
 superstition anyway, you need silver to feed your addiction to opium.
 </p>
+</div>
 </div>
 </div>
 <div class="left">

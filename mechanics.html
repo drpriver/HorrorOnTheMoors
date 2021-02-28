@@ -102,71 +102,73 @@ div.map svg {
 	background-color: white;
 }
 div.grid_container{
-	display: grid;
-	grid-template-columns: 15% 85%;
-	grid-template-rows: 10% 90%;
-	grid-column-gap: 4em;
-	}
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 10% 90%;
+    grid-column-gap: 4em;
+    }
 
 nav {
-	font-size: .7em;
-	height:100%;
-	overflow:auto;
+    font-size: .7em;
+    height:100%;
+    overflow:auto;
 }
 .center li {
-	text-align: justify;
+    text-align: justify;
 }
 
 .floater div.map img {
-	width:100%;
-	max-width: 100%;
+    width:100%;
+    max-width: 100%;
 }
 
 .left a {
-	font-size: 14px;
-	display: block;
-	border-bottom: none;
+    font-size: 14px;
+    display: block;
+    border-bottom: none;
 }
 .left {
-	grid-column: 1;
-	grid-row: 1;
-	position:fixed;
-	width: 15%;
-	height:100%;
-	overflow: scroll;
+    grid-column: 1;
+    grid-row: 1;
+    position:fixed;
+    width: 15%;
+    height:100%;
+    overflow: scroll;
 }
 .center {
-	padding: 0 10px;
-	max-width: 44em;
-	/* max-width: 100%; */
-	grid-column: 2;
-	grid-row:1;
-	position:fixed;
-	overflow: scroll;
-	left: calc(15% + 2em);
-	padding-bottom: 20em;
-	height: 100%;
+    padding: 0 10px;
+    max-width: 44em;
+    /* max-width: 100%; */
+    grid-column: 2;
+    grid-row:1;
+    position:fixed;
+    overflow: scroll;
+    left: calc(15% + 2em);
+    padding-bottom: 20em;
+    height: 100%;
 }
 .center p, .center ol, .center ul {
-	max-width: 40em;
+    max-width: 40em;
 }
-@media only screen and (max-width: 720px) {
-    body {
-    }
-    .center {
-        max-width: 100%;
-        padding-left:16px;
-	padding-right:16px;
-        margin:0;
-	position: initial;
-	left: 0;
-    }
-    nav li ul {
-        display: none;
-    }
-    .left, .top {
-        display:none;
-    }
+@media only screen and (max-width: 800px) {
+
+body {
+
+}
+.center {
+    max-width: 100%;
+    padding-left:16px;
+    padding-right:16px;
+    margin:0;
+    position: initial;
+    left: 0;
+}
+nav li ul {
+    display: none;
+}
+.left, .top {
+    display:none;
+}
 div.grid_container{
     display: block;
     height:100%;
@@ -191,6 +193,7 @@ th, td {
 <body>
 <div class="grid_container">
 <div class="center">
+<div>
 <div>
 <h2 id="links">Links</h2>
 <p>
@@ -611,7 +614,9 @@ lose a level, but is free. This requires the druids to like you.
 </p>
 </div>
 <div>
-<h2 id="supplies">Supplies</h2><ul>
+<h2 id="supplies">Supplies</h2>
+<div>
+<ul>
 <li>
 Supplies can be purchased for 5sp.
 </li>
@@ -620,8 +625,7 @@ Supplies represent food, clean water, dry socks, etc.
 </li>
 <li>
 You need supplies or you die.
- <div>
-<ul>
+</li>
 <li>
 After 1 day without supplies, you become fatigued.
 </li>
@@ -631,14 +635,12 @@ Half a day later you become exhausted.
 <li>
 Half a day after that you die.
 </li>
-</ul>
-</div>
-</li>
 <li>
 Supplies take up a slot for a single day and are consumed in the morning
  when in the wilderness.
 </li>
 </ul>
+</div>
 </div>
 <div>
 <h2 id="encumbrance">Encumbrance</h2>
@@ -1283,6 +1285,7 @@ This is just collecting misc. crafting times.
 The smith in Velyx takes 6 workdays to craft a suit of splint armor.
 </li>
 </ul>
+</div>
 </div>
 </div>
 </div>
