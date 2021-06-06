@@ -8,6 +8,21 @@ const data_blob = {};
 </script>
 <title>Characters</title>
 <style>
+.feat{
+  border: 1px solid black;
+  padding: 8px;
+  margin: 8px;
+}
+.feat h3 {
+  margin-top: 4px;
+}
+.feat h4 {
+  margin-bottom: 0px;
+}
+.feat h4+p{
+  margin-top: 0px;
+}
+/*endcss*/
 *{
 	box-sizing:border-box;
 	scrollbar-width: none;
@@ -227,11 +242,11 @@ the 15, 14, etc. array.
 <div>
 <h2 id="perception-saves">Perception Saves</h2>
 <p>
-A new saving throw category, perception saves are made when you would trigger
-a trap and against illusions. See <a href="#class-tweaks">class tweaks</a> for whether it is a good save
-or not for you. Perception saves key off Int. This is a last-chance check to
-avoid a trap - detecting a trap in the first place is done through searching
-or player logic.
+A new saving throw category, perception saves are made when you would trigger a
+trap and against illusions. See <a href="#class-tweaks">class tweaks</a> for whether it is a good save or
+not for you. Perception saves key off Int. This is a last-chance check to avoid
+a trap - detecting a trap in the first place is done through searching or
+player logic.
 </p>
 </div>
 <div>
@@ -243,7 +258,7 @@ grant XP, but can be sold. They do not grant xp when sold.
 </p>
 <p>
 100xp per level for journal entries. You can only write one journal entry per
-session.  If you have more than one character, pick one.
+session. If you have more than one character, pick one.
 </p>
 <div>
 <h3 id="level-table">Level table</h3><table>
@@ -300,14 +315,14 @@ back to 32,000xp. You are still level 6 and if you lose a level, you go to
 level 5.
 </p>
 <p>
-If a level is lost for whatever reason (level drain, raise dead, etc.), your
-xp is set to the minimum xp of the previous level. If you lose a level at
-level 6, you become level 5.
+If a level is lost for whatever reason (level drain, raise dead, etc.), your xp
+is set to the minimum xp of the previous level. If you lose a level at level 6,
+you become level 5.
 </p>
 <p>
-For multiclass characters, they require twice as much XP at each level and
-cap out at level 5 instead of level 6. They still gain a bonus feat every
-32,000 XP after reaching level 5.
+For multiclass characters, they require twice as much XP at each level and cap
+out at level 5 instead of level 6. They still gain a bonus feat every 32,000 XP
+after reaching level 5.
 </p>
 </div>
 <div>
@@ -320,8 +335,8 @@ There is a magic item shops, with random inventory that changes occasionally.
 </p>
 <p>
 Magic Items can’t be crafted. Any feature that grants a crafting feat or
-requires a crafting feat instead grants/requires a similarity themed feat.
-For example, wizards get a metamagic feat instead of scribe scroll.
+requires a crafting feat instead grants/requires a similarity themed feat. For
+example, wizards get a metamagic feat instead of scribe scroll.
 </p>
 </div>
 <div>
@@ -334,21 +349,25 @@ does nothing.
 <h2 id="skills">Skills</h2>
 <ul>
 <li>
-No class skills (all skills can be purchased at 1 point per rank), with the exception of speak language.
+No class skills (all skills can be purchased at 1 point per rank), with the
+ exception of speak language.
 </li>
 <li>
-All classes get an extra 2 skill points per level (8 extra points at level 1).
+All classes get an extra 2 skill points per level (8 extra points at level
+ 1).
 </li>
 <li>
-Hide/move silently merged into stealth. Monster’s have CR-dependant perception
- DC. “Sneaky” monsters have x% chance to surprise, modified by circumstance,
- player choices (such as posting guards), etc.
+Hide/move silently merged into stealth. Monster’s have CR-dependant
+ perception DC. “Sneaky” monsters have x% chance to surprise, modified by
+ circumstance, player choices (such as posting guards), etc.
 </li>
 <li>
 Spot/listen dropped.
 </li>
 <li>
-Searching is done in 10’ cubes or 20’ x 5’ x 10’ volumes. Searching such a volume takes 5 minutes and will reveal traps/secrets/hidden compartments.
+Searching is done in 10’ cubes or 20’ x 5’ x 10’ volumes. Searching
+ such a volume takes 5 minutes and will reveal traps/secrets/hidden
+ compartments.
 </li>
 <li>
 Craft(alchemy) can be used to identify potions (DC 25).
@@ -369,7 +388,8 @@ Warrior classes can purchase maneuvers with feats (no restrictions on martial
  study or whatever it is called). They count as full initiator level.
 </li>
 <li>
-Tome of battle things that target allies that don't specify you, don't affect you.
+Tome of battle things that target allies that don't specify you, don't affect
+ you.
 </li>
 </ul>
 <div>
@@ -379,7 +399,8 @@ Tome of battle things that target allies that don't specify you, don't affect yo
 Fighters have all good saves
 </li>
 <li>
-Fighters get a bonus feat every level instead of the fighter bonus feat schedule.
+Fighters get a bonus feat every level instead of the fighter bonus feat
+ schedule.
 </li>
 </ul>
 </div>
@@ -398,7 +419,8 @@ Monks have full BAB, Good perception save.
 <h3 id="paladins">Paladins</h3>
 <ul>
 <li>
-Paladin warhorses are immortal but take 1 week to reform when slain. Warhorses can cast cure light wounds 1/paladin level per day.
+Paladin warhorses are immortal but take 1 week to reform when slain.
+ Warhorses can cast cure light wounds 1/paladin level per day.
 </li>
 <li>
 Good will saves (was bad will save)
@@ -420,7 +442,8 @@ Druids are banned
 <h3 id="rangers">Rangers</h3>
 <ul>
 <li>
-Rangers get animal companions at the progression that druids would in normal 3e (but still at level 4).
+Rangers get animal companions at the progression that druids would in
+ normal 3e (but still at level 4).
 </li>
 <li>
 Rangers have d10 hit dice.
@@ -440,21 +463,24 @@ Good perception save.
 Rogues can flank.
 </li>
 <li>
-Rogues must be members of the thieves guild or else be ex-thieves guild member
- and be enemies of the thieves guild. Highlights include being attacked by thugs.
+Rogues must be members of the thieves guild or else be ex-thieves guild
+ member and be enemies of the thieves guild. Highlights include being
+ attacked by thugs.
 </li>
 <li>
 Sneak attacks can crit, but no auto crit spells.
 </li>
 <li>
-When rogues sneak, they actually turn invisible. When they get within 10 feet of someone, that person can roll to see them. When they attack, it ends. If the rogue takes damage, it ends.
+When rogues sneak, they actually turn invisible. When they get within 10
+ feet of someone, that person can roll to see them. When they attack, it
+ ends. If the rogue takes damage, it ends.
 </li>
 <li>
 In a dungeon scenario, a thief is assumed to be sneaking when the party is
- generically walking through the dungeon, when the party is preparing to open a
- door and then opening the door and in general when the thief is not doing
- much.  The thief is not sneaking when he is searching, opening locks, talking
- to the party about what to do and other active activities.
+ generically walking through the dungeon, when the party is preparing to
+ open a door and then opening the door and in general when the thief is not
+ doing much. The thief is not sneaking when he is searching, opening locks,
+ talking to the party about what to do and other active activities.
 </li>
 </ul>
 </div>
@@ -462,7 +488,8 @@ In a dungeon scenario, a thief is assumed to be sneaking when the party is
 <h3 id="bard">Bard</h3>
 <ul>
 <li>
-Bards are banned for sucking and I don’t want to homebrew a fix unless you really want to play a bard.
+Bards are banned for sucking and I don’t want to homebrew a fix unless
+ you really want to play a bard.
 </li>
 </ul>
 </div>
@@ -473,7 +500,9 @@ Bards are banned for sucking and I don’t want to homebrew a fix unless you rea
 Bad Perception save
 </li>
 <li>
-Shift their spell-progression and spells known table down one level (so they have 4 level 1 spells at level 1, can cast 2nd level spells at level 3, etc.)
+Shift their spell-progression and spells known table down one level (so
+ they have 4 level 1 spells at level 1, can cast 2nd level spells at level
+ 3, etc.)
 </li>
 </ul>
 </div>
@@ -509,7 +538,8 @@ Instead of scribe scroll, any metamagic feat.
 Bad Perception save.
 </li>
 <li>
-Domains that grant unusual forms of turning do not grant separate uses: they instead provide an alternative use for normal turning.
+Domains that grant unusual forms of turning do not grant separate uses:
+ they instead provide an alternative use for normal turning.
 </li>
 <li>
 Turn undead recharges like a 1st level spell.
@@ -527,11 +557,11 @@ No prestige classes.
 <h2 id="multiclassing">Multiclassing</h2>
 <p>
 Classes are categorized into metaclasses. You can only multiclass across
-metaclasses. Multiclassing begins at level 1. You pick either 2 or 3 classes
-to multiclass. You evenly divide your xp across your classes. Your hit dice
-is the average of the classe’s hit dice. For example, a Barbarian/Sorcerer
-(d12 and d4) would be a d8. A  muticlass character cannot reach level 6. Upon
-reaching level 5 they receive a bonus feat every 32,000xp.
+metaclasses. Multiclassing begins at level 1. You pick either 2 or 3 classes to
+multiclass. You evenly divide your xp across your classes. Your hit dice is the
+average of the classe’s hit dice. For example, a Barbarian/Sorcerer (d12 and
+d4) would be a d8. A muticlass character cannot reach level 6. Upon reaching
+level 5 they receive a bonus feat every 32,000xp.
 </p>
 <p>
 You get the better of the classes’ skill points, BAB, saves. Other features
@@ -584,9 +614,9 @@ PHB races + 1 goofy one that people request.
 Srd and phb2 spells
 </p>
 <p>
-Failure to use a scroll for any reason still uses the scroll (the magic
-starts discharging when you start using it, the question is whether it has
-the spell effect, a mishap or no effect).
+Failure to use a scroll for any reason still uses the scroll (the magic starts
+discharging when you start using it, the question is whether it has the spell
+effect, a mishap or no effect).
 </p>
 <p>
 Summoning spells are banned.
@@ -624,9 +654,113 @@ Feats that reduce the cost of metamagic cannot reduce the spell’s level
 Dodge is just +1 dodge bonus to AC instead of what it does.
 </li>
 <li>
-Rapid shot and rapid reload merged into one feat with rapid shot’s prerequisites.
+Rapid shot and rapid reload merged into one feat with rapid shot’s
+ prerequisites.
+</li>
+<li>
+Weapon Focus (weapon group with ranged weapons) can be used to satisfy feats that
+ require Point Blank Shot, but you can only use those feats with that weapon group.
 </li>
 </ul>
+</div>
+<div>
+<h3 id="weapon-focus-tweak">Weapon Focus Tweak</h3>
+<p>
+Weapon Focus/Specialization now uses groups. Some of these groups overlap.
+If you encounter a weapon not listed, the DM will rule if it belongs to any
+or is a member of a previously undiscovered group!
+</p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Group
+</th>
+<th>Weapons
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Axes
+</td>
+<td>Throwing axe, handaxe, battleaxe, greataxe, dwarven axe, orcish axe, etc.
+</td>
+</tr>
+<tr>
+<td>Bows
+</td>
+<td>shortbow, longbow, composite shortbow, and composite longbow.
+</td>
+</tr>
+<tr>
+<td>Crossbow
+</td>
+<td>ballista, heavy crossbow, light crossbow, repeating heavy crossbow, and repeating light crossbow.
+</td>
+</tr>
+<tr>
+<td>Flails
+</td>
+<td>light flail, heavy flail, dire flail.
+</td>
+</tr>
+<tr>
+<td>Light Blades
+</td>
+<td>dagger, rapier, and short sword.
+</td>
+</tr>
+<tr>
+<td>Maces and Clubs
+</td>
+<td>club, light mace, heavy mace, greatclub, quarterstaff, sap
+</td>
+</tr>
+<tr>
+<td>Peasant
+</td>
+<td>Sickle, club, quarterstaff, scythe
+</td>
+</tr>
+<tr>
+<td>Picks and Hammers
+</td>
+<td>light pick, heavy pick, light hammer, warhammer
+</td>
+</tr>
+<tr>
+<td>Polearms
+</td>
+<td>glaive, guisarme, halberd, and ranseur.
+</td>
+</tr>
+<tr>
+<td>Punching
+</td>
+<td>Unarmed strike, punching dagger, spiked gauntlet, armor spikes, shield bash, shield spikes
+</td>
+</tr>
+<tr>
+<td>Slings and Darts
+</td>
+<td>Slings, Darts
+</td>
+</tr>
+<tr>
+<td>Spears
+</td>
+<td>spear, javelin, lance, longspear, shortspear, and trident.
+</td>
+</tr>
+<tr>
+<td>Swords
+</td>
+<td>longsword, greatsword, falchion, scimitar, broadsword, and bastard sword
+</td>
+</tr>
+</tbody></table>
+</div>
 </div>
 <p>
 If the campaign lasts long enough to get towards level cap, I'll add some
@@ -634,7 +768,111 @@ level-cap only feats.
 </p>
 </div>
 <div>
-<h2 id="homebrew-feats">Homebrew Feats</h2>
+<h2 id="levelcap-feats">Levelcap Feats</h2>
+<p>
+All these feats are general feats unless otherwise noted.
+These feats cannot be taken when you get to level 6 - they can be taken when
+you earn feats after level 6 (or level 5 for multiclass characters).
+</p>
+<div class="feat">
+<h3 id="ability-training">Ability Training</h3>
+<h4>Prerequisite</h4>
+<p>
+Level Cap
+</p>
+<h4>Benefit</h4>
+<p>
+Choose one ability score (Str, Int, Wis, Dex, Con, or Cha). That ability
+score gets a +1 feat bonus.
+</p>
+<h4>Special</h4>
+<p>
+You can choose this feat more than once. If you do, you must pick an ability
+score you haven't picked before.
+</p>
+</div>
+<div class="feat">
+<h3 id="barbaric-resilience">Barbaric Resilience</h3>
+<h4>Prerequisite</h4>
+<p>
+Barbarian at level cap
+</p>
+<h4>Benefit</h4>
+<p>
+You gain DR 1/- (like the 7th level Barbarian ability)
+</p>
+</div>
+<div class="feat">
+<h3 id="mnemonic-training">Mnemonic Training</h3>
+<h4>Prerequisite</h4>
+<p>
+Arcane caster at level cap
+</p>
+<h4>Benefit</h4>
+<p>
+You can prepare an extra 1st level spell. Sorcerers can cast an extra 1st
+level spell.
+</p>
+<h4>Special</h4>
+<p>
+You can choose this feat 3 times.
+</p>
+</div>
+<div class="feat">
+<h3 id="expanded-spell-knowledge">Expanded Spell Knowledge</h3>
+<h4>Prerequisite</h4>
+<p>
+Spells-known Arcane caster at level cap (aka Sorcerer)
+</p>
+<h4>Benefit</h4>
+<p>
+You know an extra spell of a level you can cast.
+</p>
+<h4>Special</h4>
+<p>
+You can choose this feat 5 times.
+</p>
+</div>
+<div class="feat">
+<h3 id="holy-strikes">Holy Strikes</h3>
+<h4>Prerequisite</h4>
+<p>
+Paladin at level cap
+</p>
+<h4>Benefit</h4>
+<p>
+Your melee attacks are considered good-aligned.
+</p>
+</div>
+<div class="feat">
+<h3 id="skilled">Skilled</h3>
+<h4>Prerequisite</h4>
+<p>
+Character at level cap
+</p>
+<h4>Benefit</h4>
+<p>
+You immediately gain 5 skill points you can spend as you choose. You still
+cannot exceed the maximum number of ranks in a single skill as determined by
+your level.
+</p>
+<h4>Special</h4>
+<p>
+You can take this feat any number of times, gaining 5 more skill points each
+time.
+</p>
+</div>
+<div class="feat">
+<h3 id="improved-sneak-attack">Improved Sneak Attack</h3>
+<h4>Prerequisite</h4>
+<p>
+Non-multiclass rogue at level cap
+</p>
+<h4>Benefit</h4>
+<p>
+Your sneak attack improves from 3d6 to 4d6.
+</p>
+</div>
 </div>
 <div>
 <h2 id="starting-gold">Starting Gold</h2>
@@ -764,17 +1002,17 @@ Gnome
 <div>
 <h2 id="character-cravings">Character Cravings</h2>
 <p>
-Your character has some kind of craving: choose or roll on the table below.
-You can't choose Special.
+Your character has some kind of craving: choose or roll on the table below. You
+can't choose Special.
 </p>
 <p>
 Failure to satisfy this craving will lead to negative outcomes per the
-referee's discretion. Your craving must be satisfied an average of once
-a day and you can go no longer than a week before suffering withdrawl.
+referee's discretion. Your craving must be satisfied an average of once a day
+and you can go no longer than a week before suffering withdrawl.
 </p>
 <p>
-Since you are a degenerate, you can't purchase more than a week's supply
-ahead of time. You would just binge on your supply.
+Since you are a degenerate, you can't purchase more than a week's supply ahead
+of time. You would just binge on your supply.
 </p>
 <div>
 <h3 id="normal-cravings">Normal Cravings</h3><table>
@@ -949,9 +1187,20 @@ ahead of time. You would just binge on your supply.
 <li><a href="#feats">Feats</a>
 <ul>
 <li><a href="#feat-tweaks">Feat Tweaks</a></li>
+<li><a href="#weapon-focus-tweak">Weapon Focus Tweak</a></li>
 </ul>
 </li>
-<li><a href="#homebrew-feats">Homebrew Feats</a></li>
+<li><a href="#levelcap-feats">Levelcap Feats</a>
+<ul>
+<li><a href="#ability-training">Ability Training</a></li>
+<li><a href="#barbaric-resilience">Barbaric Resilience</a></li>
+<li><a href="#mnemonic-training">Mnemonic Training</a></li>
+<li><a href="#expanded-spell-knowledge">Expanded Spell Knowledge</a></li>
+<li><a href="#holy-strikes">Holy Strikes</a></li>
+<li><a href="#skilled">Skilled</a></li>
+<li><a href="#improved-sneak-attack">Improved Sneak Attack</a></li>
+</ul>
+</li>
 <li><a href="#starting-gold">Starting Gold</a></li>
 <li><a href="#languages">Languages</a></li>
 <li><a href="#character-cravings">Character Cravings</a>
