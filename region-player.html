@@ -218,10 +218,78 @@ th, td {
 }
 
 }
+section.hover {
+  resize: both;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid black;
+  box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.3);
+  font-family: sans-serif;
+  overflow-y: auto;
+  max-height: 90%;
+  min-width: 20em;
+}
+section.hover div {
+  max-width: 80%;
+  margin: auto;
+  padding: 1em;
+  text-align: center;
+}
+section.hover div p {
+  text-align: left;
+}
+/*endcss*/
 </style>
 <script>
 "use strict"
 "use strict"
+</script>
+<script>
+function make_dialog(row){
+}
+
+function roll_random_table(e, table_id){
+  const rows = random_table_blob[table_id];
+  const row = rows[Math.floor(Math.random() * rows.length)];
+  const hoverpop = document.createElement('section');
+  hoverpop.classList.add('hover');
+  html = `<div><p>${row}</p></div>`;
+  html += `
+      <div>
+      <button type="button" id="hoverpop-ok">Ok</button>
+      </div>
+      `;
+  hoverpop.innerHTML = html;
+  document.body.appendChild(hoverpop);
+  function esc_remove(e){
+    if(e.key == 'Escape'){
+      remove_hoverpop();
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  }
+  function remove_hoverpop(){
+      document.body.removeChild(hoverpop);
+      window.removeEventListener('keydown', esc_remove);
+  }
+  window.addEventListener('keydown', esc_remove);
+  const ok = document.getElementById('hoverpop-ok');
+  ok.addEventListener('click', function(e){
+      remove_hoverpop();
+      e.stopPropagation();
+      e.preventDefault();
+  });
+}
+//endjs
+</script>
+<script>
+
+const random_table_blob = {};
+
 </script>
 </head>
 <body>
