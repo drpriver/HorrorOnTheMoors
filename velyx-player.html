@@ -10,7 +10,7 @@
 	scrollbar-width: none;
 }
 ::-webkit-scrollbar {
-	display:none;
+	/*display:none;*/
 }
 a, img {
   -webkit-user-drag: none;
@@ -18,6 +18,14 @@ a, img {
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
+}
+svg > a {
+  -webkit-touch-callout: none;
+  -webkit-user-select  : none;
+  -khtml-user-select   : none;
+  -moz-user-select     : none;
+  -ms-user-select      : none;
+   user-select         : none;
 }
 html, body {
 	height: 100%;
@@ -59,6 +67,10 @@ table {
 	margin-top: 0;
 	text-align: left;
 	}
+
+tr:nth-child(even){
+	background: #ccc;
+}
 th, td {
 	padding: .2em 1em;
 	border: 1px solid black;
@@ -251,10 +263,11 @@ function roll_random_table(e, table_id){
   });
 }
 //endjs
+
 </script>
 <script>
 
-const random_table_blob = {};
+const random_table_blob = {}
 
 </script>
 </head>

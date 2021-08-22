@@ -10,7 +10,7 @@
 	scrollbar-width: none;
 }
 ::-webkit-scrollbar {
-	display:none;
+	/*display:none;*/
 }
 a, img {
   -webkit-user-drag: none;
@@ -18,6 +18,14 @@ a, img {
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
+}
+svg > a {
+  -webkit-touch-callout: none;
+  -webkit-user-select  : none;
+  -khtml-user-select   : none;
+  -moz-user-select     : none;
+  -ms-user-select      : none;
+   user-select         : none;
 }
 html, body {
 	height: 100%;
@@ -59,6 +67,10 @@ table {
 	margin-top: 0;
 	text-align: left;
 	}
+
+tr:nth-child(even){
+	background: #ccc;
+}
 th, td {
 	padding: .2em 1em;
 	border: 1px solid black;
@@ -251,10 +263,11 @@ function roll_random_table(e, table_id){
   });
 }
 //endjs
+
 </script>
 <script>
 
-const random_table_blob = {};
+const random_table_blob = {}
 
 </script>
 </head>
@@ -875,6 +888,35 @@ Extra -4 penalty to ACP (especially if you're a dwarf)
 </tr>
 </tbody></table>
 </div>
+<div>
+<h3 id="sheathes-belts-and-drawing-items">Sheathes, Belts and Drawing Items</h3>
+<p>
+A character can have one item on their belt or similar easy to reach area with
+no penalty (but still requires appropriate gear like a scabbard, potion pouch,
+wand holder, etc.).
+</p>
+<p>
+For each additional item they want within easy reach, the character must use an
+extra slot of encumbrance, representing the awkwardness of not having things in
+an ideal location for distributing bulk or having too much on your belt etc.
+</p>
+<p>
+Retrieving an object that is not easy to reach is a standard action that
+provokes an attack of opportunity (this is a houserule, increased to standard
+action).
+</p>
+<p>
+A character can carry one two-handed weapon (or object, think pole or ladder)
+in their hands and one strapped to their back. If it's strapped to their back
+they either need another character to draw it for them or use a standard action
+to get it off themselves.  A two-handed weapon cannot be within easy reach,
+with the exception of light crossbows and shortbows, which can be drawn from
+your back with a normal draw action.
+</p>
+<p>
+Quickdraw: The quickdraw feat is buffed to give you +2 free "easy-to-reach" items.
+</p>
+</div>
 </div>
 <div>
 <h2 id="misc-gear-rules">Misc Gear Rules</h2>
@@ -1139,8 +1181,9 @@ overland movement point.
 <div>
 <h3 id="forced-march">Forced March</h3>
 <p>
-A forced march allows the party to add one movement point for that day. A
-forced march causes you to become fatigued. A full day of rest is needed to
+A forced march allows the party to add two movement points for that day. A
+forced march causes you to become fatigued. Forced marching two days in a row
+causes you to be come exhausted instead. A full day of rest is needed to
 recover. NPCs don't like forced marching and will ask for rest. Refusal can
 provoke morale checks.
 </p>
@@ -1383,6 +1426,7 @@ The smith in Velyx takes 6 workdays to craft a suit of splint armor.
 <li><a href="#encumbrance-scrolls">Scrolls</a></li>
 <li><a href="#encumbrance-coins">Coins</a></li>
 <li><a href="#encumbrance-misc">Misc</a></li>
+<li><a href="#sheathes-belts-and-drawing-items">Sheathes, Belts and Drawing Items</a></li>
 </ul>
 </li>
 <li><a href="#misc-gear-rules">Misc Gear Rules</a>

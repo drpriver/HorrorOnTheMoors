@@ -75,7 +75,7 @@ div.center {
 	scrollbar-width: none;
 }
 ::-webkit-scrollbar {
-	display:none;
+	/*display:none;*/
 }
 a, img {
   -webkit-user-drag: none;
@@ -83,6 +83,14 @@ a, img {
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
+}
+svg > a {
+  -webkit-touch-callout: none;
+  -webkit-user-select  : none;
+  -khtml-user-select   : none;
+  -moz-user-select     : none;
+  -ms-user-select      : none;
+   user-select         : none;
 }
 html, body {
 	height: 100%;
@@ -124,6 +132,10 @@ table {
 	margin-top: 0;
 	text-align: left;
 	}
+
+tr:nth-child(even){
+	background: #ccc;
+}
 th, td {
 	padding: .2em 1em;
 	border: 1px solid black;
@@ -316,10 +328,11 @@ function roll_random_table(e, table_id){
   });
 }
 //endjs
+
 </script>
 <script>
 
-const random_table_blob = {};
+const random_table_blob = {}
 
 </script>
 </head>
@@ -2069,16 +2082,67 @@ Party is done resting.
 <li>
 Burning of the green man is that evening.
 </li>
+<li>
+Big party
+</li>
+<li>
+Orcus Cultists attack Brother Othar
+</li>
+<li>
+Tome of the Fount of Law is missing, Merda is missing
+</li>
 </ul>
 </div>
 <div class="calday">
 <h4>23</h4>
+<ul>
+<li>
+Everyone has a terrible hangover.
+</li>
+<li>
+Gamdar and krorn the cultist are hanged.
+</li>
+<li>
+Weather is drizzly.
+</li>
+<li>
+Track into the swamp, found hut, tracks headed south towards mounds
+</li>
+<li>
+Get back to town.
+</li>
+</ul>
 </div>
 <div class="calday">
 <h4>24</h4>
+<ul>
+<li>
+Caravan to Ironwood Motte
+</li>
+<li>
+Lizards are attacking farmers
+</li>
+<li>
+Talk to Gladwood at his oak, he speaks of white dragon in the woods
+</li>
+<li>
+Speak to Lord Ironwood
+</li>
+</ul>
 </div>
 <div class="calday">
 <h4>25</h4>
+<ul>
+<li>
+Sell jars to Alchemist
+</li>
+<li>
+Early morning shopping
+</li>
+<li>
+Caravan is heading out to Bogtown.
+</li>
+</ul>
 </div>
 <div class="calday">
 <h4>26</h4>
