@@ -70,6 +70,34 @@ div.calday ul li {
 div.center {
     left: 0;
 }
+.top {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+/*endcss*/
+
+.year {
+  display: none;
+}
+#tabs > span {
+  border: 1px solid black;
+  padding: 8px 24px;
+  cursor: pointer;
+}
+#tabs > span:hover {
+  background-color: #ddd;
+}
+#tabs >span.clicked {
+  background-color: #ccc;
+}
+#tabs >span.clicked:hover {
+  background-color: #dcdcdc;
+}
+.calday {
+  font-size: 12px;
+}
+/*endcss*/
 *{
 	box-sizing:border-box;
 	scrollbar-width: none;
@@ -289,6 +317,31 @@ section.hover div p {
 /*endcss*/
 </style>
 <script>
+document.addEventListener('DOMContentLoaded', function(){
+  const years = Array.from(document.getElementsByClassName('year'));
+  const tabs = Array.from(document.getElementById('tabs').getElementsByTagName('span'));
+  for(let i = 0; i < years.length; i++){
+    let tab = tabs[i];
+    let year = years[i];
+    console.log(tab);
+    tab.addEventListener('click', function(){
+      for(let y of years){
+        y.style.display = 'none';
+      }
+      for(let t of tabs){
+        t.classList.remove('clicked');
+      }
+      console.log(year);
+      year.style.display = 'block';
+      tab.classList.add('clicked');
+    });
+  }
+  years[years.length-1].style.display = 'block';
+  tabs[years.length-1].classList.add('clicked');
+});
+//endjs
+</script>
+<script>
 "use strict"
 </script>
 <script>
@@ -339,11 +392,13 @@ const random_table_blob = {}
 <div class="grid_container">
 <div class="center">
 <div>
+<div class="top">
 <nav>
 <ul>
 <li><a href="#links">Links</a></li>
 <li><a href="#adventuring-season">Adventuring Season</a></li>
-<li><a href="#game-calendar">Game Calendar</a>
+<li><a href="#game-calendar">Game Calendar</a></li>
+<li><a href="#year-the-first-810">Year the First -- 810</a>
 <ul>
 <li><a href="#may-810">May 810</a></li>
 <li><a href="#june-810">June 810</a></li>
@@ -353,8 +408,14 @@ const random_table_blob = {}
 <li><a href="#october-810">October 810</a></li>
 </ul>
 </li>
+<li><a href="#year-the-second-811">Year the Second -- 811</a>
+<ul>
+<li><a href="#may-811">May 811</a></li>
 </ul>
-</nav><div>
+</li>
+</ul>
+</nav><div class="right">
+<div>
 <h2 id="links">Links</h2>
 <p>
 <a href="index.html">Index</a>
@@ -374,8 +435,18 @@ dungeons to change during the off season (passageways collapse, new ones
 open up, new monsters move in, etc.).
 </p>
 </div>
+</div>
+</div>
 <div class="calendar">
 <h2 id="game-calendar">Game Calendar</h2>
+</div>
+<div id="tabs">
+<span>810</span>
+<span>811</span>
+
+</div>
+<div class="year">
+<h2 id="year-the-first-810">Year the First &ndash; 810</h2>
 <div>
 <h3 id="may-810">May 810</h3>
 <div class="cal">
@@ -2545,6 +2616,176 @@ Party rests full day
 </div>
 <div class="calday">
 <h4>23</h4>
+<ul>
+<li>
+Weather is misty/foggy
+</li>
+<li>
+Fight the dragon, dragon is defeated but escapes.
+</li>
+</ul>
+</div>
+<div class="calday">
+<h4>24</h4>
+<ul>
+<li>
+Weather is misty/foggy
+</li>
+<li>
+Make it back to the Motte, sell the dragon's loot.
+</li>
+</ul>
+</div>
+<div class="calday">
+<h4>25</h4>
+<ul>
+<li>
+Rest full day
+</li>
+</ul>
+</div>
+<div class="calday">
+<h4>26</h4>
+<ul>
+<li>
+Rest full day
+</li>
+</ul>
+</div>
+<div class="calday">
+<h4>27</h4>
+<ul>
+<li>
+Party hires people to repair their bathhouse and hibernates for the winter.
+</li>
+</ul>
+</div>
+<div class="calday">
+<h4>28</h4>
+</div>
+<div class="calday">
+<h4>29</h4>
+</div>
+<div class="calday">
+<h4>30</h4>
+</div>
+<div class="calday">
+<h4>31</h4>
+</div>
+<div class="calday nonday">
+</div>
+<div class="calday nonday">
+</div>
+</div>
+</div>
+</div>
+<div class="year">
+<h2 id="year-the-second-811">Year the Second &ndash; 811</h2>
+<div>
+<h3 id="may-811">May 811</h3>
+<div class="cal">
+<div class="caldayname">
+<h4>Sunday</h4>
+</div>
+<div class="caldayname">
+<h4>Monday</h4>
+</div>
+<div class="caldayname">
+<h4>Tuesday</h4>
+</div>
+<div class="caldayname">
+<h4>Wednesday</h4>
+</div>
+<div class="caldayname">
+<h4>Thursday</h4>
+</div>
+<div class="caldayname">
+<h4>Friday</h4>
+</div>
+<div class="caldayname">
+<h4>Saturday</h4>
+</div>
+<div class="calday nonday">
+</div>
+<div class="calday nonday">
+</div>
+<div class="calday nonday">
+</div>
+<div class="calday nonday">
+</div>
+<div class="calday">
+<h4>1</h4>
+</div>
+<div class="calday">
+<h4>2</h4>
+</div>
+<div class="calday">
+<h4>3</h4>
+</div>
+<div class="calday">
+<h4>4</h4>
+</div>
+<div class="calday">
+<h4>5</h4>
+</div>
+<div class="calday">
+<h4>6</h4>
+</div>
+<div class="calday">
+<h4>7</h4>
+</div>
+<div class="calday">
+<h4>8</h4>
+</div>
+<div class="calday">
+<h4>9</h4>
+</div>
+<div class="calday">
+<h4>10</h4>
+<ul>
+<li>
+First day of good weather for the season.
+</li>
+</ul>
+</div>
+<div class="calday">
+<h4>11</h4>
+</div>
+<div class="calday">
+<h4>12</h4>
+</div>
+<div class="calday">
+<h4>13</h4>
+</div>
+<div class="calday">
+<h4>14</h4>
+</div>
+<div class="calday">
+<h4>15</h4>
+</div>
+<div class="calday">
+<h4>16</h4>
+</div>
+<div class="calday">
+<h4>17</h4>
+</div>
+<div class="calday">
+<h4>18</h4>
+</div>
+<div class="calday">
+<h4>19</h4>
+</div>
+<div class="calday">
+<h4>20</h4>
+</div>
+<div class="calday">
+<h4>21</h4>
+</div>
+<div class="calday">
+<h4>22</h4>
+</div>
+<div class="calday">
+<h4>23</h4>
 </div>
 <div class="calday">
 <h4>24</h4>
@@ -2570,10 +2811,6 @@ Party rests full day
 <div class="calday">
 <h4>31</h4>
 </div>
-<div class="calday nonday">
-</div>
-<div class="calday nonday">
-</div>
 </div>
 </div>
 </div>
@@ -2584,7 +2821,8 @@ Party rests full day
 <ul>
 <li><a href="#links">Links</a></li>
 <li><a href="#adventuring-season">Adventuring Season</a></li>
-<li><a href="#game-calendar">Game Calendar</a>
+<li><a href="#game-calendar">Game Calendar</a></li>
+<li><a href="#year-the-first-810">Year the First -- 810</a>
 <ul>
 <li><a href="#may-810">May 810</a></li>
 <li><a href="#june-810">June 810</a></li>
@@ -2592,6 +2830,11 @@ Party rests full day
 <li><a href="#august-810">August 810</a></li>
 <li><a href="#september-810">September 810</a></li>
 <li><a href="#october-810">October 810</a></li>
+</ul>
+</li>
+<li><a href="#year-the-second-811">Year the Second -- 811</a>
+<ul>
+<li><a href="#may-811">May 811</a></li>
 </ul>
 </li>
 </ul>
