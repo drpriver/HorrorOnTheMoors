@@ -1,0 +1,5215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Maneuvers</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+.maneuver h2 {
+  color: #a33;
+}
+/*endcss*/
+.summary {
+  max-width: 40em;
+  text-align: justify;
+}
+.summary table {
+  margin: auto;
+  text-align: center;
+  border-collapse: collapse;
+}
+.summary table td {
+  border: 1px solid black;
+}
+.summary table th {
+  padding: 8px;
+}
+/*endcss*/
+.filters {
+  display: table;
+}
+.filter, #sorts {
+  display: table-row;
+}
+.filter > *, #sorts > *{
+  display: table-cell;
+}
+.filter:first-child {
+  white-space: nowrap;
+}
+#sorts > * {
+  white-space: nowrap;
+}
+#sorts > div.filter-checks {
+  display: inline;
+}
+/*endcss*/
+#schools {
+  max-width: 40em;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+/*endcss*/
+div.filter-checks {
+  display: inline;
+  margin: 0;
+  padding: 4px;
+  white-space: nowrap;
+}
+/*endcss*/
+a, a:visited {
+  color: rgb(0, 0, 238);
+}
+.separator {
+  border-bottom: 1px solid grey;
+  max-width: 200px;
+}
+/*endcss*/
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background-color: white;
+}
+details summary, label{
+  -webkit-touch-callout: none;
+  -webkit-user-select  : none;
+  -khtml-user-select   : none;
+  -moz-user-select     : none;
+  -ms-user-select      : none;
+   user-select         : none;
+}
+details summary:focus {
+   outline: none;
+   background: rgba(0, 0, 0, 0.1);
+}
+details summary {
+  width: auto;
+}
+ul details > summary {
+  list-style: none;
+}
+ul details > summary::-webkit-details-marker {
+  display: none;
+}
+details > div {
+  border-top: 1px dotted grey;
+  border-bottom: 1px solid grey;
+}
+details {
+  max-width: 44em;
+}
+div.center {
+  overflow-y: auto;
+  width: calc(100% - 20em);
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  padding-bottom: 40em;
+  padding-left: 20px;
+}
+div.left {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 20em;
+  overflow-y: auto;
+  height: 100%;
+}
+@media only screen and (hover:none){
+  div.left {
+    display: none;
+  }
+  div.center {
+    position: static;
+    padding-left: initial;
+    width: auto;
+  }
+  #school {
+    max-width: initial;
+  }
+  .summary {
+    max-width: 100%;
+  }
+  #schools {
+    grid-template-columns: auto;
+    max-width: initial;
+  }
+}
+.infoblock > table > tbody > tr > td:nth-child(1){
+  font-weight: bold;
+  text-align: right;
+}
+.infoblock > table > tbody > tr > td:nth-child(2){
+  padding-left:4px;
+}
+/*endcss*/
+</style>
+<script>
+//endjs
+const name_to_info = {"Abscond":[2,1,8],"Battle Leader's Charge":[4,256,1],"Bear Claw Strike":[8,128,1],"Blistering Flourish":[2,2,1],"Blood Frenzy":[8,128,4],"Bloody Claws":[2,128,2],"Bolstering Voice":[2,256,2],"Bonecrusher":[8,64,1],"Bowling Ball":[8,64,1],"Burning Blade":[2,2,4],"Burning Brand":[4,2,4],"Charging Minotaur":[2,64,1],"Child of Shadow":[2,32,2],"Claw at the Moon":[4,128,1],"Clever Positioning":[4,64,1],"Clinging Shadow Strike":[2,32,1],"Cloak of Deception":[4,32,4],"Counter Charge":[2,64,8],"Covering Fire":[4,8,1],"Crusader's Strike":[2,4,1],"Dart and Dash":[8,1,4],"Dazing Ambush":[8,1,1],"Death Mark":[8,2,1],"Defensive Rebuke":[8,4,4],"Disappear":[2,1,4],"Disarming Strike":[4,16,1],"Distracting Ambush":[4,1,1],"Douse The Flames":[2,256,1],"Drain Vitality":[4,32,1],"Eagle Eye Stance":[8,8,2],"Emerald Razor":[4,16,1],"Escape Fate":[8,1,8],"Exorcising Blow":[4,4,1],"Exploit":[4,1,4],"Fan The Flames":[8,2,1],"Feigned Opening":[8,64,8],"Find Weak Point":[4,1,1],"Fire Riposte":[4,2,8],"First into Battle":[2,256,2],"Flame's Blessing":[2,2,2],"Flashing Sun":[4,2,1],"Foehammer":[4,4,1],"Furious Recovery":[8,16,8],"Giant Fighting Stance":[8,64,2],"Hatchling's Flame":[4,2,1],"Holocaust Cloak":[8,2,2],"Hook Kick":[2,64,1],"Intercept the Missile":[4,8,8],"Iron Guard's Glare":[2,4,2],"Iron Heart Surge":[8,16,16],"Island of Blades":[2,32,2],"Kick":[4,1,8],"Knockout":[2,1,4],"Lead From the Front":[8,256,2],"Leading The Attack":[2,256,1],"Leap to Safety":[8,128,8],"Leaping Dragon Stance":[8,128,2],"Leaping Dragon Strike":[8,128,1],"Lion's Roar":[8,256,4],"Marksman's Stance":[2,1,2],"Martial Spirit":[2,4,2],"Merciless Claws":[2,128,8],"Mighty Shove":[2,64,1],"Mobile Archery":[4,8,4],"Mountain Hammer":[4,64,1],"Overwatch":[8,8,4],"Pearl Of Black Doubt":[8,16,2],"Piercing Shot":[4,8,1],"Pouncing Lion Strike":[4,128,1],"Punishing Stance":[2,16,2],"Rabid Wolf Strike":[4,128,1],"Rally the Pack":[4,128,4],"Ranger's Stance":[2,8,2],"Relentless":[4,128,8],"Retaliation":[8,8,8],"Revitalizing Strike":[8,4,1],"Roots of the Mountain":[8,64,2],"Shadow Blade Technique":[2,32,1],"Shadow Duplicate":[4,32,4],"Shield Block":[4,4,8],"Slice and Dice":[2,1,1],"Sniper's Stance":[8,1,2],"Split the Arrow":[8,1,1],"Spot the Danger":[2,8,8],"Stance of Clarity":[2,16,2],"Steady Hands":[2,8,4],"Steel Wind":[2,16,1],"Steely Strike":[2,16,1],"Stone Bones":[2,64,1],"Stone Defense":[4,64,8],"Stone Vise":[4,64,1],"Stonefoot Stance":[2,64,2],"Sudden Leap":[2,128,4],"Tactical Strike":[4,256,1],"Thicket Of Blades":[8,4,2],"Thug's Stance":[8,1,2],"Trapfinder's Caution":[2,1,2],"Trick Shot":[2,8,1],"Vanguard Strike":[2,4,1],"Volley":[8,8,1],"Wall of Blades":[4,16,8],"White Raven Tactics":[8,256,4],"Wind Stride":[2,2,4],"Wolf Fang Strike":[2,128,1],"Zephyr Dance":[8,2,8]};
+
+const id_to_name = {"abscond":"Abscond","battle-leaders-charge":"Battle Leader's Charge","bear-claw-strike":"Bear Claw Strike","blistering-flourish":"Blistering Flourish","blood-frenzy":"Blood Frenzy","bloody-claws":"Bloody Claws","bolstering-voice":"Bolstering Voice","bonecrusher":"Bonecrusher","bowling-ball":"Bowling Ball","burning-blade":"Burning Blade","burning-brand":"Burning Brand","charging-minotaur":"Charging Minotaur","child-of-shadow":"Child of Shadow","claw-at-the-moon":"Claw at the Moon","clever-positioning":"Clever Positioning","clinging-shadow-strike":"Clinging Shadow Strike","cloak-of-deception":"Cloak of Deception","counter-charge":"Counter Charge","covering-fire":"Covering Fire","crusaders-strike":"Crusader's Strike","dart-and-dash":"Dart and Dash","dazing-ambush":"Dazing Ambush","death-mark":"Death Mark","defensive-rebuke":"Defensive Rebuke","disappear":"Disappear","disarming-strike":"Disarming Strike","distracting-ambush":"Distracting Ambush","douse-the-flames":"Douse The Flames","drain-vitality":"Drain Vitality","eagle-eye-stance":"Eagle Eye Stance","emerald-razor":"Emerald Razor","escape-fate":"Escape Fate","exorcising-blow":"Exorcising Blow","exploit":"Exploit","fan-the-flames":"Fan The Flames","feigned-opening":"Feigned Opening","find-weak-point":"Find Weak Point","fire-riposte":"Fire Riposte","first-into-battle":"First into Battle","flames-blessing":"Flame's Blessing","flashing-sun":"Flashing Sun","foehammer":"Foehammer","furious-recovery":"Furious Recovery","giant-fighting-stance":"Giant Fighting Stance","hatchlings-flame":"Hatchling's Flame","holocaust-cloak":"Holocaust Cloak","hook-kick":"Hook Kick","intercept-the-missile":"Intercept the Missile","iron-guards-glare":"Iron Guard's Glare","iron-heart-surge":"Iron Heart Surge","island-of-blades":"Island of Blades","kick":"Kick","knockout":"Knockout","lead-from-the-front":"Lead From the Front","leading-the-attack":"Leading The Attack","leap-to-safety":"Leap to Safety","leaping-dragon-stance":"Leaping Dragon Stance","leaping-dragon-strike":"Leaping Dragon Strike","lions-roar":"Lion's Roar","marksmans-stance":"Marksman's Stance","martial-spirit":"Martial Spirit","merciless-claws":"Merciless Claws","mighty-shove":"Mighty Shove","mobile-archery":"Mobile Archery","mountain-hammer":"Mountain Hammer","overwatch":"Overwatch","pearl-of-black-doubt":"Pearl Of Black Doubt","piercing-shot":"Piercing Shot","pouncing-lion-strike":"Pouncing Lion Strike","punishing-stance":"Punishing Stance","rabid-wolf-strike":"Rabid Wolf Strike","rally-the-pack":"Rally the Pack","rangers-stance":"Ranger's Stance","relentless":"Relentless","retaliation":"Retaliation","revitalizing-strike":"Revitalizing Strike","roots-of-the-mountain":"Roots of the Mountain","shadow-blade-technique":"Shadow Blade Technique","shadow-duplicate":"Shadow Duplicate","shield-block":"Shield Block","slice-and-dice":"Slice and Dice","snipers-stance":"Sniper's Stance","split-the-arrow":"Split the Arrow","spot-the-danger":"Spot the Danger","stance-of-clarity":"Stance of Clarity","steady-hands":"Steady Hands","steel-wind":"Steel Wind","steely-strike":"Steely Strike","stone-bones":"Stone Bones","stone-defense":"Stone Defense","stone-vise":"Stone Vise","stonefoot-stance":"Stonefoot Stance","sudden-leap":"Sudden Leap","tactical-strike":"Tactical Strike","thicket-of-blades":"Thicket Of Blades","thugs-stance":"Thug's Stance","trapfinders-caution":"Trapfinder's Caution","trick-shot":"Trick Shot","vanguard-strike":"Vanguard Strike","volley":"Volley","wall-of-blades":"Wall of Blades","white-raven-tactics":"White Raven Tactics","wind-stride":"Wind Stride","wolf-fang-strike":"Wolf Fang Strike","zephyr-dance":"Zephyr Dance"};
+
+const name_to_id = {"abscond":"abscond","battle leader's charge":"battle-leaders-charge","bear claw strike":"bear-claw-strike","blistering flourish":"blistering-flourish","blood frenzy":"blood-frenzy","bloody claws":"bloody-claws","bolstering voice":"bolstering-voice","bonecrusher":"bonecrusher","bowling ball":"bowling-ball","burning blade":"burning-blade","burning brand":"burning-brand","charging minotaur":"charging-minotaur","child of shadow":"child-of-shadow","claw at the moon":"claw-at-the-moon","clever positioning":"clever-positioning","clinging shadow strike":"clinging-shadow-strike","cloak of deception":"cloak-of-deception","counter charge":"counter-charge","covering fire":"covering-fire","crusader's strike":"crusaders-strike","dart and dash":"dart-and-dash","dazing ambush":"dazing-ambush","death mark":"death-mark","defensive rebuke":"defensive-rebuke","disappear":"disappear","disarming strike":"disarming-strike","distracting ambush":"distracting-ambush","douse the flames":"douse-the-flames","drain vitality":"drain-vitality","eagle eye stance":"eagle-eye-stance","emerald razor":"emerald-razor","escape fate":"escape-fate","exorcising blow":"exorcising-blow","exploit":"exploit","fan the flames":"fan-the-flames","feigned opening":"feigned-opening","find weak point":"find-weak-point","fire riposte":"fire-riposte","first into battle":"first-into-battle","flame's blessing":"flames-blessing","flashing sun":"flashing-sun","foehammer":"foehammer","furious recovery":"furious-recovery","giant fighting stance":"giant-fighting-stance","hatchling's flame":"hatchlings-flame","holocaust cloak":"holocaust-cloak","hook kick":"hook-kick","intercept the missile":"intercept-the-missile","iron guard's glare":"iron-guards-glare","iron heart surge":"iron-heart-surge","island of blades":"island-of-blades","kick":"kick","knockout":"knockout","lead from the front":"lead-from-the-front","leading the attack":"leading-the-attack","leap to safety":"leap-to-safety","leaping dragon stance":"leaping-dragon-stance","leaping dragon strike":"leaping-dragon-strike","lion's roar":"lions-roar","marksman's stance":"marksmans-stance","martial spirit":"martial-spirit","merciless claws":"merciless-claws","mighty shove":"mighty-shove","mobile archery":"mobile-archery","mountain hammer":"mountain-hammer","overwatch":"overwatch","pearl of black doubt":"pearl-of-black-doubt","piercing shot":"piercing-shot","pouncing lion strike":"pouncing-lion-strike","punishing stance":"punishing-stance","rabid wolf strike":"rabid-wolf-strike","rally the pack":"rally-the-pack","ranger's stance":"rangers-stance","relentless":"relentless","retaliation":"retaliation","revitalizing strike":"revitalizing-strike","roots of the mountain":"roots-of-the-mountain","shadow blade technique":"shadow-blade-technique","shadow duplicate":"shadow-duplicate","shield block":"shield-block","slice and dice":"slice-and-dice","sniper's stance":"snipers-stance","split the arrow":"split-the-arrow","spot the danger":"spot-the-danger","stance of clarity":"stance-of-clarity","steady hands":"steady-hands","steel wind":"steel-wind","steely strike":"steely-strike","stone bones":"stone-bones","stone defense":"stone-defense","stone vise":"stone-vise","stonefoot stance":"stonefoot-stance","sudden leap":"sudden-leap","tactical strike":"tactical-strike","thicket of blades":"thicket-of-blades","thug's stance":"thugs-stance","trapfinder's caution":"trapfinders-caution","trick shot":"trick-shot","vanguard strike":"vanguard-strike","volley":"volley","wall of blades":"wall-of-blades","white raven tactics":"white-raven-tactics","wind stride":"wind-stride","wolf fang strike":"wolf-fang-strike","zephyr dance":"zephyr-dance"};
+
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  function get_saved_state(){
+    const state = localStorage.getItem('state');
+    return state?JSON.parse(state) : {};
+  }
+  function save_state(){
+    const state = {};
+    const inputs = document.getElementsByTagName('input');
+    for(let input of inputs)
+      state[input.id] = input.checked;
+    localStorage.setItem('state', JSON.stringify(state));
+  }
+  (function(){
+    const state = get_saved_state();
+    function setup_button(name, filterid){
+      const all = document.getElementById('all-'+name+'-button');
+      const none = document.getElementById('no-'+name+'-button');
+      const filter = document.getElementById(filterid+'-filter');
+      const inputs = filter.getElementsByTagName('input');
+      all.onclick = function(){
+        for(let input of inputs)
+          input.checked = true;
+        apply_filters();
+      }
+      none.onclick = function(){
+        for(let input of inputs)
+          input.checked = false;
+        apply_filters();
+      }
+      for(let input of inputs){
+        let checked = state[input.id];
+        if(typeof checked === 'boolean')
+          input.checked = checked;
+      }
+    }
+    setup_button('levels', 'level');
+    setup_button('schools', 'school');
+    setup_button('tag', 'tag');
+  }());
+  (function(){
+    const state = get_saved_state();
+    const all = document.getElementById('all-sort-button');
+    const none = document.getElementById('no-sort-button');
+    const sorts = document.getElementById('sorts');
+    const inputs = sorts.getElementsByTagName('input');
+    all.onclick = function(){
+      for(let input of inputs)
+        input.checked = true;
+      apply_sorts();
+    }
+    none.onclick = function(){
+      for(let input of inputs)
+        input.checked = false;
+      apply_sorts();
+    }
+    for(let input of inputs){
+      input.onclick = function(){
+        apply_sorts();
+      }
+      let checked = state[input.id];
+      if(typeof checked === 'boolean')
+        input.checked = checked;
+    }
+  }());
+  const level_filter = document.getElementById('level-filter');
+  const school_filter = document.getElementById('school-filter');
+  const tag_filter = document.getElementById('tag-filter');
+  function get_filter_state(container){
+    const inputs = container.getElementsByTagName('input');
+    let result = 0;
+    for(let input of inputs){
+      if(input.checked)
+        result |= +input.value;
+    }
+    return result;
+  }
+  function get_state(){
+    let result =  {
+      levels: get_filter_state(level_filter),
+      schools: get_filter_state(school_filter),
+      tags: get_filter_state(tag_filter),
+    };
+    return result;
+  }
+  const links = Array.from(document.getElementById('nav').getElementsByTagName('a'));
+  const details = Array.from(document.getElementsByTagName('details'));
+  function apply_sorts(){
+    let sort_school = document.getElementById("school-sort-check").checked;
+    let sort_level = document.getElementById("level-sort-check").checked;
+    function comparator(name_a, name_b){
+      let [level_a, school_a, tag_a] = name_to_info[name_a];
+      let [level_b, school_b, tag_b] = name_to_info[name_b];
+      if(sort_school){
+        if(school_a < school_b) return -1;
+        if(school_a > school_b) return 1;
+      }
+      if(sort_level){
+        if(level_a < level_b) return -1;
+        if(level_a > level_b) return 1;
+      }
+      if(name_a < name_b) return -1;
+      if(name_a > name_b) return 1;
+      return 0;
+    }
+    function link_comparator(a, b){
+      let name_a = a.innerText.trim();
+      let name_b = b.innerText.trim();
+      return comparator(name_a, name_b);
+    }
+    function details_comparator(a, b){
+      let name_a = id_to_name[a.id];
+      let name_b = id_to_name[b.id];
+      return comparator(name_a, name_b);
+    }
+    links.sort(link_comparator);
+    details.sort(details_comparator);
+    let link_parent = links[0].parentElement;
+    const link_parent_parent = document.getElementById('nav').firstElementChild;
+    const state = get_state();
+    // clear links, idk if this is the best way.
+    while(link_parent_parent.firstChild)
+      link_parent_parent.removeChild(link_parent_parent.lastChild);
+    let prev_link = undefined;
+    let current_container = link_parent_parent;
+    let number_parent = current_container;
+    for(let link of links){
+      if(!matches(link.innerText.trim(),state)) continue;
+      let info = name_to_info[link.innerText.trim()];
+      if(sort_school){
+        if(!prev_link || info[1] != name_to_info[prev_link.innerText.trim()][1]){
+          let li = document.createElement('li');
+          const SCHOOLS = ["Burglar's Tricks", 'Desert Wind', 'Devoted Spirit', 'Eagle Eye', 'Iron Heart',  'Shadow Hand', 'Stone Dragon', 'Tiger Claw', 'White Raven'];
+          for(let i = 0; i < 12; i++){
+            let v = 1 << i;
+            if(v == info[1]){
+              li.innerText = SCHOOLS[i];
+              break;
+            }
+          }
+          let ul = document.createElement('ul');
+          li.appendChild(ul);
+          link_parent_parent.appendChild(li);
+          current_container = ul;
+          number_parent = current_container;
+        }
+      }
+      if(sort_level){
+        if(!prev_link || info[0] != name_to_info[prev_link.innerText.trim()][0]){
+          let li = document.createElement('li');
+          for(let i = 0; i < 12; i++){
+            let v = 1 << i;
+            if(v == info[0]){
+              li.innerText = `${i}${i == 1?"st": i== 2? "nd" : i== 3?"rd": "th"} Level`;
+            }
+          }
+          let ul = document.createElement('ul');
+          li.appendChild(ul);
+          number_parent.appendChild(li);
+          current_container = ul;
+
+        }
+      }
+      current_container.appendChild(link.parentElement);
+      prev_link = link;
+    }
+    let detail_parent = document.getElementById('maneuvers');
+    while(detail_parent.firstChild)
+      detail_parent.removeChild(detail_parent.lastChild);
+    let prev_detail = undefined;
+    for(let detail of details){
+      if(!matches(id_to_name[detail.id], state)) continue;
+      let info = name_to_info[id_to_name[detail.id]];
+      if(sort_school){
+        if(!prev_detail || info[1] != name_to_info[id_to_name[prev_detail.id]][1]){
+          const h2 = document.createElement('h2');
+          const SCHOOLS = ["Burglar's Tricks", 'Desert Wind', 'Devoted Spirit', 'Eagle Eye', 'Iron Heart',  'Shadow Hand', 'Stone Dragon', 'Tiger Claw', 'White Raven'];
+          for(let i = 0; i < 12; i++){
+            let v = 1 << i;
+            if(v == info[1]){
+              h2.innerText = SCHOOLS[i];
+              h2.classList.add('separator');
+              break;
+            }
+          }
+          detail_parent.appendChild(h2);
+        }
+      }
+      if(sort_level){
+        if(!prev_detail || info[0] != name_to_info[id_to_name[prev_detail.id]][0]){
+          const h3 = document.createElement('h3');
+          for(let i = 0; i < 12; i++){
+            let v = 1 << i;
+            if(v == info[0]){
+              h3.innerText = `${i}${i == 1?"st": i== 2? "nd" : i== 3?"rd": "th"} Level`;
+              h3.classList.add('separator');
+            }
+          }
+          detail_parent.appendChild(h3);
+        }
+      }
+      detail_parent.appendChild(detail);
+      prev_detail = detail
+    }
+    save_state();
+  }
+  function matches(name, state){
+    const info = name_to_info[name];
+    if(!info) return true;
+    let [level, school, tag] = info;
+    if(state.levels && !(state.levels & level))
+        return false;
+    if(state.schools && !(state.schools & school))
+        return false;
+    if(state.tags && !(state.tags & tag))
+        return false;
+    return true;
+  }
+  const dl = document.getElementById('maneuver-dl');
+  const mi = document.getElementById('maneuver-input');
+  mi.addEventListener('keydown', function(e){
+    if(e.key != 'Enter')
+      return;
+    open_and_go(mi.value.trim())
+  });
+  mi.addEventListener('input', function(){
+    open_and_go(mi.value.trim())
+  });
+  function open_and_go(name){
+    let id = name_to_id[name.toLowerCase()]
+    if(!id) return;
+    mi.value = '';
+    mi.blur();
+    const target = document.getElementById(id);
+    target.open = true;
+    target.scrollIntoView();
+  }
+  function apply_filters(){
+    const state = get_state();
+    dl.innerHTML = '';
+
+    for(let link of links){
+      let text = link.innerText.trim();
+      if(matches(text, state)){
+        if(link.parentNode.style.display != 'list-item') link.parentNode.style.display = 'list-item';
+        dl.innerHTML += `<option>${text}</option>`
+      }
+      else{
+        if(link.parentNode.style.display != 'none') link.parentNode.style.display = 'none';
+      }
+    }
+    for(let detail of details){
+      if(matches(id_to_name[detail.id], state)){
+        if(detail.style.display != 'block') detail.style.display = 'block';
+      }
+      else{
+        if(detail.style.display != 'none')detail.style.display = 'none';
+      }
+    }
+    apply_sorts();
+    save_state();
+  }
+  const inputs = document.getElementsByTagName('input');
+  for(let input of inputs)
+    input.onchange = apply_filters;
+  (function(){
+  const expand = document.getElementById('expand-button');
+  expand.onclick = function(){
+    for(let detail of details)
+      detail.open = true;
+  }
+  const close = document.getElementById('collapse-button');
+  close.onclick = function(){
+    for(let detail of details)
+      detail.open = false;
+  }
+  }());
+  apply_filters();
+});
+//endjs
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const links = document.getElementsByTagName('a');
+  function onclick(e){
+    const id = e.target.href.split('#')[1];
+    const target = document.getElementById(id);
+    target.open = true;
+    target.scrollIntoView();
+    e.stopPropagation();
+    e.preventDefault();
+  }
+  for(let link of links){
+    link.onclick = onclick;
+  }
+});
+//endjs
+
+</script>
+</head>
+<body>
+<div class="center">
+<div class="summary">
+<h1>Maneuvers</h1>
+<p>
+Initator level is like your caster level for maneuvers. Some maneuvers scale
+with initiator level. To take a maneuver, you need to meet its prerequisites
+and have an initator level as given by this table:
+</p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Maneuver Level
+</th>
+<th>Initiator Level
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1
+</td>
+<td>1
+</td>
+</tr>
+<tr>
+<td>2
+</td>
+<td>3
+</td>
+</tr>
+<tr>
+<td>3
+</td>
+<td>5
+</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Barbarians, Fighters, Monks, Paladins and Rangers have initiator level equal
+to their class level. Bards and Rogues have initator level equal to one half
+their class level, rounded down, except for the Burglar's Tricks school.
+Clerics, Druids, Wizards and Sorcerers have
+initator level equal to 0. Multiclass characters use the better of their two
+classes.
+</p>
+<p>
+A character can choose maneuvers as feats. Fighters and monks can choose
+maneuvers as their bonus feats.
+</p>
+<p>
+You can also buy a stance with a feat. To buy a stance, you need to
+already have a maneuver of that school.
+</p>
+<p>
+A character can only take maneuvers from 3 different schools.
+</p>
+<p>
+Note that Diamond Mind has been removed due to its main focus not being in
+the game. The ones that remained were moved into other schools.
+</p>
+<p>
+Burglar's tricks is a new school only for thieves.
+</p>
+<p>
+Eagle Eye is a new school focused on ranged attacks.
+</p>
+<p>
+Desert Wind and Shadow Hand are restricted to monks. In the future we might
+allow thief/mages to take them, tbd.
+</p>
+<p>
+Some Devoted Spirit maneuvers are restricted to Paladins and Fighter/Cleric.
+</p>
+<p>
+Setting Sun and Stone Dragon have been merged into Stone Dragon.
+</p>
+<p>
+Maneuvers that target allies that don't specify you, don't affect you.
+</p>
+</div>
+<div class="filters">
+<div class="filter" id="list">
+<label for="maneuver-input">Maneuver:</label>
+<span></span>
+<input list="maneuver-dl" id="maneuver-input" name="maneuver-input" type="search">
+<datalist id="maneuver-dl" style="display:none;">
+</datalist>
+</div>
+<div class="filter" id="level-filter">
+<span>Levels:</span>
+<button id="all-levels-button">All</button>
+<button id="no-levels-button">None</button>
+<div>
+<div class="level-check filter-checks">
+<input type="checkbox" name="level-1" id="level-1-check" checked value="2">
+<label for="level-1-check">1</label>
+</div>
+<div class="level-check filter-checks">
+<input type="checkbox" name="level-2" id="level-2-check" checked value="4">
+<label for="level-2-check">2</label>
+</div>
+<div class="level-check filter-checks">
+<input type="checkbox" name="level-3" id="level-3-check" checked value="8">
+<label for="level-3-check">3</label>
+</div>
+</div>
+</div>
+<div class="filter" id="school-filter">
+<span>School:</span>
+<button id="all-schools-button">All</button>
+<button id="no-schools-button">None</button>
+<div>
+<div id="schools">
+<div class="school-check filter-checks">
+<input type="checkbox" name="Burglar's Tricks" id="burglars-tricks-check" checked value="1">
+<label for="burglars-tricks-check">Burglar's Tricks</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Desert Wind" id="desert-wind-check" checked value="2">
+<label for="desert-wind-check">Desert Wind</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Devoted Spirit" id="devoted-spirit-check" checked value="4">
+<label for="devoted-spirit-check">Devoted Spirit</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Eagle Eye" id="eagle-eye-check" checked value="8">
+<label for="eagle-eye-check">Eagle Eye</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Iron Heart" id="iron-heart-check" checked value="16">
+<label for="iron-heart-check">Iron Heart</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Shadow Hand" id="shadow-hand-check" checked value="32">
+<label for="shadow-hand-check">Shadow Hand</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Stone Dragon" id="stone-dragon-check" checked value="64">
+<label for="stone-dragon-check">Stone Dragon</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Tiger Claw" id="tiger-claw-check" checked value="128">
+<label for="tiger-claw-check">Tiger Claw</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="White Raven" id="white-raven-check" checked value="256">
+<label for="white-raven-check">White Raven</label>
+</div>
+</div>
+</div>
+</div>
+<div class="filter" id="tag-filter">
+<span>Tag:</span>
+<button id="all-tag-button">All</button>
+<button id="no-tag-button">None</button>
+<div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Strike" id="strike-check" value="1">
+<label for="strike-check">Strike</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Stance" id="stance-check" value="2">
+<label for="stance-check">Stance</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Boost" id="boost-check" value="4">
+<label for="boost-check">Boost</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Counter" id="counter-check" value="8">
+<label for="counter-check">Counter</label>
+</div>
+<div class="school-check filter-checks">
+<input type="checkbox" name="Other" id="other-check" value="16">
+<label for="other-check">Other</label>
+</div>
+</div>
+</div>
+<div id="sorts">
+<span>Sort By:</span>
+<button id="all-sort-button">All</button>
+<button id="no-sort-button">None</button>
+<div>
+<div class="sort-check filter-checks">
+<input type="checkbox" name="School" id="school-sort-check" value="School" checked>
+<label for="school-sort-check">School</label>
+</div>
+<div class="sort-check filter-checks">
+<input type="checkbox" name="Level" id="level-sort-check" value="Level" checked>
+<label for="level-sort-check">Level</label>
+</div>
+</div>
+</div>
+</div>
+<button id="expand-button">Expand All</button>
+<button id="collapse-button">Collapse All</button>
+<div id="maneuvers">
+<details class="maneuver" id="abscond">
+<summary style="cursor:pointer">
+Abscond</summary>
+<div>
+<h2>Abscond</h2>
+<p>
+Burglar's Tricks (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate Action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When you would be hit by an attack, you may replace your AC against that
+attack with an escape artist check.
+</p>
+</div>
+</details>
+<details class="maneuver" id="battle-leaders-charge">
+<summary style="cursor:pointer">
+Battle Leader's Charge</summary>
+<div>
+<h2>Battle Leader's Charge</h2>
+<p>
+White Raven (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 full-round action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You lead from the front, charging your enemies so that your allies can follow
+in your wake.
+</p>
+<p>
+As part of this maneuver, you charge an opponent. You do not provoke attacks
+of opportunity for moving as part of this charge. If your charge attack hits,
+it deals an extra 10 points of damage.
+</p>
+</div>
+</details>
+<details class="maneuver" id="bear-claw-strike">
+<summary style="cursor:pointer">
+Bear Claw Strike</summary>
+<div>
+<h2>Bear Claw Strike</h2>
+<p>
+Tiger Claw (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Tiger Claw maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single attack against an enemy.  If it hits, it deals an additional
+2d6 damage and the target must make a fortitude saving throw (DC 13+STR Mod)
+or be knocked prone.
+</p>
+</div>
+</details>
+<details class="maneuver" id="blistering-flourish">
+<summary style="cursor:pointer">
+Blistering Flourish</summary>
+<div>
+<h2>Blistering Flourish</h2>
+<p>
+Desert Wind (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>30'</td>
+</tr>
+<tr>
+<td>Area:</td>
+<td>30' radius burst centered on you</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 minute</td>
+</tr>
+<tr>
+<td>Saving Throw:</td>
+<td>Fortitude negates</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When you use this strike, you generate a burst of brilliant light. Any
+creature other than you caught in this maneuver’s area must make a Fortitude
+save (DC 11 + your Wis modifier) or be dazzled for 1 minute.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="blood-frenzy">
+<summary style="cursor:pointer">
+Blood Frenzy</summary>
+<div>
+<h2>Blood Frenzy</h2>
+<p>
+Tiger Claw (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Tiger Claw maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>60'</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You and Your allies</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You and all allies within 60 feet that can hear you get a +3 morale bonus to
+weapon damage until the start of your next turn.
+</p>
+</div>
+</details>
+<details class="maneuver" id="bloody-claws">
+<summary style="cursor:pointer">
+Bloody Claws</summary>
+<div>
+<h2>Bloody Claws</h2>
+<p>
+Tiger Claw (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Tiger Claw maneuever</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+If you hit a single enemy with your main hand weapon and your off hand weapon
+during your turn, you deal an additional 1d6 damage with your offhand weapon.
+</p>
+<p>
+David Note: I am unsure of the amount of the bonus.
+</p>
+</div>
+</details>
+<details class="maneuver" id="bolstering-voice">
+<summary style="cursor:pointer">
+Bolstering Voice</summary>
+<div>
+<h2>Bolstering Voice</h2>
+<p>
+White Raven (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One White Raven Maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>60 ft.</td>
+</tr>
+<tr>
+<td>Area:</td>
+<td>60-ft.-radius emanation centered on you</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+While you are in this stance, all allies within range who can hear you gain a
++2 morale bonus on Will saves, or a +4 morale bonus on Will saves against fear
+effects. This doesn't affect you.
+</p>
+</div>
+</details>
+<details class="maneuver" id="bonecrusher">
+<summary style="cursor:pointer">
+Bonecrusher</summary>
+<div>
+<h2>Bonecrusher</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Stone Dragon maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>See text</td>
+</tr>
+<tr>
+<td>Save:</td>
+<td>Fortitude negates crit effect</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a melee attack, adding 4d6 damage if you hit. If you do hit, the creature
+must also succeed on a fortitude save (DC 13 + str modifier) or all future
+rolls to confirm a critical hit against the target gain a +10 bonus. This
+doens't work on things immune to crits.
+</p>
+</div>
+</details>
+<details class="maneuver" id="bowling-ball">
+<summary style="cursor:pointer">
+Bowling Ball</summary>
+<div>
+<h2>Bowling Ball</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Stone Dragon maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Unarmed Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+<tr>
+<td>Special:</td>
+<td>May be used as part of a charge</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+To set up Bowling Ball, you must move at least 15 feet.
+</p>
+<p>
+Make a single unarmed melee attack against a target. If your attack hits, you
+may make a bull rush check at a +4 bonus without the need to move into the
+target's space. If you win, the target is pushed back at least 10 feet
+without the need for you to follow. If your bull rush check is high, they may
+be pushed back more than 10 feet. You can't push them behind you, but you can
+push them in any direction in that 180° arc that is in front or to the side
+of you. The target falls prone and suffers 2d6 points of damage. If you shove
+them into any other creature, apply your same bull rush result to those he
+collides with. If it succeeds, they are knocked down and suffer 2d6 points of
+damage and the initial creature keeps moving. If it fails, the initial shoved
+creature stops moving.
+</p>
+</div>
+</details>
+<details class="maneuver" id="burning-blade">
+<summary style="cursor:pointer">
+Burning Blade</summary>
+<div>
+<h2>Burning Blade</h2>
+<p>
+Desert Wind (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Until the end of your turn.</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+A subtle yet precise twisting of your blade unlocks the power of flame. When
+you initiate this maneuver, fire trails from your melee weapon. For the rest
+of your turn, your melee attacks deal an extra 1d6 points of fire damage + 1
+point per level.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="burning-brand">
+<summary style="cursor:pointer">
+Burning Brand</summary>
+<div>
+<h2>Burning Brand</h2>
+<p>
+Desert Wind (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>End of turn</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Your weapon transforms into a roaring gout of flame. As you swing your burning
+blade, it stretches out beyond your normal reach to scorch your foes.
+</p>
+<p>
+When you initiate this maneuver, your weapon turns into a burning brand for
+the rest of your turn. The brand increases your reach by 5 feet, and your
+melee attacks made with the brand deal fire damage equal to your normal melee
+damage. You still gain all the normal benefits from a high Strength score,
+feats, and other effects that increase your melee damage. For example, an
+attack with a longsword that normally deals 1d8+4 points of slashing damage
+would instead deal 1d8+4 points of fire damage. You otherwise attack with your
+weapon as normal.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="charging-minotaur">
+<summary style="cursor:pointer">
+Charging Minotaur</summary>
+<div>
+<h2>Charging Minotaur</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 full-round action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+As part of this maneuver, make a bull rush attack as part of a charge. Neither
+the bull rush nor the charge provoke attacks of opportunity. Resolve the bull
+rush normally. If you succeed at the bull rush, you also deal bludgeoning
+damage eqaul to 2d6 + your strength modifier in addition to the normal effects
+of a bull rush. Additionally, if your strength check is high enough you can
+push your opponent back as per normal for a bull rush, but without having to
+follow.
+</p>
+</div>
+</details>
+<details class="maneuver" id="child-of-shadow">
+<summary style="cursor:pointer">
+Child of Shadow</summary>
+<div>
+<h2>Child of Shadow</h2>
+<p>
+Shadow Hand (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Shadow Hand Maneuver</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+As you move, shadows flutter and swarm around you.
+</p>
+<p>
+You have concealment from enemies 20ft or more away from you. You lose this
+bonus until the start of your next turn if you take attack more than once
+(such as from dual wielding or high BAB) and also cannot gain this bonus this
+turn if you switch into this stance. This ability does not qualify you to
+hide in plain sight.
+</p>
+<p>
+This stance is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="claw-at-the-moon">
+<summary style="cursor:pointer">
+Claw at the Moon</summary>
+<div>
+<h2>Claw at the Moon</h2>
+<p>
+Tiger Claw (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One Creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a jump check as part of this maneuver. The jump check's DC is equal to
+your target's AC. Also, make a melee attack. If your jump check succeeds and
+you hit, you deal an extra 2d6 damage. You also get +4 to confirm your
+critical hit if you threatened a crit.
+</p>
+</div>
+</details>
+<details class="maneuver" id="clever-positioning">
+<summary style="cursor:pointer">
+Clever Positioning</summary>
+<div>
+<h2>Clever Positioning</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+<tr>
+<td>Saving Throw:</td>
+<td>Reflex negates the move</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single melee attack against a target. If your attack hits, the target
+takes damage normally and must make a Reflex save against DC 12 + your Dex
+modifier. If he fails, you swap positions with the target. If they take up
+more spaces than you do, you can swap to any of those spaces. The target must
+end up occupying one of the spaces you were in. You can't use this maneuver if
+either you would end up in an illegal position (due to obstacles or other
+creatures). If you and your target are not the same number of spaces, he can
+choose which of your spaces he ends up in.
+</p>
+</div>
+</details>
+<details class="maneuver" id="clinging-shadow-strike">
+<summary style="cursor:pointer">
+Clinging Shadow Strike</summary>
+<div>
+<h2>Clinging Shadow Strike</h2>
+<p>
+Shadow Hand (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee Attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One Creature</td>
+</tr>
+<tr>
+<td>Saving Throw:</td>
+<td>Fortitude Partial</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Your weapon transforms into solid darkness. When it strikes home, it
+discharges in a swirling orb of shadow that engulfs your foe’s eyes.
+</p>
+<p>
+As part of this maneuver, you make a single melee attack. If it hits, you deal
+an extra 1d6 points of damage, and your opponent must make a successful
+Fortitude save (DC 11 + your Wis modifier) or suffer a 20% miss chance on all
+melee and ranged attacks for 1 round. A successful save negates the miss
+chance, but not the extra damage.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="cloak-of-deception">
+<summary style="cursor:pointer">
+Cloak of Deception</summary>
+<div>
+<h2>Cloak of Deception</h2>
+<p>
+Shadow Hand (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>End of Turn</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When you initiate this maneuver, you turn invisible, as the greater
+invisibility spell. You remain invisible until the end of your current turn.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="counter-charge">
+<summary style="cursor:pointer">
+Counter Charge</summary>
+<div>
+<h2>Counter Charge</h2>
+<p>
+Stone Dragon (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 immediate action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You can use this maneuver when you are charged by a creature. Immediately
+before they make the attack roll, you make a Strength or Dexterity check and
+your opponent makes the same kind of check. If you are larger than your
+opponent and choose Strength, you get +4 per difference of size category that
+you are larger. If you are smaller and choose Dexterity, you get +4 per size
+category that you are smaller.
+</p>
+<p>
+If you succeed on the check, your oponnent does not get to attack you and you
+can move them 10' in the direction of your choice away from you.
+</p>
+<p>
+If you tie or fail, they get a +2 bonus on their charge attack.
+</p>
+</div>
+</details>
+<details class="maneuver" id="covering-fire">
+<summary style="cursor:pointer">
+Covering Fire</summary>
+<div>
+<h2>Covering Fire</h2>
+<p>
+Eagle Eye (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Ranged attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>one creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single ranged attack against a creature you can see. If you hit, you
+deal normal damage. Hit or miss, that creature can't make attaccks of
+opportunity until the start of your next turn.
+</p>
+</div>
+</details>
+<details class="maneuver" id="crusaders-strike">
+<summary style="cursor:pointer">
+Crusader's Strike</summary>
+<div>
+<h2>Crusader's Strike</h2>
+<p>
+Devoted Spirit (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Cleric or Paladin</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Divine energy surrounds your weapon as you strike. This power washes over you
+as your weapon finds its mark, mending your wounds and giving you the strength
+to fight on.
+</p>
+<p>
+As part of initiating this strike, you must make a successful melee attack
+against an enemy whose alignment has at least one component different from
+yours. This foe must pose a threat to you or your allies in some direct,
+immediate way. If your attack hits, you or an ally within 10 feet of you heals
+1d6 points of damage + 1 point per level (maximum +5).
+</p>
+<p>
+You must be a divine character to take this maneuver.
+</p>
+</div>
+</details>
+<details class="maneuver" id="dart-and-dash">
+<summary style="cursor:pointer">
+Dart and Dash</summary>
+<div>
+<h2>Dart and Dash</h2>
+<p>
+Burglar's Tricks (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Move up to 30 feet. This movement does not provoke attacks of opportunity. Any
+balance, tumble, climb, swim, or jump checks made as part of this movement are
+made with a +4 bonus.
+</p>
+</div>
+</details>
+<details class="maneuver" id="dazing-ambush">
+<summary style="cursor:pointer">
+Dazing Ambush</summary>
+<div>
+<h2>Dazing Ambush</h2>
+<p>
+Burglar's Tricks (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Saving Throw:</td>
+<td>Fortitude negates</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a full attack against a single target using an action type as appropriate
+for your weapon(s). If any of those attacks would deal sneak attack damage,
+you may reduce the sneak attack damage of that attack by 1d6 and force the
+target to make a fortitude save. If they fail, they are dazed for one turn.
+The save DC is 13+Dex mod. This maneuver can be used not only with melee
+weapons, but also with ranged weapons and thrown weapons if within 30' of the
+target.
+</p>
+</div>
+</details>
+<details class="maneuver" id="death-mark">
+<summary style="cursor:pointer">
+Death Mark</summary>
+<div>
+<h2>Death Mark</h2>
+<p>
+Desert Wind (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk, One Desert Wind maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+<tr>
+<td>Area:</td>
+<td>Variable spread; see text</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Instantaneous</td>
+</tr>
+<tr>
+<td>Saving Throw:</td>
+<td>Reflex half; see text</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+As your weapon strikes your foe, his body convulses as waves of flame run down
+your blade into his body. The fire causes him to briefly glow with a brilliant
+internal fire before the flames erupt from his body in a terrible explosion.
+</p>
+<p>
+When you use the strike, you channel overwhelming fiery energy into the body
+of your foe. In addition to dealing normal melee damage with your attack, you
+cause fire to erupt from your enemy’s body in a spread. The radius of the
+spread is determined by the size of the target creature, as indicated on the
+table below. All creatures in the area, including your enemy, take 6d6 points
+of fire damage, with a Reflex save (DC 13 + your Wis modifier) for half. This
+radius is centered on the creature’s position.
+</p>
+<p>
+You have immunity to the fire damage from your own death mark.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Size
+</th>
+<th>Spread Radius
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small
+</td>
+<td>5'
+</td>
+</tr>
+<tr>
+<td>Medium
+</td>
+<td>10'
+</td>
+</tr>
+<tr>
+<td>Large
+</td>
+<td>20'
+</td>
+</tr>
+<tr>
+<td>Huge
+</td>
+<td>30'
+</td>
+</tr>
+<tr>
+<td>Gargantuan
+</td>
+<td>40'
+</td>
+</tr>
+<tr>
+<td>Colossal
+</td>
+<td>50'
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</details>
+<details class="maneuver" id="defensive-rebuke">
+<summary style="cursor:pointer">
+Defensive Rebuke</summary>
+<div>
+<h2>Defensive Rebuke</h2>
+<p>
+Devoted Spirit (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Devoted Spirit maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You sweep your weapon in a wide, deadly arc. When your blows strike home, you
+send your foe tumbling back on the defensive. He must deal with you first, or
+leave himself open to your deadly counter.
+</p>
+<p>
+Defensive rebuke allows you to excel at controlling the battlefield around
+you. Your enemies must pay heed to the threat you pose. If they ignore you in
+favor of attacking other targets, you take advantage of their lapses with a
+punishing counterattack.
+</p>
+<p>
+Each enemy you strike after you initiate this maneuver becomes vulnerable to
+your further attacks. If such an opponent attacks anyone other than you in
+melee for the duration of the maneuver, that attack provokes an attack of
+opportunity from you (each separate attack a target makes provokes an attack
+of opportunity, making this boost especially lethal if you have Combat
+Reflexes). Enemies you strike become aware of the consequences of the
+maneuver.
+</p>
+</div>
+</details>
+<details class="maneuver" id="disappear">
+<summary style="cursor:pointer">
+Disappear</summary>
+<div>
+<h2>Disappear</h2>
+<p>
+Burglar's Tricks (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You hide as a swift action.
+</p>
+</div>
+</details>
+<details class="maneuver" id="disarming-strike">
+<summary style="cursor:pointer">
+Disarming Strike</summary>
+<div>
+<h2>Disarming Strike</h2>
+<p>
+Iron Heart (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>one creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+This maneuver allows you to combine a disarm attempt with a normal attack. You
+make a single melee attack as part of this strike. If you hit and deal damage,
+you can also attempt to disarm your opponent, without provoking an attack of
+opportunity and without any risk that your foe can disarm you.
+</p>
+</div>
+</details>
+<details class="maneuver" id="distracting-ambush">
+<summary style="cursor:pointer">
+Distracting Ambush</summary>
+<div>
+<h2>Distracting Ambush</h2>
+<p>
+Burglar's Tricks (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Standard Action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Weapon's range, up to 30'.</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+If you deal sneak attack damage with this strike, the target must make a
+successful Fortitude save (DC 12 + your Dex modifier) or suffers a -4 penalty
+on attacks until the start of your next turn. This maneuver can be used not
+only with melee weapons, but also with ranged weapons, thrown weapons, and
+even spells, as long as you are within 30' of the target.
+</p>
+</div>
+</details>
+<details class="maneuver" id="douse-the-flames">
+<summary style="cursor:pointer">
+Douse The Flames</summary>
+<div>
+<h2>Douse The Flames</h2>
+<p>
+White Raven (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You strike your enemy with a resounding blow, capturing his attention. As he
+turns to look, you let loose with a string of oaths, challenges, and taunts
+that force him to focus his attention on you.
+</p>
+<p>
+As part of this maneuver, you make a melee attack against a single target you
+threaten. If your attack hits, you deal normal melee damage, and the target
+creature can’t make attacks of opportunity for 1 round. The opponent still
+threatens its normal area; it simply cannot make attacks of opportunity.
+</p>
+</div>
+</details>
+<details class="maneuver" id="drain-vitality">
+<summary style="cursor:pointer">
+Drain Vitality</summary>
+<div>
+<h2>Drain Vitality</h2>
+<p>
+Shadow Hand (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One Creature.</td>
+</tr>
+<tr>
+<td>Save:</td>
+<td>Fortitude Negates</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+A faint nimbus of sickly gray shadow surrounds your weapon. When you attack,
+this shadowy aura flows into the wound you inflict, sapping your opponent’s
+strength, vitality, and energy.
+</p>
+<p>
+As part of this maneuver, make a single melee attack. If this attack hits, you
+deal normal melee damage and the target must make a successful Fortitude save
+(DC 12 + your Wis modifier) or take 2 points of Constitution damage. A
+successful save negates the Consti- tution damage but not the normal melee
+damage.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="eagle-eye-stance">
+<summary style="cursor:pointer">
+Eagle Eye Stance</summary>
+<div>
+<h2>Eagle Eye Stance</h2>
+<p>
+Eagle Eye (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Two Eagle Eye maneuvers</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Your attacks ignore the normal penalty for targets having soft cover.
+</p>
+<p>
+Additionally, you may reroll the miss chance due to concealment once (like blind fight).
+</p>
+</div>
+</details>
+<details class="maneuver" id="emerald-razor">
+<summary style="cursor:pointer">
+Emerald Razor</summary>
+<div>
+<h2>Emerald Razor</h2>
+<p>
+Iron Heart (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Your understanding of combat, your keenly honed mind, and your capability to
+read your opponents make you a deadly combatant. When you focus your mind,
+even the most elusive opponent becomes an easy target.
+</p>
+<p>
+As part of this maneuver, make a single melee attack against an opponent at a
++4 bonus. If you hit, you deal normal melee damage and ignore damage
+reduction.
+</p>
+</div>
+</details>
+<details class="maneuver" id="escape-fate">
+<summary style="cursor:pointer">
+Escape Fate</summary>
+<div>
+<h2>Escape Fate</h2>
+<p>
+Burglar's Tricks (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Replace a will save with an escape artist check. You must use this before
+rolling your will save.
+</p>
+</div>
+</details>
+<details class="maneuver" id="exorcising-blow">
+<summary style="cursor:pointer">
+Exorcising Blow</summary>
+<div>
+<h2>Exorcising Blow</h2>
+<p>
+Devoted Spirit (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Cleric or Paladin</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee Attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One Creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Your weapon glows with holy energy.
+</p>
+<p>
+As part of this maneuver, make a single melee attack. This attack ignores the
+incorporeal miss chance of ghosts and other incorporeal creatures. If it hits,
+your allies only have a 20% change of missing due to incorporeality instead of
+50% until the beginning of your next turn.
+</p>
+<p>
+Alternatively, if the target you are striking is possessed by a ghost, the
+ghost make make a will save (DC 12 + your charisma modifier) or be forced out
+of the body. Your damage from this attack harms the ghost instead of the
+posssesed creature.
+</p>
+<p>
+You must be a divine character to take this maneuver.
+</p>
+</div>
+</details>
+<details class="maneuver" id="exploit">
+<summary style="cursor:pointer">
+Exploit</summary>
+<div>
+<h2>Exploit</h2>
+<p>
+Burglar's Tricks (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Swift Action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+As long as your targets are engaged in melee with an ally, your attacks
+qualify for sneak attacks this round.
+</p>
+</div>
+</details>
+<details class="maneuver" id="fan-the-flames">
+<summary style="cursor:pointer">
+Fan The Flames</summary>
+<div>
+<h2>Fan The Flames</h2>
+<p>
+Desert Wind (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk, One Desert Wind maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>30 ft.</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Flickering flame dances across your blade, then springs toward your target as
+you sweep your sword through the air.
+</p>
+<p>
+A skilled Desert Wind adept can gather flame within his weapon and hurl it
+through the air. When you initiate this maneuver, you launch a fist-sized ball
+of white-hot fire at a single opponent.
+</p>
+<p>
+If you make a successful ranged touch attack, your target takes 6d6 points of
+fire damage.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="feigned-opening">
+<summary style="cursor:pointer">
+Feigned Opening</summary>
+<div>
+<h2>Feigned Opening</h2>
+<p>
+Stone Dragon (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Stone Dragon maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 immediate action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You can use this maneuver when an opponent attempts an attack of opportunity
+against you. You must use it before the attack is rolled. If they miss, they
+provoke an attack of opportunity from you. If they hit, they provoke an attack
+of opportunity from your allies who threaten that opponent.
+</p>
+</div>
+</details>
+<details class="maneuver" id="find-weak-point">
+<summary style="cursor:pointer">
+Find Weak Point</summary>
+<div>
+<h2>Find Weak Point</h2>
+<p>
+Burglar's Tricks (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Standard Action</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make an attack with double your normal critical range and a +4 to confirm
+critical hits. If you do not score a critical hit, your attack deals an
+additional 1d6 damage instead. This ability does not stack with similar
+effects.
+</p>
+</div>
+</details>
+<details class="maneuver" id="fire-riposte">
+<summary style="cursor:pointer">
+Fire Riposte</summary>
+<div>
+<h2>Fire Riposte</h2>
+<p>
+Desert Wind (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 immediate action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Instantaneous</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You focus the pain from a wound you have just suffered into a fiery
+manifestation of revenge.
+</p>
+<p>
+When a creature successfully strikes you with a melee or natural weapon, you
+can use this maneuver to give yourself the ability to make an immediate melee
+touch attack. If your attack hits, your target takes 4d6 points of fire
+damage.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="first-into-battle">
+<summary style="cursor:pointer">
+First into Battle</summary>
+<div>
+<h2>First into Battle</h2>
+<p>
+White Raven (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One White Raven Maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+If you start combat while in this stance, you and your allies get +2 to their
+initiative roll.  You cannot switch out of this stance in the first round of
+combat.
+</p>
+</div>
+</details>
+<details class="maneuver" id="flames-blessing">
+<summary style="cursor:pointer">
+Flame's Blessing</summary>
+<div>
+<h2>Flame's Blessing</h2>
+<p>
+Desert Wind (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk, One Desert Wind maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Fire is not your enemy, and it does not harm you.
+</p>
+<p>
+You gain some resistance to fire as long as you remain in this stance. The
+amount of resistance is determined by your ranks in Tumble. If you have 19 or
+more ranks in Tumble, you gain immunity to fire while you are in this stance.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Tumble Ranks
+</th>
+<th>Fire Resistance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4-8
+</td>
+<td>5
+</td>
+</tr>
+<tr>
+<td>9
+</td>
+<td>10
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</details>
+<details class="maneuver" id="flashing-sun">
+<summary style="cursor:pointer">
+Flashing Sun</summary>
+<div>
+<h2>Flashing Sun</h2>
+<p>
+Desert Wind (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 full-round action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Almost a blur of acceleration, your shining blade flashes as you attack with
+impossible speed.
+</p>
+<p>
+Flashing sun allows you to make an additional melee attack during this round.
+As part of this maneuver, you take a full attack action and make your normal
+melee attacks. However, you can make one additional attack this round at your
+highest attack bonus. All the attacks you make this round, including the extra
+attack granted by this maneuver, are made with a –2 penalty.
+</p>
+<p>
+Despite being able to full attack as a standard action, this maneuver is still
+a full round action.
+</p>
+</div>
+</details>
+<details class="maneuver" id="foehammer">
+<summary style="cursor:pointer">
+Foehammer</summary>
+<div>
+<h2>Foehammer</h2>
+<p>
+Devoted Spirit (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Your throw yourself behind your attack, lending your blow such great weight
+and force that you leave injuries that even magical defenses cannot mend.
+</p>
+<p>
+Your devotion to your cause gives you boundless energy that allows you to
+smash through supernatural defenses. When you land an attack, you hit with
+such force that damage reduction offers little resistance against you.
+</p>
+<p>
+When you use this maneuver, you make a melee attack against a single foe. This
+attack automatically overcomes the opponent’s damage reduction and deals an
+extra 2d6 points of damage.
+</p>
+</div>
+</details>
+<details class="maneuver" id="furious-recovery">
+<summary style="cursor:pointer">
+Furious Recovery</summary>
+<div>
+<h2>Furious Recovery</h2>
+<p>
+Iron Heart (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Iron Heart Maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate Action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You may use this maneuver when you miss an attack (the attack roll against
+AC, not concealement or other things). Roll that attack roll again with a
+-4 penalty.
+</p>
+</div>
+</details>
+<details class="maneuver" id="giant-fighting-stance">
+<summary style="cursor:pointer">
+Giant Fighting Stance</summary>
+<div>
+<h2>Giant Fighting Stance</h2>
+<p>
+Stone Dragon (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Stone Dragon maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+While in this stance, you get +2 attack and +2 damage against creatures of size
+large or larger that are larger than you.
+</p>
+</div>
+</details>
+<details class="maneuver" id="hatchlings-flame">
+<summary style="cursor:pointer">
+Hatchling's Flame</summary>
+<div>
+<h2>Hatchling's Flame</h2>
+<p>
+Desert Wind (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>30 ft.</td>
+</tr>
+<tr>
+<td>Area:</td>
+<td>Cone</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Instantaneous</td>
+</tr>
+<tr>
+<td>Saving Throw:</td>
+<td>Reflex half</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You focus a burning aura of energy at the end of your blade. It forms a
+seething sphere that, after a moment, bursts into a torrent of energy.
+</p>
+<p>
+The Desert Wind discipline teaches its students how to unleash their ki as
+burning energy. This maneuver allows you to create a wave of fire that sweeps
+over your enemies. When you initiate this maneuver, you blast forth a cone of
+flame that deals 2d6 points of fire damage.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="holocaust-cloak">
+<summary style="cursor:pointer">
+Holocaust Cloak</summary>
+<div>
+<h2>Holocaust Cloak</h2>
+<p>
+Desert Wind (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk, One Desert Wind maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Fire trails from your blade as you spin it about, cloaking you in flames that
+leap out to burn those who attack you.
+</p>
+<p>
+The flame from your weapon hangs in midair, providing you with a fiery defense
+against your attackers. An adjacent opponent that hits you with a melee attack
+while you are in this stance takes 5 points of fire damage. Your holocaust
+cloak does not harm a creature using a reach weapon to attack you, if they are
+not adjacent to you.
+</p>
+<p>
+This stance is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="hook-kick">
+<summary style="cursor:pointer">
+Hook Kick</summary>
+<div>
+<h2>Hook Kick</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Unarmed Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single unarmed melee attack against a target that can be tripped (has
+legs, but not too many).  If you hit, you may make a free trip attack attempt
+against the target. You can use your Dexterity or Strength modifier,
+whichever is higher. You gain a +4 bonus on the ability check. If you
+succeed, and your foe is no more than one size category larger than you, you
+may move them up to 5 ft into an empty space in addition to knocking them
+prone. Your opponent cannot try to trip you if you lose the opposed check. If
+you do not have improved unarmed strike, then this attack may provoke an
+attack of opportunity.
+</p>
+</div>
+</details>
+<details class="maneuver" id="intercept-the-missile">
+<summary style="cursor:pointer">
+Intercept the Missile</summary>
+<div>
+<h2>Intercept the Missile</h2>
+<p>
+Eagle Eye (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 immediate action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Ranged attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>one projectile</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When an enemy makes a ranged attack, you can attempt to shoot their
+projectile out of the air. The projectile must have a somewhat similar mass
+to your ammunition (so you can shoot a dagger with an arrow, but not a
+boulder).  Make an attack roll. If your attack roll is equal to or greater
+than the attack roll of the enemy ranged attack, the enemy's attack misses.
+</p>
+<p>
+You must use this ability before damage is rolled, but can use it after you know someone is hit.
+</p>
+</div>
+</details>
+<details class="maneuver" id="iron-guards-glare">
+<summary style="cursor:pointer">
+Iron Guard's Glare</summary>
+<div>
+<h2>Iron Guard's Glare</h2>
+<p>
+Devoted Spirit (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Devoted Spirit maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+With a quick snarl and a glare that would stop a charging barbarian in his
+tracks, you spoil an opponent’s attack. Rather than strike his original
+target, your enemy turns his attention toward you.
+</p>
+<p>
+While you are in this stance, any opponent that you threaten takes a –4
+penalty on attack rolls against your allies. This penalty does not apply to
+attacks made against you. Enemies you threaten become aware of the
+consequences of the stance.
+</p>
+<p>
+David Errata: The opponent does not suffer the penalty if they attack someone
+who is in this stance.
+</p>
+</div>
+</details>
+<details class="maneuver" id="iron-heart-surge">
+<summary style="cursor:pointer">
+Iron Heart Surge</summary>
+<div>
+<h2>Iron Heart Surge</h2>
+<p>
+Iron Heart (Other)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Iron Heart maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>See trext</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When you use this maneuver, select one spell, effect or other condition
+currently affecting you and with a duration of 1 or more rounds. That effect
+ends immediately. You also surge with confidence and vengeance against your
+enemies, gaining a +2 morale bonus on attack rolls until the end of your next
+turn.
+</p>
+<p>
+You must still be capable of taking actions to use this maneuver. When an
+"effect ends immediately", it means the portion of the effect affecting you.
+For example, if you are caught in a web, you become free of the web, but other
+people caught in the web are still in the web.
+</p>
+</div>
+</details>
+<details class="maneuver" id="island-of-blades">
+<summary style="cursor:pointer">
+Island of Blades</summary>
+<div>
+<h2>Island of Blades</h2>
+<p>
+Shadow Hand (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Shadow Hand Maneuver</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+If both you and an ally are adjacent to the same creature, the two of you
+both receive a +1 bonus to attack that enemy.  If you can flank (due to being
+a thief), you instead gain the benefits of flanking.
+</p>
+</div>
+</details>
+<details class="maneuver" id="kick">
+<summary style="cursor:pointer">
+Kick</summary>
+<div>
+<h2>Kick</h2>
+<p>
+Burglar's Tricks (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate Action</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One Creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+If an enemy within melee range starts casting a spell, you may kick them to
+force a concentration check.
+</p>
+</div>
+</details>
+<details class="maneuver" id="knockout">
+<summary style="cursor:pointer">
+Knockout</summary>
+<div>
+<h2>Knockout</h2>
+<p>
+Burglar's Tricks (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Any attack you make this turn that qualify for sneak attack have a +4 bonus on
+the attack roll, deal non-lethal damage, and do an extra 1d6 sneak attack
+damage. This can only be used on the first round of combat, or on the suprise
+round and first real round of combat if there is a surprise round.
+</p>
+</div>
+</details>
+<details class="maneuver" id="lead-from-the-front">
+<summary style="cursor:pointer">
+Lead From the Front</summary>
+<div>
+<h2>Lead From the Front</h2>
+<p>
+White Raven (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One White Raven Maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You do not provoke attacks of opportunity when moving towards enemies.
+</p>
+</div>
+</details>
+<details class="maneuver" id="leading-the-attack">
+<summary style="cursor:pointer">
+Leading The Attack</summary>
+<div>
+<h2>Leading The Attack</h2>
+<p>
+White Raven (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When you make an attack, your allies take heart in your example and fight with
+renewed purpose. By stoking the fire of battle in your allies’ hearts, you
+inspire them to greater heroics.
+</p>
+<p>
+As part of this maneuver, you make a single melee attack. If your attack is
+successful, your allies gain a +4 morale bonus on attack rolls for 1 round
+against the creature you hit. You do not benefit from this bonus.
+</p>
+</div>
+</details>
+<details class="maneuver" id="leap-to-safety">
+<summary style="cursor:pointer">
+Leap to Safety</summary>
+<div>
+<h2>Leap to Safety</h2>
+<p>
+Tiger Claw (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Tiger Claw maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate Action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Replace a relfex save with a jump check. You must use this before rolling
+your reflex save.
+</p>
+</div>
+</details>
+<details class="maneuver" id="leaping-dragon-stance">
+<summary style="cursor:pointer">
+Leaping Dragon Stance</summary>
+<div>
+<h2>Leaping Dragon Stance</h2>
+<p>
+Tiger Claw (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Tiger Claw maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+While you are in this stance, you gain a +10 enhancement bonus on Jump
+checks. In addition, any jumps you make while in this stance are considered
+running jumps.
+</p>
+</div>
+</details>
+<details class="maneuver" id="leaping-dragon-strike">
+<summary style="cursor:pointer">
+Leaping Dragon Strike</summary>
+<div>
+<h2>Leaping Dragon Strike</h2>
+<p>
+Tiger Claw (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Tiger Claw maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You must be two-weapon fighting to use this maneuver. Make an attack with
+both weapons at a single target. Additionally, make a jump check. If your
+jump check beats the targets AC, then you hit again with your main hand.
+</p>
+</div>
+</details>
+<details class="maneuver" id="lions-roar">
+<summary style="cursor:pointer">
+Lion's Roar</summary>
+<div>
+<h2>Lion's Roar</h2>
+<p>
+White Raven (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One White Raven Maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>60'</td>
+</tr>
+<tr>
+<td>Targets:</td>
+<td>You and allied creatures within 60'</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When you defeat an enemy, you call out to your allies to press the attack.
+They respond by putting tremendous pressure on the enemy as their attacks
+strike with greater force.
+</p>
+<p>
+As a swift action, you initiate this boost after you have reduced an oppo-
+nent to fewer than 0 hit points. You and allies within range gain a +5 morale
+bonus on damage rolls for 1 round.
+</p>
+</div>
+</details>
+<details class="maneuver" id="marksmans-stance">
+<summary style="cursor:pointer">
+Marksman's Stance</summary>
+<div>
+<h2>Marksman's Stance</h2>
+<p>
+Burglar's Tricks (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You can deal precision damage and receive precision bonuses up to twice as far
+as normal (60 feet instead of 30 feet). Precision damage includes sneak attack
+and the bonuses from point blank shot.
+</p>
+</div>
+</details>
+<details class="maneuver" id="martial-spirit">
+<summary style="cursor:pointer">
+Martial Spirit</summary>
+<div>
+<h2>Martial Spirit</h2>
+<p>
+Devoted Spirit (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Cleric or Paladin, One Devoted Spirit maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+As you cleave through your foes, each ferocious attack you make lends vigor
+and strength to you and your allies.
+</p>
+<p>
+While you are in this stance, you or an ally within 30 feet heals 2 points of
+damage each time you make a successful melee attack. This healing represents
+the vigor, drive, and toughness you inspire in others. Your connection to the
+divine causes such inspiration to have a real, tangible effect on your
+allies’ health.
+</p>
+<p>
+Each time you hit an opponent in melee, you can choose a different recipient
+within range to receive this healing.
+</p>
+<p>
+You must be a divine character to take this maneuver.
+</p>
+</div>
+</details>
+<details class="maneuver" id="merciless-claws">
+<summary style="cursor:pointer">
+Merciless Claws</summary>
+<div>
+<h2>Merciless Claws</h2>
+<p>
+Tiger Claw (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate Action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You may use this counter when an enemy provokes an attack of opportunity from you.
+Make a full attack against that enemy instead of a single attack from the attack of opportunity.
+</p>
+</div>
+</details>
+<details class="maneuver" id="mighty-shove">
+<summary style="cursor:pointer">
+Mighty Shove</summary>
+<div>
+<h2>Mighty Shove</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Unarmed Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+<tr>
+<td>Special:</td>
+<td>May be used as part of a charge</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single unarmed melee attack against a target. If your attack hits, you
+may make a bull rush check at a +4 bonus without the need to move into the
+target's space. If you win, the target is pushed back at least 10 feet
+without the need for you to follow. If your bull rush check is high, they may
+be pushed back more than 10 feet. You can't push them behind you, but you can
+push them in any direction in that 180° arc that is in front or to the side
+of you.
+</p>
+</div>
+</details>
+<details class="maneuver" id="mobile-archery">
+<summary style="cursor:pointer">
+Mobile Archery</summary>
+<div>
+<h2>Mobile Archery</h2>
+<p>
+Eagle Eye (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Move up to your normal speed. Use this only on a turn where you took the full
+attack action with a ranged or thrown weapon.
+</p>
+</div>
+</details>
+<details class="maneuver" id="mountain-hammer">
+<summary style="cursor:pointer">
+Mountain Hammer</summary>
+<div>
+<h2>Mountain Hammer</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature or unattended object.</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single melee attack, but you deal an extra 2d6 damage and overcome
+damage reduction and hardness.
+</p>
+</div>
+</details>
+<details class="maneuver" id="overwatch">
+<summary style="cursor:pointer">
+Overwatch</summary>
+<div>
+<h2>Overwatch</h2>
+<p>
+Eagle Eye (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Eagle Eye maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Until the start of your next turn, any enemy you attack this turn with a
+ranged attack will provoke an attack of opportunity from you whenever they
+attack. Unlike other attacks of opportunity, you do not need to threaten them
+in melee, you can make the attack of opportunity if they have cover, and you
+must attack them with the same ranged weapon you attacked them with. You
+still must be able to see them. They are aware of the consequences of
+attacking.
+</p>
+</div>
+</details>
+<details class="maneuver" id="pearl-of-black-doubt">
+<summary style="cursor:pointer">
+Pearl Of Black Doubt</summary>
+<div>
+<h2>Pearl Of Black Doubt</h2>
+<p>
+Iron Heart (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Iron Heart Maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>Swift Action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Each time an opponent misses you, you get a +2 dodge bonus to AC until the
+start of your next turn (cumulative).
+</p>
+</div>
+</details>
+<details class="maneuver" id="piercing-shot">
+<summary style="cursor:pointer">
+Piercing Shot</summary>
+<div>
+<h2>Piercing Shot</h2>
+<p>
+Eagle Eye (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Ranged attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>one creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single ranged attack. This attack ignores damage reduction and deals
+an extra 1d6 damage. If this drops the target, you make a "cleave" style attack
+against an enemy behind and within 10' of the target.
+</p>
+</div>
+</details>
+<details class="maneuver" id="pouncing-lion-strike">
+<summary style="cursor:pointer">
+Pouncing Lion Strike</summary>
+<div>
+<h2>Pouncing Lion Strike</h2>
+<p>
+Tiger Claw (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Charge Action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You must be two-weapon fighting to use this maneuver. To initiate this
+maneuver you make a charge attack against an enemy. You may ignore rough
+terrain for this charge. Roll a jump check. If your jump check value is equal
+to or greater than the target's AC, then you hit with your off-hand weapon.
+</p>
+</div>
+</details>
+<details class="maneuver" id="punishing-stance">
+<summary style="cursor:pointer">
+Punishing Stance</summary>
+<div>
+<h2>Punishing Stance</h2>
+<p>
+Iron Heart (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Iron Heart maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Iron Heart maneuver</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+While you are in this stance, you you deal an extra 1d6 damage with melee
+attacks. You suffer a -2 penalty to AC.
+</p>
+</div>
+</details>
+<details class="maneuver" id="rabid-wolf-strike">
+<summary style="cursor:pointer">
+Rabid Wolf Strike</summary>
+<div>
+<h2>Rabid Wolf Strike</h2>
+<p>
+Tiger Claw (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You foam at the mouth and scream in rage as you make a powerful attack against
+your enemy. You set aside all thoughts of defense as you lunge forward.
+</p>
+<p>
+For a split-second, you unleash the barely controlled, primal rage that surges
+within you. As part of this maneuver, you make a single melee attack. You gain
+a +4 bonus on this attack roll and deal an extra 2d6 points of damage. You
+take a –4 penalty to AC until the start of your next turn, as this wild
+strike sends you off balance and hinders your defenses.
+</p>
+</div>
+</details>
+<details class="maneuver" id="rally-the-pack">
+<summary style="cursor:pointer">
+Rally the Pack</summary>
+<div>
+<h2>Rally the Pack</h2>
+<p>
+Tiger Claw (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>60'</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>Your allies</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Until the start of your next turn, all allies within 60 feet that can hear
+you get a +2 morale bonus on saving throws.
+</p>
+</div>
+</details>
+<details class="maneuver" id="rangers-stance">
+<summary style="cursor:pointer">
+Ranger's Stance</summary>
+<div>
+<h2>Ranger's Stance</h2>
+<p>
+Eagle Eye (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When an enemy attempts to move into a space next to you, you may make an
+attack of opportunity upon them with your ranged weapon (you normally can't
+make attacks of opportunity with ranged weapons). You can't do this if they
+are already adjacent to you. This does not provoke an attack from that
+creature for attacking with a ranged weapon as it is triggered before they
+actually move into that space (unless they have reach).  Your enemies are
+aware of the consequence of moving next to you.
+</p>
+</div>
+</details>
+<details class="maneuver" id="relentless">
+<summary style="cursor:pointer">
+Relentless</summary>
+<div>
+<h2>Relentless</h2>
+<p>
+Tiger Claw (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate Action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You may use this counter when you are reduced below 0 hit points by an enemy.
+Immediately heal 2d6 hit points. This can prevent you from immediately dying
+(damage is dealt, healing is applied and then if you are at -10 or lower you
+die).
+</p>
+</div>
+</details>
+<details class="maneuver" id="retaliation">
+<summary style="cursor:pointer">
+Retaliation</summary>
+<div>
+<h2>Retaliation</h2>
+<p>
+Eagle Eye (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Eagle Eye maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate Action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Ranged weapon attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When an enemy makes a ranged attack targeting you, you may make a ranged weapon attack against them.
+</p>
+</div>
+</details>
+<details class="maneuver" id="revitalizing-strike">
+<summary style="cursor:pointer">
+Revitalizing Strike</summary>
+<div>
+<h2>Revitalizing Strike</h2>
+<p>
+Devoted Spirit (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Devoted Spirit maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+As you rear back to strike your foe, an aura of divine energy surrounds you.
+As your attack slams home, this aura dis- sipates in a flash, knitting your
+wounds as it discharges.
+</p>
+<p>
+As part of initiating this strike, you must make a successful melee attack
+against an enemy creature whose alignment has at least one component different
+from yours. This foe must pose a threat to you or your allies in some direct,
+immediate way. If your attack hits, you or an ally within 10 feet of you heals
+3d6 points of damage + 1 point per initiator level (maximum +10).
+</p>
+<p>
+You must be a divine character, be zealously devoted to a righteous cause, or
+similar source of divine inspiration to take this maneuver.
+</p>
+</div>
+</details>
+<details class="maneuver" id="roots-of-the-mountain">
+<summary style="cursor:pointer">
+Roots of the Mountain</summary>
+<div>
+<h2>Roots of the Mountain</h2>
+<p>
+Stone Dragon(Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Stone Dragon maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+This stance immediately ends if you move more than 5' feet for any reason,
+including your regular movement and fored movement and teleports.
+</p>
+<p>
+While in this stance, you gain DR 2/-. You also get +10 to resist bull rush,
+overrun, trip and grapples. Any creature that moves through your threatened
+areas suffers -10 to Tumble.
+</p>
+</div>
+</details>
+<details class="maneuver" id="shadow-blade-technique">
+<summary style="cursor:pointer">
+Shadow Blade Technique</summary>
+<div>
+<h2>Shadow Blade Technique</h2>
+<p>
+Shadow Hand (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee Attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One Creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You weave your weapon in an elaborate pattern, creating an illusory double
+that glows with white energy. As you make your attack, both your true weapon
+and the illusion slash at your foe.
+</p>
+<p>
+This maneuver allows you to create a mystical double of your weapon. As you
+attack, your foe must decide which weapon to defend against. In most cases,
+the illusory weapon distracts your foe and allows your true attack to hit. In
+some cases, both attacks strike home. In this case, the shadow blade
+discharges its magic and imbues your attack with cold energy.
+</p>
+<p>
+As part of this maneuver, you make a single melee attack against an opponent.
+Unlike on a normal attack, you roll 2d20 and select which of the two die
+results to use. If you use the higher die result, resolve your attack as
+normal. (Your mystic double misses, but your true attack might hit.) If you
+use the lower die result, or if both die results are the same, your attack
+deals an extra 1d6 points of cold damage as both the mystic double’s attack
+and your true weapon strike home.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="shadow-duplicate">
+<summary style="cursor:pointer">
+Shadow Duplicate</summary>
+<div>
+<h2>Shadow Duplicate</h2>
+<p>
+Shadow Hand (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>until your next turn.</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You make a shadowy duplicate of yourself next to yourself while
+simultaneously covering yourself in shadow. You and the duplicate look and
+act identically. You may have the duplicate mimic your actions, thus making
+it impossible to tell which one is the real you (like with mirror image) or
+you can have the duplicate move as you like at your speed with a single move
+action. The duplicate can't take actions or deal damage, but it does seem to
+threaten. The duplicate has the same AC and ability scores, etc. as you, but
+if it takes damage or is forced to make a saving throw it immediately
+disappears. The duplicate lasts until the beginning of your next turn.
+</p>
+<p>
+This maneuver is a supernatural ability.
+</p>
+</div>
+</details>
+<details class="maneuver" id="shield-block">
+<summary style="cursor:pointer">
+Shield Block</summary>
+<div>
+<h2>Shield Block</h2>
+<p>
+Devoted Spirit (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 immediate action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Instantaneous</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+With a heroic burst of effort, you thrust your shield between your defenseless
+ally and your enemy.
+</p>
+<p>
+As an immediate action, you can grant an AC bonus to an adjacent ally equal to
+your shield’s AC bonus + 4. You apply this bonus in response to a single
+melee or ranged attack that targets your ally. You can initiate this maneuver
+after an opponent makes his attack roll, but you must do so before you know
+whether the attack was a success or a failure.
+</p>
+</div>
+</details>
+<details class="maneuver" id="slice-and-dice">
+<summary style="cursor:pointer">
+Slice and Dice</summary>
+<div>
+<h2>Slice and Dice</h2>
+<p>
+Burglar's Tricks (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You must be two-weapon fighting to use this maneuver. As part of this
+maneuver, you make an attack with both weapons you wield against one opponent.
+Both attacks must target the same creature, and you reduce your two-weapon
+fighting penalties by 2.
+</p>
+</div>
+</details>
+<details class="maneuver" id="snipers-stance">
+<summary style="cursor:pointer">
+Sniper's Stance</summary>
+<div>
+<h2>Sniper's Stance</h2>
+<p>
+Burglar's Tricks (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+If you make a ranged attack while hidden, if your attack misses, you are not
+revealed.
+</p>
+</div>
+</details>
+<details class="maneuver" id="split-the-arrow">
+<summary style="cursor:pointer">
+Split the Arrow</summary>
+<div>
+<h2>Split the Arrow</h2>
+<p>
+Burglar's Tricks (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>melee</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Attack with main and off-hand weapon with no two-weapon fighting penalty. If
+neither attack qualifies for sneak attack damage, you may deal bonus damage
+equal to your sneak attack dice on the first attack that hits.
+</p>
+</div>
+</details>
+<details class="maneuver" id="spot-the-danger">
+<summary style="cursor:pointer">
+Spot the Danger</summary>
+<div>
+<h2>Spot the Danger</h2>
+<p>
+Eagle Eye (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Immediate Action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>30'</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>an allied creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When an ally you can see rolls a reflex saving throw or perception saving
+throw, you may give that ally a +3 bonus on that save. This needs to be
+declared before the save is rolled. This doesn't stack with <a href="#trapfinders-caution">Trapfinder's Caution</a>.
+</p>
+</div>
+</details>
+<details class="maneuver" id="stance-of-clarity">
+<summary style="cursor:pointer">
+Stance of Clarity</summary>
+<div>
+<h2>Stance of Clarity</h2>
+<p>
+Iron Heart (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Iron Heart maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+While you are in this stance, you must choose a single opponent as your target
+at the start of your turn. You gain a +2 insight bonus to AC against that foe
+until you change the target of this stance. You take a -2 penalty to AC
+against all other opponents.
+</p>
+<p>
+David Errata: This is now an Iron Heart stance instead of a Diamond Mind
+stance.
+</p>
+</div>
+</details>
+<details class="maneuver" id="steady-hands">
+<summary style="cursor:pointer">
+Steady Hands</summary>
+<div>
+<h2>Steady Hands</h2>
+<p>
+Eagle Eye (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Calculate range penalties from range increments as if you were attacking 100' closer until the
+start of your next turn.
+</p>
+</div>
+</details>
+<details class="maneuver" id="steel-wind">
+<summary style="cursor:pointer">
+Steel Wind</summary>
+<div>
+<h2>Steel Wind</h2>
+<p>
+Iron Heart (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>two creatures</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When you use this maneuver, you make two melee attacks, each against a
+different target that you threaten. Resolve each attack separately.
+</p>
+</div>
+</details>
+<details class="maneuver" id="steely-strike">
+<summary style="cursor:pointer">
+Steely Strike</summary>
+<div>
+<h2>Steely Strike</h2>
+<p>
+Iron Heart (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One Creature</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round (sort of)</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You make a single melee attack as part of this strike, at a +4 bonus on the
+attack roll. All other opponents other than the one you attack gain a +4 bonus
+on attack rolls against you for 1 round.
+</p>
+</div>
+</details>
+<details class="maneuver" id="stone-bones">
+<summary style="cursor:pointer">
+Stone Bones</summary>
+<div>
+<h2>Stone Bones</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>you</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When you use this maneuver, make a single melee attack. If you hit, you gain
+DR 5/adamantine for 1 round.
+</p>
+</div>
+</details>
+<details class="maneuver" id="stone-defense">
+<summary style="cursor:pointer">
+Stone Defense</summary>
+<div>
+<h2>Stone Defense</h2>
+<p>
+Stone Dragon (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 immediate action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Using the wisdom of stone, you can tell when your enemy will hit you.
+If your opponent strikes you on his turn, you can replace your AC with the
+result of a Sense Motive check as an immediate action. You can use this
+maneuver after the attack roll is rolled. If you would be denied your
+dexterity bonus to AC you can't use this maneuver. This adjustment to your AC
+only applies against the single attack.
+</p>
+</div>
+</details>
+<details class="maneuver" id="stone-vise">
+<summary style="cursor:pointer">
+Stone Vise</summary>
+<div>
+<h2>Stone Vise</h2>
+<p>
+Stone Dragon (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>Creature Struck</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round</td>
+</tr>
+<tr>
+<td>Saving Throw:</td>
+<td>Fortitude Partial</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single melee attack, dealing an extra 1d6 damage on a hit. If you hit
+and the creature is standing on the ground, your attack also drops the
+target's speed to 0 feet for 1 round. They can negate this by making a
+Fortitude save against DC 12 + your Str modifier.
+</p>
+</div>
+</details>
+<details class="maneuver" id="stonefoot-stance">
+<summary style="cursor:pointer">
+Stonefoot Stance</summary>
+<div>
+<h2>Stonefoot Stance</h2>
+<p>
+Stone Dragon (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Stone Dragon maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+This stance immediately ends if you move more than 5' feet for any reason,
+including your regular movement and forced movement and teleports.
+</p>
+<p>
+While in this stance, you get +2 AC against creatures bigger than you and +2
+to strength checks against creatures bigger than you. (Bigger means large and larger
+size category).
+</p>
+</div>
+</details>
+<details class="maneuver" id="sudden-leap">
+<summary style="cursor:pointer">
+Sudden Leap</summary>
+<div>
+<h2>Sudden Leap</h2>
+<p>
+Tiger Claw (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Tiger Claw maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Instantaneous</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+This turn, your jumps do not provoke attacks of opportunity and do not suffer
+a penalty for not having a running start.
+</p>
+</div>
+</details>
+<details class="maneuver" id="tactical-strike">
+<summary style="cursor:pointer">
+Tactical Strike</summary>
+<div>
+<h2>Tactical Strike</h2>
+<p>
+White Raven (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You make a mighty attack that knocks your opponent into a defenseless
+position, granting your allies a moment to move into a better position. If
+your attack lands true, it leaves your enemy momentarily shaken by its
+tremendous impact.
+</p>
+<p>
+As part of this maneuver, you make a single melee attack. If your attack hits,
+you deal an extra 2d6 points of damage. In addition, each ally adjacent to the
+target can take an immediate 5-foot step that does not provoke attacks of
+opportunity.
+</p>
+</div>
+</details>
+<details class="maneuver" id="thicket-of-blades">
+<summary style="cursor:pointer">
+Thicket Of Blades</summary>
+<div>
+<h2>Thicket Of Blades</h2>
+<p>
+Devoted Spirit (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Devoted Spirit maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You maintain a careful guard as you search for any gaps in your opponent’s
+awareness. Even the slightest move provokes a stinging counter from you.
+</p>
+<p>
+While you are in this stance, any opponent you threaten that takes any sort of
+movement, including a 5-foot step, provokes an attack of opportunity from you.
+Your foes provoke this attack before leaving the area you threaten. Your
+opponents also cannot use the withdraw action (PH 143) to treat the square
+they start in as no longer threatened by you.
+</p>
+</div>
+</details>
+<details class="maneuver" id="thugs-stance">
+<summary style="cursor:pointer">
+Thug's Stance</summary>
+<div>
+<h2>Thug's Stance</h2>
+<p>
+Burglar's Tricks (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Whenever you deal sneak attack damage to an enemy, that enemy has -2 on
+attacks against you until the start of your next turn. This effect does not
+work on enemies who are immune to fear.
+</p>
+</div>
+</details>
+<details class="maneuver" id="trapfinders-caution">
+<summary style="cursor:pointer">
+Trapfinder's Caution</summary>
+<div>
+<h2>Trapfinder's Caution</h2>
+<p>
+Burglar's Tricks (Stance)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Rogue, 1 Burglar's Tricks maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Swift Action</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Stance</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You get a +3 bonus to perception saves against traps while in this stance.
+</p>
+</div>
+</details>
+<details class="maneuver" id="trick-shot">
+<summary style="cursor:pointer">
+Trick Shot</summary>
+<div>
+<h2>Trick Shot</h2>
+<p>
+Eagle Eye (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Ranged attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>one creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make a single ranged attack. This attack has a +2 bonus and ignores anything less than total cover.
+</p>
+</div>
+</details>
+<details class="maneuver" id="vanguard-strike">
+<summary style="cursor:pointer">
+Vanguard Strike</summary>
+<div>
+<h2>Vanguard Strike</h2>
+<p>
+Devoted Spirit (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You batter aside your foes defenses with a vicious, overwhelming attack,
+leaving him vulnerable to your allies’ blows.
+</p>
+<p>
+As part of this maneuver, you make a melee attack against an opponent you
+threaten. If this attack hits, all your allies gain a +4 morale bonus on
+ranged and melee attacks against that target until the start of your next turn
+</p>
+<p>
+David Errata: the bonus is a morale bonus.
+</p>
+</div>
+</details>
+<details class="maneuver" id="volley">
+<summary style="cursor:pointer">
+Volley</summary>
+<div>
+<h2>Volley</h2>
+<p>
+Eagle Eye (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Eagle Eye maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Ranged weapon attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>Up to 3 creatures</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Make ranged attacks at your highest BAB against up to three different creatures.
+</p>
+</div>
+</details>
+<details class="maneuver" id="wall-of-blades">
+<summary style="cursor:pointer">
+Wall of Blades</summary>
+<div>
+<h2>Wall of Blades</h2>
+<p>
+Iron Heart (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 immediate action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+When an enemy makes a melee or ranged attack against you, you can initiate
+this counter to attempt to counter that attack. Make an attack roll with any
+melee weapon you are holding (you must be armed). Use the higher of your AC or
+your attack roll as your effective AC against the incoming attack. You can't
+use this maneuver if you would be denied your dexterity bonus to AC. You can
+use this maneuver after the attack roll is rolled.
+</p>
+</div>
+</details>
+<details class="maneuver" id="white-raven-tactics">
+<summary style="cursor:pointer">
+White Raven Tactics</summary>
+<div>
+<h2>White Raven Tactics</h2>
+<p>
+White Raven (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One White Raven Maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>an ally</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+An ally can take another standard action this round. They can't triple move.
+</p>
+</div>
+</details>
+<details class="maneuver" id="wind-stride">
+<summary style="cursor:pointer">
+Wind Stride</summary>
+<div>
+<h2>Wind Stride</h2>
+<p>
+Desert Wind (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 swift action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>End of turn</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+A warm breeze swirls about you as you move speedily away.
+</p>
+<p>
+The desert wind envelops you and carries you across the battlefield, giving
+you a burst of speed to move around and through your enemies. Until the end of
+your turn, you gain a +10-foot enhancement bonus to your land speed.
+</p>
+</div>
+</details>
+<details class="maneuver" id="wolf-fang-strike">
+<summary style="cursor:pointer">
+Wolf Fang Strike</summary>
+<div>
+<h2>Wolf Fang Strike</h2>
+<p>
+Tiger Claw (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee attack</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You must be two-weapon fighting to use this maneuver.  As part of this
+maneuver, you make an attack with both weapons you wield against one
+opponent. Both attacks must target the same creature, and you reduce your
+two-weapon fighting penalties by 2.
+</p>
+</div>
+</details>
+<details class="maneuver" id="zephyr-dance">
+<summary style="cursor:pointer">
+Zephyr Dance</summary>
+<div>
+<h2>Zephyr Dance</h2>
+<p>
+Desert Wind (Counter)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>Monk, One Desert Wind maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 immediate action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>Instantaneous; see text</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You spin gracefully away from a foe’s attack, whirling like the desert
+zephyr racing across the sands. Your enemy’s blade barely touches your cloak
+as you nimbly dodge aside.
+</p>
+<p>
+You gain a +4 dodge bonus to AC against a single attack. You can choose to use
+this maneuver after an opponent resolves his attack but before he determines
+damage.
+</p>
+</div>
+</details>
+</div>
+</div>
+<div class="left">
+<nav id="nav">
+<ul>
+<li><a href="#abscond">Abscond</a></li>
+<li><a href="#battle-leaders-charge">Battle Leader's Charge</a></li>
+<li><a href="#bear-claw-strike">Bear Claw Strike</a></li>
+<li><a href="#blistering-flourish">Blistering Flourish</a></li>
+<li><a href="#blood-frenzy">Blood Frenzy</a></li>
+<li><a href="#bloody-claws">Bloody Claws</a></li>
+<li><a href="#bolstering-voice">Bolstering Voice</a></li>
+<li><a href="#bonecrusher">Bonecrusher</a></li>
+<li><a href="#bowling-ball">Bowling Ball</a></li>
+<li><a href="#burning-blade">Burning Blade</a></li>
+<li><a href="#burning-brand">Burning Brand</a></li>
+<li><a href="#charging-minotaur">Charging Minotaur</a></li>
+<li><a href="#child-of-shadow">Child of Shadow</a></li>
+<li><a href="#claw-at-the-moon">Claw at the Moon</a></li>
+<li><a href="#clever-positioning">Clever Positioning</a></li>
+<li><a href="#clinging-shadow-strike">Clinging Shadow Strike</a></li>
+<li><a href="#cloak-of-deception">Cloak of Deception</a></li>
+<li><a href="#counter-charge">Counter Charge</a></li>
+<li><a href="#covering-fire">Covering Fire</a></li>
+<li><a href="#crusaders-strike">Crusader's Strike</a></li>
+<li><a href="#dart-and-dash">Dart and Dash</a></li>
+<li><a href="#dazing-ambush">Dazing Ambush</a></li>
+<li><a href="#death-mark">Death Mark</a></li>
+<li><a href="#defensive-rebuke">Defensive Rebuke</a></li>
+<li><a href="#disappear">Disappear</a></li>
+<li><a href="#disarming-strike">Disarming Strike</a></li>
+<li><a href="#distracting-ambush">Distracting Ambush</a></li>
+<li><a href="#douse-the-flames">Douse The Flames</a></li>
+<li><a href="#drain-vitality">Drain Vitality</a></li>
+<li><a href="#eagle-eye-stance">Eagle Eye Stance</a></li>
+<li><a href="#emerald-razor">Emerald Razor</a></li>
+<li><a href="#escape-fate">Escape Fate</a></li>
+<li><a href="#exorcising-blow">Exorcising Blow</a></li>
+<li><a href="#exploit">Exploit</a></li>
+<li><a href="#fan-the-flames">Fan The Flames</a></li>
+<li><a href="#feigned-opening">Feigned Opening</a></li>
+<li><a href="#find-weak-point">Find Weak Point</a></li>
+<li><a href="#fire-riposte">Fire Riposte</a></li>
+<li><a href="#first-into-battle">First into Battle</a></li>
+<li><a href="#flames-blessing">Flame's Blessing</a></li>
+<li><a href="#flashing-sun">Flashing Sun</a></li>
+<li><a href="#foehammer">Foehammer</a></li>
+<li><a href="#furious-recovery">Furious Recovery</a></li>
+<li><a href="#giant-fighting-stance">Giant Fighting Stance</a></li>
+<li><a href="#hatchlings-flame">Hatchling's Flame</a></li>
+<li><a href="#holocaust-cloak">Holocaust Cloak</a></li>
+<li><a href="#hook-kick">Hook Kick</a></li>
+<li><a href="#intercept-the-missile">Intercept the Missile</a></li>
+<li><a href="#iron-guards-glare">Iron Guard's Glare</a></li>
+<li><a href="#iron-heart-surge">Iron Heart Surge</a></li>
+<li><a href="#island-of-blades">Island of Blades</a></li>
+<li><a href="#kick">Kick</a></li>
+<li><a href="#knockout">Knockout</a></li>
+<li><a href="#lead-from-the-front">Lead From the Front</a></li>
+<li><a href="#leading-the-attack">Leading The Attack</a></li>
+<li><a href="#leap-to-safety">Leap to Safety</a></li>
+<li><a href="#leaping-dragon-stance">Leaping Dragon Stance</a></li>
+<li><a href="#leaping-dragon-strike">Leaping Dragon Strike</a></li>
+<li><a href="#lions-roar">Lion's Roar</a></li>
+<li><a href="#marksmans-stance">Marksman's Stance</a></li>
+<li><a href="#martial-spirit">Martial Spirit</a></li>
+<li><a href="#merciless-claws">Merciless Claws</a></li>
+<li><a href="#mighty-shove">Mighty Shove</a></li>
+<li><a href="#mobile-archery">Mobile Archery</a></li>
+<li><a href="#mountain-hammer">Mountain Hammer</a></li>
+<li><a href="#overwatch">Overwatch</a></li>
+<li><a href="#pearl-of-black-doubt">Pearl Of Black Doubt</a></li>
+<li><a href="#piercing-shot">Piercing Shot</a></li>
+<li><a href="#pouncing-lion-strike">Pouncing Lion Strike</a></li>
+<li><a href="#punishing-stance">Punishing Stance</a></li>
+<li><a href="#rabid-wolf-strike">Rabid Wolf Strike</a></li>
+<li><a href="#rally-the-pack">Rally the Pack</a></li>
+<li><a href="#rangers-stance">Ranger's Stance</a></li>
+<li><a href="#relentless">Relentless</a></li>
+<li><a href="#retaliation">Retaliation</a></li>
+<li><a href="#revitalizing-strike">Revitalizing Strike</a></li>
+<li><a href="#roots-of-the-mountain">Roots of the Mountain</a></li>
+<li><a href="#shadow-blade-technique">Shadow Blade Technique</a></li>
+<li><a href="#shadow-duplicate">Shadow Duplicate</a></li>
+<li><a href="#shield-block">Shield Block</a></li>
+<li><a href="#slice-and-dice">Slice and Dice</a></li>
+<li><a href="#snipers-stance">Sniper's Stance</a></li>
+<li><a href="#split-the-arrow">Split the Arrow</a></li>
+<li><a href="#spot-the-danger">Spot the Danger</a></li>
+<li><a href="#stance-of-clarity">Stance of Clarity</a></li>
+<li><a href="#steady-hands">Steady Hands</a></li>
+<li><a href="#steel-wind">Steel Wind</a></li>
+<li><a href="#steely-strike">Steely Strike</a></li>
+<li><a href="#stone-bones">Stone Bones</a></li>
+<li><a href="#stone-defense">Stone Defense</a></li>
+<li><a href="#stone-vise">Stone Vise</a></li>
+<li><a href="#stonefoot-stance">Stonefoot Stance</a></li>
+<li><a href="#sudden-leap">Sudden Leap</a></li>
+<li><a href="#tactical-strike">Tactical Strike</a></li>
+<li><a href="#thicket-of-blades">Thicket Of Blades</a></li>
+<li><a href="#thugs-stance">Thug's Stance</a></li>
+<li><a href="#trapfinders-caution">Trapfinder's Caution</a></li>
+<li><a href="#trick-shot">Trick Shot</a></li>
+<li><a href="#vanguard-strike">Vanguard Strike</a></li>
+<li><a href="#volley">Volley</a></li>
+<li><a href="#wall-of-blades">Wall of Blades</a></li>
+<li><a href="#white-raven-tactics">White Raven Tactics</a></li>
+<li><a href="#wind-stride">Wind Stride</a></li>
+<li><a href="#wolf-fang-strike">Wolf Fang Strike</a></li>
+<li><a href="#zephyr-dance">Zephyr Dance</a></li>
+</ul>
+</nav></div>
+</body>
+</html>

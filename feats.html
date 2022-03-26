@@ -1,0 +1,4494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Feats</title>
+<style>
+* {box-sizing: border-box;}
+body {font-family: -apple-system;}
+body {display: grid; grid-template-columns: 24em auto; height: 100vh; grid-template-rows: 100vh; margin:0;}
+#feats, #toc{
+    overflow-y: auto;
+    padding: 0 2em;
+}
+#feats > * {
+  max-width: 44em;
+}
+.feat {
+border: 1px dotted gray;
+margin: 16px 0em;
+padding: 16px;
+}
+.banned {
+background-color: rgba(255, 0, 0, 0.2);
+}
+#checkboxes {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: repeat(3, auto);
+  -webkit-user-select: none;
+  user-select: none;
+}
+/*endcss*/
+</style>
+<script>
+//endjs
+</script>
+<script>
+let states = {}
+function do_change(){
+  let checked = [];
+  let unchecked = [];
+  for(let inp of document.getElementsByTagName('input')){
+    if(inp.type != 'checkbox') continue;
+    if(inp.checked) checked.push(inp.parentNode.innerText.trim());
+    else unchecked.push(inp.parentNode.innerText.trim());
+  }
+  for(let c of unchecked){
+    for(let n of document.getElementsByClassName(c))
+      if(n.style.display != 'none') n.style.display = 'none';
+  }
+  for(let c of checked){
+    for(let n of document.getElementsByClassName(c))
+      if(n.style.display = 'none') n.style.display = n.tagName == 'LI'?'list-item':'block';
+  }
+}
+function do_all(){
+  for(let inp of document.getElementsByTagName("input") ){
+    if(inp.type != 'checkbox') continue;
+    inp.checked = true;
+  }
+  do_change();
+}
+function do_none(){
+  for(let inp of document.getElementsByTagName("input") ){
+    if(inp.type != 'checkbox') continue;
+    inp.checked = false;
+  }
+  do_change();
+}
+//endjs
+</script>
+</head>
+<body>
+<div id="toc">
+<ul>
+<li class="Cleric Druid"><a href="#augment-healing">Augment Healing</a></li>
+<li class="Paladin"><a href="#battle-blessing">Battle Blessing</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#blind-fight">Blind-Fight</a></li>
+<li class="Paladin"><a href="#cleave">Cleave</a></li>
+<li class="Wizard"><a href="#collegiate-wizard">Collegiate Wizard</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#combat-expertise">Combat Expertise</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger Rogue"><a href="#combat-reflexes">Combat Reflexes</a></li>
+<li class="Fighter Ranger Rogue"><a href="#coordinated-shot">Coordinated Shot</a></li>
+<li class="Fighter Ranger Rogue"><a href="#crossbow-sniper">Crossbow Sniper</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#sweeping-wave-strike">Sweeping Wave Strike</a></li>
+<li class="Rogue"><a href="#darkstalker">Darkstalker</a></li>
+<li class="Any"><a href="#dash">Dash</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger Rogue"><a href="#deadly-defense">Deadly Defense</a></li>
+<li class="Monk"><a href="#deflect-arrows">Deflect Arrows</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger Rogue"><a href="#deft-opportunist">Deft Opportunist</a></li>
+<li class="Barbarian"><a href="#destructive-rage">Destructive Rage</a></li>
+<li class="Any"><a href="#diehard">Diehard</a></li>
+<li class="Any"><a href="#dodge">Dodge</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#double-hit">Double Hit</a></li>
+<li class="Cleric"><a href="#earth-devotion">Earth Devotion</a></li>
+<li class="Any"><a href="#endurance">Endurance</a></li>
+<li class="Sorcerer Wizard"><a href="#enlarge-spell">Enlarge Spell</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#exotic-weapon-proficiency">Exotic Weapon Proficiency</a></li>
+<li class="Sorcerer Wizard"><a href="#extend-spell">Extend Spell</a></li>
+<li class="Cleric"><a href="#extra-domain-spell">Extra Domain Spell</a></li>
+<li class="Barbarian"><a href="#extra-rage">Extra Rage</a></li>
+<li class="Paladin"><a href="#extra-smiting">Extra Smiting</a></li>
+<li class="Sorcerer"><a href="#extra-spell-known">Extra Spell Known</a></li>
+<li class="Monk"><a href="#extra-stunning">Extra Stunning</a></li>
+<li class="Cleric"><a href="#extra-turning">Extra Turning</a></li>
+<li class="Sorcerer Wizard"><a href="#face-changer">Face-Changer</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#far-shot">Far Shot</a></li>
+<li class="Cleric Druid Sorcerer Wizard"><a href="#favorite-spell">Favorite Spell</a></li>
+<li class="Sorcerer Wizard"><a href="#fearsome-necromancy">Fearsome Necromancy</a></li>
+<li class="Sorcerer Wizard"><a href="#fiery-ray">Fiery Ray</a></li>
+<li class="Sorcerer Wizard"><a href="#fiery-spell">Fiery Spell</a></li>
+<li class="Rogue"><a href="#flick-of-the-wrist">Flick of the Wrist</a></li>
+<li class="Monk"><a href="#flying-kick">Flying Kick</a></li>
+<li class="Cleric"><a href="#good-devotion">Good Devotion</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#great-cleave">Great Cleave</a></li>
+<li class="Any"><a href="#great-fortitude">Great Fortitude</a></li>
+<li class="Sorcerer Wizard"><a href="#greater-spell-focus">Greater Spell Focus</a></li>
+<li class="Sorcerer Wizard"><a href="#greater-spell-penetration">Greater Spell Penetration</a></li>
+<li class="Cleric"><a href="#healing-devotion">Healing Devotion</a></li>
+<li class="Sorcerer Wizard"><a href="#heighten-spell">Heighten Spell</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#hold-the-line">Hold the Line</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#hurling-charge">Hurling Charge</a></li>
+<li class="Sorcerer Wizard"><a href="#hurricane-breath">Hurricane Breath</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-bull-rush">Improved Bull Rush</a></li>
+<li class="Sorcerer Wizard"><a href="#improved-counterspell">Improved Counterspell</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-disarm">Improved Disarm</a></li>
+<li class="Ranger"><a href="#improved-favored-enemy">Improved Favored Enemy</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-grapple">Improved Grapple</a></li>
+<li class="Any"><a href="#improved-initiative">Improved Initiative</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-overrun">Improved Overrun</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-shieldmate">Improved Shieldmate</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-sunder">Improved Sunder</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-trip">Improved Trip</a></li>
+<li class="Cleric"><a href="#improved-turning">Improved Turning</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-two-weapon-defense">Improved Two-Weapon Defense</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-two-weapon-fighting">Improved Two-Weapon Fighting</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#improved-unarmed-strike">Improved Unarmed Strike</a></li>
+<li class="Any"><a href="#indomitable-soul">Indomitable Soul</a></li>
+<li class="Barbarian"><a href="#instantaneous-rage">Instantaneous Rage</a></li>
+<li class="Any"><a href="#iron-will">Iron Will</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#karmic-strike">Karmic Strike</a></li>
+<li class="Cleric"><a href="#law-devotion">Law Devotion</a></li>
+<li class="Any"><a href="#lightning-reflexes">Lightning Reflexes</a></li>
+<li class="Barbarian"><a href="#mad-foam-rager">Mad Foam Rager</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#mage-slayer">Mage Slayer</a></li>
+<li class="Rogue"><a href="#magic-device-attunement">Magic Device Attunement</a></li>
+<li class="Cleric"><a href="#magic-devotion">Magic Devotion</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#manyshot">Manyshot</a></li>
+<li class="Any"><a href="#mobility">Mobility</a></li>
+<li class="Fighter"><a href="#necropotent">Necropotent</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#oversized-two-weapon-fighting">Oversized Two-Weapon Fighting</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#pierce-magical-concealment">Pierce Magical Concealment</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#pierce-magical-protection">Pierce Magical Protection</a></li>
+<li class="Any"><a href="#point-blank-shot">Point Blank Shot</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#power-attack">Power Attack</a></li>
+<li class="Any"><a href="#precise-shot">Precise Shot</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#prone-attack">Prone Attack</a></li>
+<li class="Cleric"><a href="#protection-devotion">Protection Devotion</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#pushback">Pushback</a></li>
+<li class="Any"><a href="#quick-draw">Quick Draw</a></li>
+<li class="Cleric"><a href="#quicken-turning">Quicken Turning</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#ranged-disarm">Ranged Disarm</a></li>
+<li class="Sorcerer Wizard"><a href="#ranged-spell-specialization">Ranged Spell Specialization</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#rapid-shot">Rapid Shot</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#reckless-charge">Reckless Charge</a></li>
+<li class="Any"><a href="#run">Run</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#shield-specialization">Shield Specialization</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#shield-ward">Shield Ward</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#shieldmate">Shieldmate</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#shock-trooper">Shock Trooper</a></li>
+<li class="Sorcerer Wizard"><a href="#silent-spell">Silent Spell</a></li>
+<li class="Any"><a href="#skill-focus">Skill Focus</a></li>
+<li class="Sorcerer Wizard"><a href="#smiting-spell">Smiting Spell</a></li>
+<li class="Monk"><a href="#snatch-arrows">Snatch Arrows</a></li>
+<li class="Sorcerer Wizard"><a href="#spell-focus">Spell Focus</a></li>
+<li class="Sorcerer Wizard"><a href="#spell-penetration">Spell Penetration</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger Rogue"><a href="#spring-attack">Spring Attack</a></li>
+<li class="Sorcerer Wizard"><a href="#still-spell">Still Spell</a></li>
+<li class="Sorcerer Wizard"><a href="#storm-bolt">Storm Bolt</a></li>
+<li class="Cleric"><a href="#strength-devotion">Strength Devotion</a></li>
+<li class="Monk"><a href="#stunning-fist">Stunning Fist</a></li>
+<li class="Sorcerer Wizard"><a href="#sudden-enlarge">Sudden Enlarge</a></li>
+<li class="Sorcerer Wizard"><a href="#sudden-extend">Sudden Extend</a></li>
+<li class="Sorcerer Wizard"><a href="#sudden-silent">Sudden Silent</a></li>
+<li class="Sorcerer Wizard"><a href="#sudden-still">Sudden Still</a></li>
+<li class="Sorcerer Wizard"><a href="#sudden-widen">Sudden Widen</a></li>
+<li class="Any"><a href="#torchbearer">Torchbearer</a></li>
+<li class="Sorcerer Wizard"><a href="#touch-spell-specialization">Touch Spell Specialization</a></li>
+<li class="Sorcerer Wizard"><a href="#toughening-transmutation">Toughening Transmutation</a></li>
+<li class="Any"><a href="#toughness">Toughness</a></li>
+<li class="Any"><a href="#track">Track</a></li>
+<li class="Sorcerer Wizard"><a href="#transdimensional-spell">Transdimensional Spell</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger Rogue"><a href="#two-weapon-defense">Two-Weapon Defense</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger Rogue"><a href="#two-weapon-fighting">Two-Weapon Fighting</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#two-weapon-pounce">Two-Weapon Pounce</a></li>
+<li class="Any"><a href="#unquenchable-flame-of-life">Unquenchable Flame of Life</a></li>
+<li class="Monk"><a href="#versatile-unarmed-strike">Versatile Unarmed Strike</a></li>
+<li class="Sorcerer Wizard Rogue"><a href="#wand-specialist">Wand Specialist</a></li>
+<li class="Rogue"><a href="#wandstrike">Wandstrike</a></li>
+<li class="Cleric"><a href="#war-devotion">War Devotion</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger Rogue"><a href="#weapon-finesse">Weapon Finesse</a></li>
+<li class="Any"><a href="#weapon-focus">Weapon Focus</a></li>
+<li class="Fighter"><a href="#weapon-specialization">Weapon Specialization</a></li>
+<li class="Barbarian Fighter Monk Paladin Ranger"><a href="#whirlwind-attack">Whirlwind Attack</a></li>
+<li class="Fighter Ranger"><a href="#zen-archery">Zen Archery</a></li>
+</ul>
+</div>
+<div id="feats">
+<div>
+<p>
+These filters are not requirements - they are merely suggestions for what
+feats may be useful to a given class.
+</p>
+<p>
+The "Any" is for feats that would be useful to any class.
+</p>
+</div>
+<button onclick="do_all()">All</button>
+<button onclick="do_none()">None</button>
+<div id="checkboxes">
+<label><input type=checkbox checked onchange="do_change()"> Any</label>
+<label><input type=checkbox checked onchange="do_change()"> Barbarian</label>
+<label><input type=checkbox checked onchange="do_change()"> Cleric</label>
+<label><input type=checkbox checked onchange="do_change()"> Druid</label>
+<label><input type=checkbox checked onchange="do_change()"> Fighter</label>
+<label><input type=checkbox checked onchange="do_change()"> Monk</label>
+<label><input type=checkbox checked onchange="do_change()"> Paladin</label>
+<label><input type=checkbox checked onchange="do_change()"> Ranger</label>
+<label><input type=checkbox checked onchange="do_change()"> Rogue</label>
+<label><input type=checkbox checked onchange="do_change()"> Sorcerer</label>
+<label><input type=checkbox checked onchange="do_change()"> Wizard</label>
+</div>
+<div>
+<p>
+In addition to the below feats, feats may be used to purchase maneuvers.
+See the <a href="maneuvers.html">maneuver rules</a>.
+</p>
+</div>
+<div class="feat Cleric Druid">
+<h2 id="augment-healing">Augment Healing</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Heal 4 ranks
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Add +2 points per spell level to the amount of damage healed by any
+Conjuration ((Healing)) spell that you cast.
+</p>
+<p>
+For example, a 1st-level cleric with this feat casting cure light wounds
+would restore 1d8+3 hp.  A 3rd-level cleric casting cure moderate wounds
+would restored 2d8+7 hp.
+</p>
+</div>
+</div>
+<div class="feat Paladin">
+<h2 id="battle-blessing">Battle Blessing</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to cast paladin spells
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can cast most of your paladin spells faster than normal. If the
+spell normally requires a standard action, you can cast it as a
+swift action. If it normally requires a full round to cast, you can
+cast it as a standard action. Spells with longer or shorter casting
+times are not affected by this feat.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="blind-fight">Blind-Fight</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+In melee, every time you miss because of concealment, you can reroll your
+miss chance percentile roll one time to see if you actually hit.
+</p>
+<p>
+An invisible attacker gets no advantages related to hitting you in melee.
+That is, you don't lose your Dexterity bonus to Armor Class, and the
+attacker doesn't get the usual +2 bonus for being invisible. The invisible
+attacker's bonuses do still apply for ranged attacks, however.
+</p>
+<p>
+You take only half the usual penalty to speed for being unable to see.
+Darkness and poor visibility in general reduces your speed to
+three-quarters normal, instead of one-half.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Regular attack roll modifiers for invisible attackers trying to hit
+you (see Table 8-5: Attack Roll Modifiers, page 151) apply, and you
+lose your Dexterity bonus to AC. The speed reduction for darkness
+and poor visibility (see Table 9-4: Hampered Movement, page 163)
+also applies.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+The Blind-Fight feat is of no use against a character who is the
+subject of a blink spell.
+</p>
+</div>
+</div>
+<div class="feat Paladin">
+<h2 id="cleave">Cleave</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Str 13
+</li>
+<li>
+<a href="#power-attack">Power Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+If you deal a creature enough damage to make it drop (typically by
+dropping it to below 0 hit points or killing it), you get an
+immediate, extra melee attack against another creature within reach.
+You cannot take a 5-foot step before making this extra attack. The
+extra attack is with the same weapon and at the same bonus as the
+attack that dropped the previous creature. You can use this ability
+once per round.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Cleave as one of his fighter bonus feats (see
+page 38).
+</p>
+</div>
+</div>
+<div class="feat Wizard">
+<h2 id="collegiate-wizard">Collegiate Wizard</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+arcane caster level 1st
+</li>
+<li>
+Int 13
+</li>
+<li>
+Wizard level 1
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You begin play with knowledge of six 1st-level spells plus 1 per
+point of Intelligence modifier. Each time you gain a wizard level,
+you may add four spells to your spellbook without additional
+research. In addition, you gain a +2 bonus on all Knowledge (arcana)
+checks.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+1st-level wizards begin play with knowledge of three 1stlevel
+spells, and can add two spells per level to their spellbooks.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can take this feat only as a 1st-level character.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="combat-expertise">Combat Expertise</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Int 13
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you use the attack action or the full attack action in melee,
+you can take a penalty of as much as -5 on your attack roll and add
+the same number (+5 or less) as a dodge bonus to your Armor Class.
+This number may not exceed your base attack bonus. The changes to
+attack rolls and Armor Class last until your next action.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+A character without the Combat Expertise feat can fight defensively
+while using the attack or full attack action to take a -4 penalty on
+attack rolls and gain a +2 dodge bonus to Armor Class.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Combat Expertise as one of his fighter bonus
+feats (see page 38).
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger Rogue">
+<h2 id="combat-reflexes">Combat Reflexes</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When foes leave themselves open, you may make a number of additional
+attacks of opportunity equal to your Dexterity bonus.
+</p>
+<p>
+You may also make attacks of opportunity while flat-
+footed.
+</p>
+<p>
+For example, a fighter with a Dexterity of 15 can make a total of three
+attacks of opportunity in 1 round&ndash;the one attack of opportunity any
+character is entitled to, plus two more because of his +2 Dexterity bonus.
+If four goblins move out of the character's threatened squares, he can make
+one attack of opportunity each against three of the four. You can still
+make only one attack of opportunity per opportunity.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+A character without this feat can make only one attack of
+opportunity per round and can't make attacks of opportunity while
+flat-footed.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+The Combat Reflexes feat does not allow a rogue to use her
+opportunist ability (see page 51) more than once per round. A
+fighter may select Combat Reflexes as one of his fighter bonus feats
+(see page 38) A monk may select Combat Reflexes as a bonus feat at
+2nd level.
+</p>
+</div>
+</div>
+<div class="feat Fighter Ranger Rogue">
+<h2 id="coordinated-shot">Coordinated Shot</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#point-blank-shot">Point Blank Shot</a> or <a href="#weapon-focus">Weapon Focus</a> for a ranged weapon.
+</li>
+<li>
+<a href="#precise-shot">Precise Shot</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When making a ranged attack against a foe who has soft cover due to the
+position of your ally or allies, your ranged attacks ignore the
+Armor Class bonus granted to the target because of that cover. Cover
+from other sources is unaffected.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter can select Coordinated Shot as one of his fighter bonus
+feats (see page 38 of the Player's Handbook).
+</p>
+</div>
+</div>
+<div class="feat Fighter Ranger Rogue">
+<h2 id="crossbow-sniper">Crossbow Sniper</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Weapon Proficiency with Hand, heavy, or light crossbow
+</li>
+<li>
+Base attack bonus +1
+</li>
+<li>
+<a href="#weapon-focus">Weapon Focus</a> Hand, heavy, or light crossbow
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When using a crossbow for which you have the Weapon Focus feat, you
+gain a bonus on damage rolls equal to 1/2 your Dexterity bonus.
+</p>
+<p>
+If you have the sneak attack ability, the maximum range at which you can
+make such attacks increases to 60 feet when you are using a crossbow for
+which you have the Weapon Focus feat. This also applies to other sources
+of precision damage.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter can select Crossbow Sniper as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="sweeping-wave-strike">Sweeping Wave Strike</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 13
+</li>
+<li>
+<a href="#improved-trip">Improved Trip</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+If you trip an opponent in melee combat, you can immediately make
+another trip attempt against another foe within reach at the same
+total attack bonus as the first trip attack. This replaces the free
+attack you would normally get against the tripped opponent (from the
+Improved Trip feat). If you successfully trip a second opponent, you
+do not get a free attack against that opponent.
+</p>
+<p>
+You can use this feat only once per round.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+A character with Improved Trip who trips an opponent in melee gets a
+free attack against that opponent.
+</p>
+</div>
+</div>
+<div class="feat Rogue">
+<h2 id="darkstalker">Darkstalker</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You may hide (including hide in shadows) against creatures who perceive
+without using sight (such as from blindsense, blindsight, scent or
+tremorsense), in the same way you can hide against sighted creatures.
+</p>
+<p>
+Additionally, if you can flank, you can flank creatures that have
+all-around vision.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Creatures with these senses do not need to make Spot or Listen
+checks to notice other creatures within range. Creatures with all-
+around vision can't be fl anked.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="dash">Dash</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+If you are wearing light armor or no armor and are carrying a light
+load, your speed is 5 feet faster.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger Rogue">
+<h2 id="deadly-defense">Deadly Defense</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When fighting defensively, you deal an extra 1d6 points of damage
+with any light weapon or with any weapon to which the Weapon Finesse
+feat could apply.
+</p>
+<p>
+This feat's benefit applies only when you are unarmored or wearing light
+armor and not using a shield.
+</p>
+<p>
+If you have the Combat Expertise feat, you also gain the benefit of
+Deadly Defense when taking a penalty of at least -2 on your attack
+roll from that feat.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter can select Deadly Defense as one of his fighter bonus
+feats (PH 38).
+</p>
+</div>
+</div>
+<div class="feat Monk">
+<h2 id="deflect-arrows">Deflect Arrows</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 13
+</li>
+<li>
+<a href="#improved-unarmed-strike">Improved Unarmed Strike</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You must have at least one hand free (holding nothing) to use this
+feat. Once per round when you would normally be hit with a ranged
+weapon, you may deflect it so that you take no damage from it. You
+must be aware of the attack and not flat-footed. Attempting to
+deflect a ranged weapon doesn't count as an action.
+</p>
+<p>
+Unusually massive ranged weapons, such as boulders hurled by giants, and
+ranged attacks generated by spell effects, such as Melf's acid arrow, can't
+be deflected.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A monk may select Deflect Arrows as a bonus feat at 2nd level, even
+if she does not meet the prerequisites.
+</p>
+<p>
+A fighter may select Deflect Arrows as one of his fighter bonus feats
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger Rogue">
+<h2 id="deft-opportunist">Deft Opportunist</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 15
+</li>
+<li>
+<a href="#combat-reflexes">Combat Reflexes</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +4 bonus on attack rolls when making attacks of
+opportunity.
+</p>
+</div>
+</div>
+<div class="feat Barbarian">
+<h2 id="destructive-rage">Destructive Rage</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Rage or frenzy ability
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+While you are in a rage or frenzy, you gain a +8 bonus on any
+Strength checks you make to force doors, break down doors or break
+inanimate, immobile objects and similar destructive feats of strength.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="diehard">Diehard</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#endurance">Endurance</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When reduced to between -1 and -9 hit points, you automatically
+become stable. You don't have to roll d% to see if you lose 1 hit
+point each round.
+</p>
+<p>
+When reduced to negative hit points, you may
+choose to act as if you were disabled, rather than dying. You must
+make this decision as soon as you are reduced to negative hit points
+(even if it isn't your turn).  If you do not choose to act as if you
+were disabled, you immediately fall unconscious.
+</p>
+<p>
+When using this
+feat, you can take either a single move or standard action each
+turn, but not both, and you cannot take a full-round action. You can
+take a move action without further injuring yourself, but if you
+perform any standard action (or any other action the DM deems as
+strenuous, including some free actions, such as casting a quickened
+spell) you take 1 point of damage after completing the act.
+</p>
+<p>
+If you reach -10 hit points, you immediately die.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+A character without this feat who is reduced to between -1 and -9
+hit points is unconscious and dying, as described in Chapter 8:
+Combat.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="dodge">Dodge</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 13
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +1 dodge bonus to AC.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Dodge as one of his fighter bonus feats (see
+page 38).
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="double-hit">Double Hit</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#combat-reflexes">Combat Reflexes</a>
+</li>
+<li>
+<a href="#two-weapon-fighting">Two-Weapon Fighting</a>
+</li>
+<li>
+<a href="#improved-two-weapon-fighting">Improved Two-Weapon Fighting</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When making an attack of opportunity, you may make an attack with
+your off hand against the same target at the same time. You must
+decide before your first attack roll whether you want to also use
+your off hand. If you do, both attacks take the standard penalties
+for fighting with two weapons.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Double Hit as one of his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="earth-devotion">Earth Devotion</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Cleric with the Earth Domain
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+This feat is garbage and needs to be rewritten.
+</p>
+<p>
+<s>
+Once per day as an immediate action, you can ignore the effects of
+difficult terrain or make terrain near you more difficult to move
+through. If you use this ability on yourself, you can ignore the
+effects of difficult terrain for 1 minute. This ability also grants
+you a +5 sacred (if your deity is good or neutral) or profane (if
+your deity is evil) bonus on Balance, Climb, and Jump checks. If you
+use this ability to affect nearby terrain, you can change one 5-foot
+square of earth or stone from normal to difficult terrain for every
+three character levels you possess (minimum 1 square; maximum 6
+squares at 18th level). The first square you change must be within
+30 feet of you, and all other squares must be linked to that one in
+an unbroken line. Thus, the second square must be adjacent to the
+first, the third must be adjacent to the first or second, and so on.
+This change lasts for 1 minute. On attaining 10th level, you can
+</p>
+<p>
+difficult terrain using this ability. These spikes work like
+caltrops (PH 126), except that the bonus on attack rolls for each
+spike equals your base attack bonus, and they cannot be swept away.
+This effect also lasts 1 minute. If you cause spikes to appear
+underneath a creature on the affected surface, they immediately
+&amp;quot;attack. &amp;quot; SPECIAL:
+</s>
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can select this feat multiple times, gaining one additional daily use
+each time you take it.
+</p>
+<p>
+If you have the ability to turn or rebuke undead, you gain one
+additional daily use of this feat for each daily turn or rebuke use
+you expend.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="endurance">Endurance</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +4 bonus on the following checks and saves:
+</p>
+<ul>
+<li>
+Swim checks made to resist nonlethal damage
+</li>
+<li>
+Constitution checks made to continue running
+</li>
+<li>
+Constitution checks made to avoid nonlethal damage from a forced march
+</li>
+<li>
+Constitution checks made to hold your breath
+</li>
+<li>
+Constitution checks made to avoid nonlethal damage from starvation or thirst
+</li>
+<li>
+Fortitude saves made to avoid nonlethal damage from hot or cold environments
+</li>
+<li>
+Fortitude saves made to resist damage from suffocation
+</li>
+</ul>
+<p>
+Also, you may sleep in light or medium armor without becoming fatigued.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+A character without this feat who sleeps in medium or heavier armor
+is automatically fatigued the next day.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A ranger automatically gains Endurance as a bonus feat at 3rd level.
+He need not select it.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="enlarge-spell">Enlarge Spell</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can alter a spell with a range of close, medium, or long to
+increase its range by 100%. An enlarged spell with a range of close
+now has a range of 50 ft. + 5 ft./level, while medium-range spells
+have a range of 200 ft. + 20 ft./level and long-range spells have a
+range of 800 ft. + 80 ft./level.
+</p>
+<p>
+An enlarged spell uses up a spell
+slot one level higher than the spell's actual level.
+</p>
+<p>
+Spells whose
+ranges are not defined by distance, as well as spells whose ranges
+are not close, medium, or long, do not have increased ranges.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="exotic-weapon-proficiency">Exotic Weapon Proficiency</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Base attack bonus +1
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You make attack rolls with the weapon normally.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+A character who uses a weapon with which he or she is not proficient
+takes a -4 penalty on attack rolls.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can gain Exotic Weapon Proficiency multiple times. Each time you
+take the feat, it applies to a new type of exotic weapon.
+Proficiency with the bastard sword or the dwarven waraxe has an
+additional prerequisite of Str 13. A fighter may select Exotic
+Weapon Proficiency as one of his fighter bonus feats (see page 38)
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="extend-spell">Extend Spell</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+An extended spell lasts twice as long as normal. A spell with a
+duration of concentration, instantaneous, or permanent is not
+affected by this feat.
+</p>
+<p>
+An extended spell uses up a spell slot one
+level higher than the spell's actual level.
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="extra-domain-spell">Extra Domain Spell</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+access to one domain spell
+</li>
+<li>
+Wis 15
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Choose one domain spell that you can cast. You may cast this spell
+one extra time each day. Once this spell is chosen, it may not be
+changed.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You may take this feat multiple times. Each time you choose this
+feat, you select a different domain spell to which it applies.
+</p>
+</div>
+</div>
+<div class="feat Barbarian">
+<h2 id="extra-rage">Extra Rage</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Rage or frenzy ability
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You rage or frenzy two more times per day than you otherwise could.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can take this feat multiple times. Its effects stack.
+</p>
+</div>
+</div>
+<div class="feat Paladin">
+<h2 id="extra-smiting">Extra Smiting</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Smite ability
+</li>
+<li>
+base attack bonus +4
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you take this feat, you gain two extra attempts to smite per
+day.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can take this feat multiple times,  Its effects stack.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer">
+<h2 id="extra-spell-known">Extra Spell Known</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Sorcerer level 5
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You learn one additional spell at any level up to one lower than the
+highest level of spell you can currently cast.
+</p>
+<p>
+For example, a 3rd-level sorcerer (maximum spell level 2nd) gains a new
+0-level or 1st-level spell known with which to expand her repertoire.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can gain this feat multiple times. Each time, you learn a new
+spell at any level up to one lower than the highest level of spell
+you can cast.
+</p>
+</div>
+</div>
+<div class="feat Monk">
+<h2 id="extra-stunning">Extra Stunning</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +2
+</li>
+<li>
+<a href="#stunning-fist">Stunning Fist</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain the ability to make three extra stunning attacks per day.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can take this feat multiple times, Its effects stack.
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="extra-turning">Extra Turning</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to turn or rebuke creatures
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Each time you take this feat, you can use your ability to turn or
+rebuke undead creatures four more times per day than normal.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, a character can typically turn or rebuke undead
+(or other creatures) a number of times per day equal to 3 + his or
+her Charisma modifier.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can gain Extra Turning twice. Its effects stack. Each
+time you take the feat, you can use each of your turning or rebuking
+abilities four additional times per day.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="face-changer">Face-Changer</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to cast 3rd-level spells
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As long as you have a glamer spell of 3rd level or higher available to
+cast, you can alter your appearance as the spell disguise self as a
+spell-like ability, except that the duration lasts 1 minute per level of
+the glamer spell. This illusory transformation requires a full-round action
+to activate.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="far-shot">Far Shot</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#point-blank-shot">Point Blank Shot</a> or <a href="#weapon-focus">Weapon Focus</a> for a ranged weapon.
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you use a projectile weapon, such as a bow, its range increment
+increases by one-half (multiply by 1.5).
+</p>
+<p>
+When you use a thrown
+weapon, its range increment is doubled.
+</p>
+</div>
+</div>
+<div class="feat Cleric Druid Sorcerer Wizard">
+<h2 id="favorite-spell">Favorite Spell</h2>
+<p>
+Homebrew
+</p>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to cast 1st level spells
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Pick a 1st level spell you know or can cast or can prepare.
+Your caster level with that spell is increased by 1.
+</p>
+<p>
+If this increase in caster level gives no benefit due to reaching a
+cap (such as burning hands being limited to 5d4), you can exceed
+that cap by 1.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="fearsome-necromancy">Fearsome Necromancy</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#spell-focus">Spell Focus</a> (necromancy) or necromancer level 1st
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Any foe required to save against a necromancy spell you cast is
+shaken for 1 round, regardless of the result of the save. This mind-
+affecting fear ability does not stack with any other fear effect (it
+can't make a foe worse than shaken).
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A necromancer can select this feat as a wizard bonus feat.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="fiery-ray">Fiery Ray</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to cast 2nd-level arcane spells
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As long as you have a fire spell of 2nd level or higher available
+to cast, you can spend a standard action to shoot a ray of fire as
+a spell-like ability. The ray of fire is a ranged touch attack with
+Close Range and does 1d6 damage per level of the fire spell.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="fiery-spell">Fiery Spell</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+A fiery spell deals an extra 1 point of fire damage for each die of
+damage the spell deals. This feat can be applied only to spells
+that deal dice of damage and cannot be applied to cold spells.
+</p>
+<p>
+For example, a 3rd level wizard who applies this to magic missile
+can fire 2 missiles each, dealing 1d4+1 force damage + 1 fire
+damage.
+</p>
+<p>
+A fiery spell uses up a spell slot one level higher than the
+spell's actual level.
+</p>
+</div>
+</div>
+<div class="feat Rogue">
+<h2 id="flick-of-the-wrist">Flick of the Wrist</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Sleight of Hand 5 ranks
+</li>
+<li>
+Dex 17
+</li>
+<li>
+<a href="#quick-draw">Quick Draw</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+If you draw a light weapon and make a melee attack with it in the
+same round, you catch your opponent flat-footed (for the purpose of
+this attack only).
+</p>
+<p>
+You may use this feat only once per round and
+once per opponent during any single combat encounter.
+</p>
+</div>
+</div>
+<div class="feat Monk">
+<h2 id="flying-kick">Flying Kick</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Jump 4 ranks
+</li>
+<li>
+Str 13
+</li>
+<li>
+<a href="#improved-unarmed-strike">Improved Unarmed Strike</a>
+</li>
+<li>
+<a href="#power-attack">Power Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When fighting unarmed and using the charge action, you deal an extra
+1d12 points of damage with your unarmed attack.
+</p>
+<p>
+If you somehow have more than one attack when charging, this only applies
+to the first attack.
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="good-devotion">Good Devotion</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Cleric with the Good Domain
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+This feat needs to be rewritten.
+</p>
+<p>
+<s>
+Once per day as an immediate action, you can surround yourself with
+an aura of good that grants you and each of your allies within 30
+feet damage reduction that can be overcome only by evil-aligned
+weapons. The numeric value of this damage reduction is 1 + l/five
+character levels you possess (maximum 5/evil at 20th level). In
+addition, your and your allies' natural and weapon attacks are good-
+aligned for the purpose of overcoming damage reduction. This effect
+lasts for 1 minute.
+</s>
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can select this feat multiple times, gaining one additional
+daily use each time you take it.
+</p>
+<p>
+If you have the ability to turn
+or rebuke undead, you gain one additional daily use of this feat for
+each daily turn or rebuke use you expend.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="great-cleave">Great Cleave</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +4
+</li>
+<li>
+Str 13
+</li>
+<li>
+<a href="#cleave">Cleave</a>
+</li>
+<li>
+<a href="#power-attack">Power Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+This feat works like <a href="#cleave">Cleave</a>, except that there is no limit to the
+number of times you can use it per round.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Great Cleave as one of his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="great-fortitude">Great Fortitude</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +2 bonus on all Fortitude saving throws.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="greater-spell-focus">Greater Spell Focus</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#spell-focus">Spell Focus</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Add +1 to the Difficulty Class for all saving throws against spells
+from the school of magic you select. This bonus stacks with the
+bonus from <a href="#spell-focus">Spell Focus</a>.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can gain this feat multiple times. Its effects do not stack.
+Each time you take the feat, it applies to a new school of magic to
+which you already have applied the Spell Focus feat.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="greater-spell-penetration">Greater Spell Penetration</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#spell-penetration">Spell Penetration</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +2 bonus on caster level checks (1d20 + caster level) made
+to overcome a creature's spell resistance. This bonus stacks with
+the one from <a href="#spell-penetration">Spell Penetration</a>.
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="healing-devotion">Healing Devotion</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Cleric with the Healing Domain
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Once per day, you can gain fast healing 1, +1 for every five
+character levels you possess (maximum fast healing 5 at 20th level).
+This effect lasts for 1 minute.
+</p>
+<p>
+You can activate this feat as an
+immediate action or, if you have a daily available, it automatically
+activates if you are reduced to 0 hit points or below (but not
+killed).
+</p>
+<p>
+As a full-round action, you can transfer this ability to a willing
+recipient as a touch spell. Doing so counts as one daily use of the
+ability.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can select this feat multiple times, gaining one
+additional daily use each time you take it.
+</p>
+<p>
+If you have the ability
+to turn or rebuke undead, you gain one additional daily use of this
+feat for each daily turn or rebuke use you expend.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="heighten-spell">Heighten Spell</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+A heightened spell has a higher spell level than normal (up to a
+maximum of 9th level). Unlike other metamagic feats, Heighten Spell
+actually increases the effective level of the spell that it
+modifies. All effects dependent on spell level (such as saving throw
+DCs and ability to penetrate a lesser globe of invulnerability) are
+calculated according to the heightened level.
+</p>
+<p>
+The heightened spell
+is as difficult to prepare and cast as a spell of its effective
+level.
+</p>
+<p>
+For example, a cleric could prepare hold person as a 4th-
+level spell (instead of a 2nd-level spell), and it would in all ways
+be treated as a 4th-level spell.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="hold-the-line">Hold the Line</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +2
+</li>
+<li>
+<a href="#combat-reflexes">Combat Reflexes</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You may make an attack of opportunity against a charging opponent
+who enters an area you threaten. Your attack of opportunity happens
+immediately before the charge attack is resolved.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+You only get an attack of opportunity against a character that exits
+a square you threaten.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="hurling-charge">Hurling Charge</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Base attack bonus +6
+</li>
+<li>
+<a href="#quick-draw">Quick Draw</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+If you charge an opponent, you may make a ranged attack with a
+thrown weapon as well as a melee attack with another weapon that you
+draw during the charge.
+</p>
+<p>
+Both attacks must
+be made at the same opponent, and both receive the bonus on attack
+rolls for making a charge.
+</p>
+<p>
+If you kill the enemy you're charging
+with the thrown weapon, you complete the charge but don't get a
+melee attack.
+</p>
+<p>
+You must also follow all the requirements of making a
+charge. If you have the ability to make multiple attacks on a
+charge, you may make only one attack in addition to the thrown
+weapon attack.
+</p>
+<p>
+You still take the normal -2 penalty to Armor Class
+for making a charge attack.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Hurling Charge as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="hurricane-breath">Hurricane Breath</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to cast 2nd-level arcane spells
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As long as you have an air spell of 2nd level or higher available to
+cast, you can attempt to knock a single creature within 30 feet back
+with a blast of wind as a spell-like ability.
+</p>
+<p>
+This requires a standard action and functions much like a bull rush; roll
+1d20 + the level of the highest-level air spell you have available to cast
+opposed by your opponent's Strength check.  If you succeed, you push the
+creature back 5 feet.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-bull-rush">Improved Bull Rush</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Str 13
+</li>
+<li>
+<a href="#power-attack">Power Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +4 bonus on the opposed Strength check you make to push back the
+defender when performing a bull rush.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Bull Rush as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="improved-counterspell">Improved Counterspell</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When counterspelling, you may use a spell of the same school that is
+one or more spell levels higher than the target spell.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, you may counter a spell only with the same spell
+or with a spell specifically designated as countering the target
+spell.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-disarm">Improved Disarm</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Int 13
+</li>
+<li>
+<a href="#combat-expertise">Combat Expertise</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You do not provoke an attack of opportunity when you attempt to
+disarm an opponent, nor does the opponent have a chance to disarm
+you. You also gain a +4 bonus on the opposed attack roll you make to
+disarm your opponent.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+See the normal disarm rules, page 155.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Disarm as one of his fighter bonus
+feats (see page 38). A monk may select Improved Disarm as a bonus
+feat at 6th level, even if she does not meet the prerequisites.
+</p>
+</div>
+</div>
+<div class="feat Ranger">
+<h2 id="improved-favored-enemy">Improved Favored Enemy</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Favored enemy ability
+</li>
+<li>
+base attack bonus +5
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You deal an extra 3 points of damage to your favored enemies. This
+benefit stacks with any existing favored enemy bonus gained from
+another class.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-grapple">Improved Grapple</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 13
+</li>
+<li>
+<a href="#improved-unarmed-strike">Improved Unarmed Strike</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +4 bonus on all grapple checks, regardless of whether you
+started the grapple.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Grapple as one of his fighter bonus
+feats. A monk may select Improved Grapple as a bonus
+feat at 1st level, even if she does not meet the prerequisites.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="improved-initiative">Improved Initiative</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +4 bonus on initiative checks.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Initiative as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-overrun">Improved Overrun</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Str 13
+</li>
+<li>
+<a href="#power-attack">Power Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you attempt to overrun an opponent, the target may not choose
+to avoid you. You also gain a +4 bonus on your Strength check to
+knock down your opponent.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, the target of an overrun can choose to avoid you
+or to block you.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Overrun as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-shieldmate">Improved Shieldmate</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +4
+</li>
+<li>
+<a href="#shieldmate">Shieldmate</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As Shieldmate, except that the bonus is +2, or +3 if you are using a
+tower shield.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Shieldmate as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-sunder">Improved Sunder</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Str 13
+</li>
+<li>
+<a href="#power-attack">Power Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +4 bonus on any attack roll
+made to attack an object held or carried by another character.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Sunder as one of his fighter bonus
+feats (see page 38).
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-trip">Improved Trip</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Int 13
+</li>
+<li>
+<a href="#combat-expertise">Combat Expertise</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You do not provoke an attack of opportunity when you attempt to trip
+an opponent while you are unarmed.
+</p>
+<p>
+You also gain a +4 bonus on your
+Strength check to trip your opponent.
+</p>
+<p>
+If you trip an opponent in
+melee combat, you immediately get a melee attack against that
+opponent as if you hadn't used your attack for the trip attempt.
+</p>
+<p>
+For
+example, at 11th level, Tordek gets three attacks at bonuses of +11,
++6, and +1. In the current round, he attempts to trip his opponent.
+His first attempt fails (using up his first attack). His second
+attempt succeeds, and he immediately makes a melee attack against
+his opponent with a bonus of +6. Finally, he takes his last attack
+at a bonus of +1.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, you provoke an attack of opportunity when you
+attempt to trip an opponent while you are unarmed.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+At 6th level, a monk may select Improved Trip as a bonus feat, even
+if she does not have the prerequisites. A fighter may select
+Improved Trip as one of his fighter bonus feats (see page 38).
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="improved-turning">Improved Turning</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to turn or rebuke creatures
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You turn or rebuke creatures as if you were one level higher than
+you are in the class that grants you the ability.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-two-weapon-defense">Improved Two-Weapon Defense</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +6
+</li>
+<li>
+Dex 17
+</li>
+<li>
+<a href="#two-weapon-fighting">Two-Weapon Fighting</a>
+</li>
+<li>
+<a href="#two-weapon-defense">Two-Weapon Defense</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When wielding two weapons (not including natural weapons or unarmed
+strikes), you gain a +2 shield bonus to your Armor Class.
+</p>
+<p>
+When you
+are fighting defensively or using the total defense action, this
+shield bonus increases to +4.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Two-Weapon Defense as one of his
+fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-two-weapon-fighting">Improved Two-Weapon Fighting</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +6
+</li>
+<li>
+Dex 17
+</li>
+<li>
+<a href="#two-weapon-fighting">Two-Weapon Fighting</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+In addition to the standard single extra attack you get with an off-
+hand weapon, you get a second attack with it, albeit at a - 5
+penalty (see Table 8-10, page 160).
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, you can only get a single extra attack with an
+off-hand weapon.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Improved Two-Weapon Fighting as one of his
+fighter bonus feats. A 6th-level ranger who has chosen the two-
+weapon combat style is treated as having Improved Two-Weapon
+Fighting, even if he does not have the prerequisites for it, but
+only when he is wearing light or no armor (see page 48).
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="improved-unarmed-strike">Improved Unarmed Strike</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You are considered to be armed even when unarmed &ndash; that is, you do
+not provoke attacks of opportunity from armed opponents when you
+attack them while unarmed. However, you still get an attack of
+opportunity against any opponent who makes an unarmed attack on you.
+In addition, your unarmed strikes can deal lethal or nonlethal
+damage, at your option.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, you are considered unarmed when attacking with an
+unarmed strike, and you can deal only nonlethal damage with such an
+attack.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A monk automatically gains Improved Unarmed Strike as a bonus feat
+at 1st level. She need not select it. A fighter may select Improved
+Unarmed Strike as one of his fighter bonus feats (see page 38).
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="indomitable-soul">Indomitable Soul</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#endurance">Endurance</a>
+</li>
+<li>
+<a href="#iron-will">Iron Will</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Whenever you make a Will save against a mindaffecting or fear
+ability, you can roll 2d20 and use the higher of the two die rolls.
+</p>
+</div>
+</div>
+<div class="feat Barbarian">
+<h2 id="instantaneous-rage">Instantaneous Rage</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+rage or frenzy ability
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Your rage begins at any time you wish, even when it's not your turn
+or when you're surprised. You can activate your rage as a free
+action in response to another's action. Thus, you can gain the
+benefits of rage in time to prevent or ameliorate an undesirable
+event. For example, you can choose to enter a rage when an enemy
+attacks you, or casts a spell at you (to gain the benefits of a
+higher Constitution or your bonus on Will saves) before you know the
+results of the attack. You must be aware of the attack, but you may
+be flat-footed.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+You enter a rage only during your turn
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="iron-will">Iron Will</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +2 bonus on all Will saving throws
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="karmic-strike">Karmic Strike</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 13
+</li>
+<li>
+<a href="#combat-expertise">Combat Expertise</a>
+</li>
+<li>
+<a href="#dodge">Dodge</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can make an attack of opportunity against an opponent that hits
+you in melee. On you action you choose to take a -4 penalty to your
+Armor Class in exchange for the ability to make an attack of
+opportunity against any creature that makes a successful melee
+attack, or melee touch attack against you. The opponent that hits
+you must be in your threatened area, and this feat does not grant
+you more attacks of opportunity than you are normally allowed in a
+round. You specify that you are activating this feat, and the change
+to Armor Class and your ability to make these special attacks of
+opportunity last until your next turn
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="law-devotion">Law Devotion</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Cleric with the Law Domain
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Once per day as a swift action, you can summon the power of law to
+aid you. Upon activating this ability, you immediately gain a +3
+sacred (if your deity is good or neutral) or profane (if your deity
+is evil) bonus on your attack rolls or to your AC until your next
+action. At the beginning of your next action, you can reallocate the
+bonus if desired. This effect lasts for 1 minute. The bonus
+increases to +5 when you attain 10th level, and to +7 when you
+attain 15th level.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can select this feat multiple times, gaining one additional
+daily use each time you take it.
+</p>
+<p>
+If you have the ability to turn or rebuke undead, you gain one
+additional daily use of this feat for each three daily turn or
+rebuke uses you expend.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="lightning-reflexes">Lightning Reflexes</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +2 bonus on all Reflex saving throws.
+</p>
+</div>
+</div>
+<div class="feat Barbarian">
+<h2 id="mad-foam-rager">Mad Foam Rager</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Rage or frenzy ability
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When fighting, you can endure tremendous blows with little visible
+effect. As an immediate action, you can choose to delay the effect
+of a single attack, spell, or ability used against you. The damage
+or effect does not take hold until the end of your next turn. You
+can only use this ability while under the effect of your rage or
+frenzy ability. You can activate it once every time you use your
+rage or frenzy ability.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="mage-slayer">Mage Slayer</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Spellcraft 2 ranks
+</li>
+<li>
+base attack bonus +3
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +1 bonus on Will saving throws. Spellcasters you threaten
+automatically fail to concentrate if you hit them with an attack of
+opportunity.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+Taking this feat reduces your caster level for all your spells and
+spell-like abilities by 4.
+</p>
+</div>
+</div>
+<div class="feat Rogue">
+<h2 id="magic-device-attunement">Magic Device Attunement</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Use Magic Device 1 ranks
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+If you successfully activate an item with the Use Magic Device
+skill, you can take a free action to attune yourself to the item.
+For the next 24 hours, you can activate that item without making
+further Use Magic Device checks. You can attune yourself to only one
+item at a time. If you attune yourself to a second item, the
+previous attunement ends.
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="magic-devotion">Magic Devotion</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Cleric with the Magic Domain
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+This feat is garbage and needs to be rewritten.
+</p>
+<p>
+<s>
+Once per day as a standard action, you can launch an energy bolt as
+a ranged touch attack against a target within 30 feet, + 5 feet per
+two character levels you possess. If this attack hits, it deals ld6
+points of damage per two character levels you possess.
+</s>
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can select this feat multiple times, gaining one additional
+daily use each time you take it.
+</p>
+<p>
+If you have the ability to turn or rebuke undead, you gain one additional
+daily use of this feat for each two daily turn or rebuke uses you expend.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="manyshot">Manyshot</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +6
+</li>
+<li>
+Dex 17
+</li>
+<li>
+<a href="#point-blank-shot">Point Blank Shot</a> or <a href="#weapon-focus">Weapon Focus</a> for a ranged weapon.
+</li>
+<li>
+<a href="#rapid-shot">Rapid Shot</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As a standard action, you may fire two arrows at a single opponent
+within 30 feet. Both arrows use the same attack roll (with a -4
+penalty) to determine success and deal damage normally (but see
+Special). For every five points of base attack bonus you have above
++6, you may add one additional arrow to this attack, to a maximum of
+four arrows at a base attack bonus of +16. However, each arrow after
+the second adds a cumulative -2 penalty on the attack roll (for a
+total penalty of -6 for three arrows and -8 for four). Damage
+reduction and other resistances apply separately against each arrow
+fired.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+Regardless of the number of arrows you fire, you apply precision-
+based damage (such as sneak attack damage) only once. If you score a
+critical hit, only the first arrow fired deals critical damage; all
+others deal regular damage. A fighter may select Manyshot as one of
+his fighter bonus feats (see page 38). A 6th-level ranger who has
+chosen the archery combat style is treated as having Manyshot even
+if he does not have the prerequisites for it, but only when he is
+wearing light or no armor (see page 48).
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="mobility">Mobility</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 13
+</li>
+<li>
+<a href="#dodge">Dodge</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +4 dodge bonus to Armor Class against attacks of
+opportunity caused when you move out of or within a threatened area.
+A condition that makes you lose your Dexterity bonus to Armor Class
+(if any) also makes you lose dodge bonuses. Dodge bonuses (such as
+this one and a dwarf's racial bonus on dodge attempts against
+giants) stack with each other, unlike most types of bonuses.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Mobility as one of his fighter bonus feats (see
+page 38).
+</p>
+</div>
+</div>
+<div class="feat Fighter">
+<h2 id="necropotent">Necropotent</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Proficiency with selected weapon
+</li>
+<li>
+<a href="#weapon-focus">Weapon Focus</a> with selected weapon
+</li>
+<li>
+<a href="#weapon-specialization">Weapon Specialization</a> with selected weapon
+</li>
+<li>
+Fighter level 4th
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +4 bonus on all damage rolls you make using the selected
+weapon type against undead.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fi ghter may select Necropotent as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="oversized-two-weapon-fighting">Oversized Two-Weapon Fighting</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Str 13
+</li>
+<li>
+<a href="#two-weapon-fighting">Two-Weapon Fighting</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When wielding a one-handed weapon in your off hand, you take
+penalties for fighting with two weapons as if you were wielding a
+light weapon in your off hand.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Oversized Two-Weapon Fighting as one of his
+fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="pierce-magical-concealment">Pierce Magical Concealment</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Con 13
+</li>
+<li>
+<a href="#blind-fight">Blind-Fight</a>
+</li>
+<li>
+<a href="#mage-slayer">Mage Slayer</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Your fierce contempt for magic allows you to disregard the miss
+chance granted by spells or spell-like abilities such as darkness,
+blur, invisibility, obscuring mist, ghostform (see page 109), and
+spells when used to create concealment effects (such as a wizard
+using permanent image to fill a corridor with illusory fire and
+smoke). In addition, when facing a creature protected by mirror
+image, you can immediately pick out the real creature from its
+figments. Your ability to ignore the miss chance granted by magical
+concealment doesn't grant you any ability to ignore nonmagical
+concealment (so you would still have a 20% miss chance against an
+invisible creature hiding in fog, for example).
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+Taking this feat reduces your caster level for all your spells and
+spell-like abilities by 4.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="pierce-magical-protection">Pierce Magical Protection</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Con 13
+</li>
+<li>
+<a href="#mage-slayer">Mage Slayer</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Your contempt for magic is so fierce that as a standard action you
+can make a melee attack that ignores any bonuses to Armor Class
+granted by spells (including spell trigger or spell completion
+effects created by magic items such as wands or potions). If you
+deal damage to your opponent, you also instantly and automatically
+dispel all that opponent's spells and spell effects that grant a
+bonus to Armor Class.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+Taking this feat reduces your caster level for all your spells and
+spell-like abilities by 4.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="point-blank-shot">Point Blank Shot</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +1 bonus on attack and damage rolls with ranged weapons at
+ranges of up to 30 feet. This is precision damage.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Point Blank Shot as one of his fighter bonus
+feats (see page 38).
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="power-attack">Power Attack</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Str 13
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+On your turn, before making attack rolls for a round, you may
+choose to subtract a number from all melee attack rolls and add the
+same number to all melee damage rolls. This number may not exceed
+your base attack bonus. The penalty on attacks and bonus on damage
+apply until your next turn.
+</p>
+<p>
+If you attack with a two-handed weapon, or with a one-handed weapon
+wielded in two hands, instead add twice the number subtracted from
+your attack rolls.
+</p>
+<p>
+You can't add the bonus from Power Attack to the
+damage dealt with a light weapon (except with unarmed strikes or
+natural weapon attacks), even though the penalty on attack rolls
+still applies.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Power
+Attack as one of his fighter bonus feats (see page 38).
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="precise-shot">Precise Shot</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#point-blank-shot">Point Blank Shot</a> or <a href="#weapon-focus">Weapon Focus</a> for a ranged weapon.
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can shoot or throw ranged weapons at an opponent engaged in
+melee without taking the standard -4 penalty on your attack roll
+(see Shooting or Throwing into a Melee, page 140).
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Precise Shot as one of his fighter bonus feats
+(see page 38).
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="prone-attack">Prone Attack</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +2
+</li>
+<li>
+Dex 15
+</li>
+<li>
+<a href="#lightning-reflexes">Lightning Reflexes</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can make an attack from the prone position and take no penalty
+on your attack roll. If your attack roll is successful, you may
+regain your feet immediately as a free action. Opponents gain no
+bonus on melee attacks against you while you are prone.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Prone Attack as one of his fighter bonus feats
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="protection-devotion">Protection Devotion</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Cleric with the Protection Domain
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Once per day as an immediate action, you can activate a protective
+aura. While it is active, you gain a +2 sacred (if your deity is
+good or neutral) or profane (if your deity is evil) bonus to AC, as
+does every ally within 30 feet of you.
+</p>
+<p>
+This bonus increases by 1 for every four character levels you possess
+(maximum +7 at 20th level).
+</p>
+<p>
+This effect lasts for 1 minute.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can select this feat multiple times, gaining one additional
+daily use each time you take it.
+</p>
+<p>
+If you have the ability to turn or
+rebuke undead, you gain one additional daily use of this feat for
+each three daily turn or rebuke uses you expend
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="pushback">Pushback</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Str 17
+</li>
+<li>
+<a href="#improved-bull-rush">Improved Bull Rush</a>
+</li>
+<li>
+<a href="#power-attack">Power Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you are adjacent to an opponent of your size category or
+smaller and you hit that opponent with a melee attack, you may
+immediately make a special bull rush attempt against that opponent.
+</p>
+<p>
+If you succeed, you push the opponent back 5 feet (only) and move
+into the square (or one of the squares) previously occupied by that
+opponent.
+</p>
+<p>
+You choose whether the opponent moves one square straight
+back, one square diagonally back to the right, or one square
+diagonally back to the left.
+</p>
+<p>
+You can't push an opponent back through
+(or into) solid obstacles or otherwise occupied squares.
+</p>
+<p>
+If, after
+making the bull rush attempt, you would not be able to move into a
+square previously occupied by the opponent, you can't push that
+opponent back.
+</p>
+<p>
+This feat can be used once per round.
+</p>
+<p>
+The movement
+caused by the use of this feat does not provoke attacks of
+opportunity.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Pushback as one of his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="quick-draw">Quick Draw</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Base attack bonus +1
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can draw a weapon as a free action instead of as a move action.
+You can draw a hidden weapon as a move action.
+</p>
+<p>
+A character who has selected this feat may
+throw weapons at his full normal rate of attacks (much like a
+character with a bow).
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, you may draw a weapon as a move action, or (if
+your base attack bonus is +1 or higher) as a free action as part of
+movement. Without this feat, you can draw a hidden
+weapon as a standard action.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Quick Draw as one of his fighter bonus feats
+(see page 38).
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="quicken-turning">Quicken Turning</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to turn or rebuke undead
+</li>
+<li>
+Cha 13
+</li>
+<li>
+<a href="#extra-turning">Extra Turning</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can turn or rebuke undead as a free action, but with a -4
+penalty on both your turning check and your turning damage roll.
+</p>
+<p>
+You may still only make one turning attempt per round.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="ranged-disarm">Ranged Disarm</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +5
+</li>
+<li>
+Dex 15
+</li>
+<li>
+<a href="#point-blank-shot">Point Blank Shot</a> or <a href="#weapon-focus">Weapon Focus</a> for a ranged weapon.
+</li>
+<li>
+<a href="#precise-shot">Precise Shot</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Choose one type of ranged weapon with which you are proficient. You
+can make a disarm attempt with this weapon as long as your target is
+within 30 feet.
+</p>
+<p>
+When using this feat, a character gains no benefit from the
+<a href="#improved-disarm">Improved Disarm</a> feat
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Ranged Disarm as one of his fighter bonus
+feats. you can gain this feat multiple times, it's effects do not
+stack.
+</p>
+<p>
+Each time you take this feat it applies to a new ranged
+weapon.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="ranged-spell-specialization">Ranged Spell Specialization</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+caster level 4th
+</li>
+<li>
+<a href="#weapon-focus">Weapon Focus</a> ranged spell
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Damage-dealing spells that require a ranged touch attack roll gain a
++2 bonus on the damage they deal.
+</p>
+<p>
+This extra damage applies only to
+the first successful attack of spells that create multiple rays or
+missiles, or to the first round of damage for spells that deal
+damage over multiple rounds on a single successful attack.
+</p>
+<p>
+Because you must be able to strike precisely, the
+extra damage applies only to targets within 30 feet.
+</p>
+<p>
+Only spells that deal hit point damage can be affected by this feat.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="rapid-shot">Rapid Shot</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 13
+</li>
+<li>
+<a href="#point-blank-shot">Point Blank Shot</a> or <a href="#weapon-focus">Weapon Focus</a> for a ranged weapon.
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can get one extra attack per round with a ranged weapon. The
+attack is at your highest base attack bonus, but each attack you
+make in that round (the extra one and the normal ones) takes a -2
+penalty. You must use the full attack action to use
+this feat.
+</p>
+<p>
+Additionally, if you have <a href="#weapon-focus">Weapon Focus</a> for crossbows, the time required
+for you to reload a crossbow is reduced to a free action for a hand or
+light crossbow or a move action for a heavy crossbow.  Reloading a
+crossbow still provokes an attack of opportunity.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Rapid Shot as one of his fighter bonus feats.
+</p>
+<p>
+A 2nd-level ranger who has chosen the archery combat
+style is treated as having Rapid Shot, even if he does not have the
+prerequisites for it, but only when he is wearing light or no armor.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="reckless-charge">Reckless Charge</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Base attack bonus +1
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you charge, before making your attack roll, you may choose to take a
+-4 penalty to Armor Class until the start of your next turn to gain a +4
+bonus on your attack roll. This is instead of the normal benefits/penalties
+for charging.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, a charging character gains a +2 bonus on his
+attack roll and a -2 penalty to Armor Class until the start of his
+next turn.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Reckless Charge as one of his fighter bonus
+feats
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="run">Run</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When running, you move five times your normal speed (if wearing
+medium, light, or no armor and carrying no more than a medium load)
+or four times your speed (if wearing heavy armor or carrying a heavy
+load).
+</p>
+<p>
+If you make a jump after a running start (see the Jump skill
+description, page 77), you gain a +4 bonus on your Jump check.
+</p>
+<p>
+While
+running, you retain your Dexterity bonus to AC.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+You move four times your speed while running (if wearing medium,
+light or no armor and carrying no more than a light load) or three
+times your speed (if wearing heavy armor or carrying a medium or
+heavy load), and you lose your Dexterity bonus to AC.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="shield-specialization">Shield Specialization</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Proficiency with shields
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Your shield bonus to AC from shields increases by 1.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter can select Shield Specialization as one of his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="shield-ward">Shield Ward</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Proficiency with shields
+</li>
+<li>
+<a href="#shield-specialization">Shield Specialization</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You apply your shield bonus to your touch AC, and on checks or rolls
+to resist bull rush, disarm, grapple, overrun, or trip attempts
+against you.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter can select Shield Ward as one of his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="shieldmate">Shieldmate</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Base attack bonus +1
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you are using a shield with which you are proficient, friendly
+creatures adjacent to you get a +1 shield bonus to their Armor
+Class. If you are using a tower shield, those creatures get a +2
+shield bonus.
+</p>
+<p>
+The creatures lose the bonus if they are no longer
+adjacent to you, if you're grappling, or if you're stunned,
+paralyzed, or otherwise unable to take actions.
+</p>
+<p>
+This shield bonus
+doesn't stack with other shield bonuses the allied creatures may
+have.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Shieldmate as one of his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="shock-trooper">Shock Trooper</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +6
+</li>
+<li>
+<a href="#improved-bull-rush">Improved Bull Rush</a>
+</li>
+<li>
+<a href="#power-attack">Power Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+The Shock Trooper feat enables the use of three tactical maneuvers.
+</p>
+<p>
+<b>Directed Bull Rush:</b> To use this maneuver, you must make a
+successful bull rush attempt as part of a charge. For every square
+you push your foe back, you may also push that foe one square to the
+left or right.
+</p>
+<p>
+<b>Domino Rush:</b> To use this maneuver, you must make a successful bull
+rush attempt that forces a foe into the same square as another foe.
+You may make a free trip attempt against both foes at the same time,
+and neither foe gets a chance to trip you if your attempt fails.
+</p>
+<p>
+<b>Heedless Charge:</b> To use this maneuver, you must charge and make
+the attack at the end of the charge using your Power Attack feat.
+The penalty you take on your attack roll must be -5 or worse. In
+addition to normal charge modifiers (which give you a -2 penalty to
+AC and a +2 bonus on the attack roll), you can assign any portion of
+the attack roll penalty from Power Attack to your Armor Class
+instead, up to a maximum equal to your base attack bonus.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Shock Trooper as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="silent-spell">Silent Spell</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+A silent spell can be cast with no verbal components. Spells without
+verbal components are not affected.
+</p>
+<p>
+A silent spell uses up a spell
+slot one level higher than the spell's actual level.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="skill-focus">Skill Focus</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Choose a skill. You get a +3 bonus on all checks involving that skill.
+</p>
+<p>
+Alternatively, choose two skills. You get a +2 bonus on all checks
+involving those skills.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can gain this feat multiple times. Its effects do not stack.
+Each time you take the feat, it applies to a new skill or skills.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="smiting-spell">Smiting Spell</h2>
+[Metamagic]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Arcane Caster level 1st
+</li>
+<li>
+Base attack bonus +1
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can alter a spell with a range of touch to transfer its energy from
+your hand to a weapon that you hold. You may use the free granted attack
+from casting a melee touch spell to attack with the weapon instead.
+</p>
+<p>
+The next time you strike an opponent with that weapon, the spell
+discharges. The target takes the normal damage and effects of a successful
+attack in addition to the spell's effect.
+</p>
+<p>
+Alternatively, you can place a smiting spell on a piece of ammunition or a
+projectile, such as a sling bullet, an arrow, or a crossbow bolt. You may
+use the granted attack from casting the touch spell to attack with an
+appropriate launcher. The spell dissipates if the attack misses.
+</p>
+<p>
+Once you place a spell into a weapon or piece of ammunition, you must
+discharge it within 1 minute, or its energy dissipates harmlessly.
+</p>
+<p>
+The spell cannot be placed on a bow, crossbow, sling, or similar weapon
+that uses ammunition.
+</p>
+<p>
+A smiting spell uses up a spell slot one level
+higher than the spell's actual level.
+</p>
+</div>
+</div>
+<div class="feat Monk">
+<h2 id="snatch-arrows">Snatch Arrows</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 15
+</li>
+<li>
+<a href="#deflect-arrows">Deflect Arrows</a>
+</li>
+<li>
+<a href="#improved-unarmed-strike">Improved Unarmed Strike</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When using the <a href="#deflect-arrows">Deflect Arrows</a> feat, you may catch the
+weapon instead of just deflecting it. Thrown weapons, such as spears
+or axes, can immediately be thrown back at the original attacker
+(even though it isn't your turn) or kept for later use.
+</p>
+<p>
+You must have at least one hand free (holding nothing) to use this feat.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Snatch Arrows as one of his fighter bonus feats
+(see page 38).
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="spell-focus">Spell Focus</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Add +1 to the Difficulty Class for all saving throws against spells
+from the school of magic you select.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can gain this feat multiple times. Its effects do not stack.
+Each time you take the feat, it applies to a new school of magic.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="spell-penetration">Spell Penetration</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You get a +2 bonus on caster level checks (1d20 + caster level) made
+to overcome a creature's spell resistance.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger Rogue">
+<h2 id="spring-attack">Spring Attack</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 13
+</li>
+<li>
+Base attack bonus +4
+</li>
+<li>
+<a href="#dodge">Dodge</a>
+</li>
+<li>
+<a href="#mobility">Mobility</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+If you move, melee attack and then move again, you do not provoke attacks
+of opportunity from your intended target from any of the movement (although
+you might provoke from others). You must declare your intent to do so
+before the first move.
+</p>
+<p>
+If your movement is somehow interrupted, you cannot use this ability again this turn.
+</p>
+<p>
+You can't use this feat if you are wearing heavy armor.
+</p>
+<p>
+You must move at least 5 feet both before and after you make your
+attack in order to utilize the benefits of Spring Attack.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Spring Attack as one of his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="still-spell">Still Spell</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+A stilled spell can be cast with no somatic components. Spells
+without somatic components are not affected.
+</p>
+<p>
+A stilled spell uses up
+a spell slot one level higher than the spell's actual level.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="storm-bolt">Storm Bolt</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to cast 3rd level arcane spells
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As long as you have an electricity spell of 3rd level or higher
+available to cast, you can fire a 20-foot line of electricity as a
+standard action. This bolt deals 1d6 points of electricity damage
+per level of the highest-level electricity spell you have available
+to cast. A successful Reflex save halves damage.
+</p>
+<p>
+This is a spell-like ability.
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="strength-devotion">Strength Devotion</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Cleric with the Strength Domain
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+This feat is dumb and needs to be redone.
+</p>
+<p>
+<s>
+Once per day as a swift action, you can bypass hardness with your
+melee attacks for 1 minute. In addition, you gain a slam attack as a
+natural weapon, and all your melee attacks (natural or not) gain the
+adamantine property for the purpose of overcoming damage reduction.
+As a natural weapon, your slam attack does not provoke attacks of
+opportunity. It deals damage based on your size and character level,
+as given on the following table.  Level Damage(S) (M) &ndash; (L).
+lst-5th &mdash;- 1d4 &mdash; 1d6 &mdash; 1d8. 6th-10th &ndash; ld6 &mdash;- 1d8 &mdash; 2d6.
+llth-15th &ndash; 1d8 &mdash;- 1d10 - 2d8. 16th-20th- 1d10 &mdash;2d6 &mdash; 3d6. If
+you already have a natural weapon, use whichever damage value is
+higher. You gain a +2 circumstance bonus on any damage rolls you
+make with that weapon.
+</s>
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can select this feat multiple times, gaining one additional
+daily use each time you take it.|||If you have the ability to turn
+or rebuke undead, you gain one additional daily use of this feat for
+each daily turn or rebuke use you expend.
+</p>
+</div>
+</div>
+<div class="feat Monk">
+<h2 id="stunning-fist">Stunning Fist</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +8
+</li>
+<li>
+Dex 13
+</li>
+<li>
+Wis 13
+</li>
+<li>
+<a href="#improved-unarmed-strike">Improved Unarmed Strike</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You must declare that you are using this feat before you make your
+attack roll (thus, a failed attack roll ruins the attempt).
+</p>
+<p>
+Stunning
+Fist forces a foe damaged by your unarmed attack to make a Fortitude
+saving throw (DC 10 + 1/2 your character level + your Wis modifier),
+in addition to dealing damage normally. A defender who fails this
+saving throw is stunned for 1 round (until just before your next
+action).
+</p>
+<p>
+A stunned character can't act, loses any Dexterity bonus to
+AC, and takes a -2 penalty to AC.
+</p>
+<p>
+You may attempt a stunning attack
+once per day for every four levels you have attained and no more than once per round.
+</p>
+<p>
+A monk who selects this feat
+may attempt a stunning attack a number of times per day equal to her
+monk level, plus one more time per day for every four levels she has
+in classes other than monk.
+</p>
+<p>
+Constructs, oozes, plants, undead, incorporeal creatures, creatures immune to
+critical hits and other creatures without a biology cannot be stunned.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A monk may select Stunning Fist as a bonus feat at 1st level, even
+if she does not meet the prerequisites.
+</p>
+<p>
+A fighter may select Stunning Fist as one of his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="sudden-enlarge">Sudden Enlarge</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Once per day, you may apply the <a href="#enlarge-spell">Enlarge Spell</a> feat to any spell you
+cast, without increasing the level of the spell or specially
+preparing it ahead of time.
+</p>
+<p>
+You may still use the Enlarge Spell feat normally, if you have it.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="sudden-extend">Sudden Extend</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Once per day, you can apply the effect of the <a href="#extend-spell">Extend Spell</a> feat to
+any spell you cast without increasing the level of the spell or
+specially preparing it ahead of time.
+</p>
+<p>
+You can still use Extend Spell normally if you have it.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="sudden-silent">Sudden Silent</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Once per day, you can apply the effect of the <a href="#silent-spell">Silent Spell</a> feat to
+any spell you cast without increasing the level of the spell or
+specially preparing it ahead of time.
+</p>
+<p>
+You can still use Silent Spell normally if you have it.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="sudden-still">Sudden Still</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Once per day, you can apply the effect of the <a href="#still-spell">Still Spell</a> feat to
+any spell you cast without increasing the level of the spell or
+specially preparing it ahead of time.
+</p>
+<p>
+You can still use Still Spell normally if you have it.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="sudden-widen">Sudden Widen</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Maybe remove this since widen spell is gone?
+</p>
+<p>
+Once per day, you can apply the effect of the Widen Spell feat to
+any spell you cast without increasing the level of the spell or
+specially preparing it ahead of time.
+</p>
+<p>
+You can still use Widen Spell normally if you have it.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="torchbearer">Torchbearer</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You used to be a torchbearer in someone else's adventuring party. Your
+experience grants you the following benefits:
+</p>
+<ul>
+<li>
+You can carry 3 more slots worth of gear.
+</li>
+<li>
+You can carry a torch in the same hand as a shield.
+</li>
+<li>
+You are proficient in the torch as a weapon.
+ <ul>
+<li>
+You can make melee touch attacks with a torch, dealing 1d4 points of fire damage on a hit.
+</li>
+<li>
+The torch is a one-handed weapon.
+</li>
+<li>
+You do not add strength to the damage with a torch.
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You must pick this feat at 1st level.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="touch-spell-specialization">Touch Spell Specialization</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+caster level 4th
+</li>
+<li>
+<a href="#weapon-focus">Weapon Focus</a> touch spell
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Damage-dealing spells that require a melee touch attack roll gain a
++2 bonus on the damage they deal. This extra damage applies only to
+the first successful attack of spells that allow multiple touch
+attacks (such as chill touch). Only spells that deal hit point
+damage can be affected by this feat.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="toughening-transmutation">Toughening Transmutation</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#spell-focus">Spell Focus</a> (transmutation) or transmuter level 1st
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Whenever you cast a transmutation spell, you can choose to grant
+any one creature targeted by the spell damage reduction
+5/magic.
+</p>
+<p>
+If the creature already has damage reduction (of any type)
+from another source, you increase that damage reduction by 5
+instead. This effect lasts for 1 round.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A transmuter can select this feat as a wizard bonus feat.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="toughness">Toughness</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain +3 hit points. You additionally gain +1 hit point
+for each hit die you have above 3.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter can choose Toughness as one of his bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="track">Track</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+To find tracks or to follow them for 1 mile requires a successful
+Survival check. You must make another Survival check every time the
+tracks become difficult to follow, such as when other tracks cross
+them or when the tracks backtrack and diverge.
+</p>
+<p>
+You move at half your
+normal speed (or at your normal speed with a -5 penalty on the
+check, or at up to twice your normal speed with a -20 penalty on the
+check).
+</p>
+<p>
+The DC depends on the surface and the prevailing conditions,
+as given on the table below:.
+</p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Surface
+</th>
+<th>Survival DC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Very soft ground
+</td>
+<td>5
+</td>
+</tr>
+<tr>
+<td>Soft ground
+</td>
+<td>10
+</td>
+</tr>
+<tr>
+<td>Firm ground
+</td>
+<td>15
+</td>
+</tr>
+<tr>
+<td>Hard ground
+</td>
+<td>20
+</td>
+</tr>
+</tbody></table>
+</div>
+<ul>
+<li>
+<b>Very Soft Ground:</b> Any surface (fresh snow, thick dust, wet mud)
+ that holds deep, clear impressions of footprints.
+</li>
+<li>
+<b>Soft Ground:</b> Any surface soft enough to yield to pressure, but
+ firmer than wet mud or fresh snow, in which a creature leaves
+ frequent but shallow footprints.
+</li>
+<li>
+<b>Firm Ground:</b> Most normal outdoor surfaces (such as lawns, fields,
+ woods, and the like) or exceptionally soft or dirty indoor surfaces
+ (thick rugs and very dirty or dusty floors). The creature might
+ leave some traces (broken branches or tufts of hair), but it leaves
+ only occasional or partial footprints.
+</li>
+<li>
+<b>Hard Ground:</b> Any surface that doesn't hold footprints at all, such
+ as bare rock, many dungeons or an indoor floor. Most streambeds fall into this
+ category, since any footprints left behind are obscured or washed
+ away. The creature leaves only traces (scuff marks or displaced
+ pebbles).
+</li>
+</ul>
+<p>
+Several modifiers may apply to the Survival check, as given on the
+table below.
+</p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Condition Survival
+</th>
+<th>DC Modifier
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every three creatures in the group being tracked
+</td>
+<td>-1
+</td>
+</tr>
+<tr>
+<td>Fine
+</td>
+<td>+8
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>Diminutive
+</td>
+<td>+4
+</td>
+</tr>
+<tr>
+<td>Tiny
+</td>
+<td>+2
+</td>
+</tr>
+<tr>
+<td>Small
+</td>
+<td>+1
+</td>
+</tr>
+<tr>
+<td>Medium
+</td>
+<td>+0
+</td>
+</tr>
+<tr>
+<td>Large
+</td>
+<td>+1
+</td>
+</tr>
+<tr>
+<td>Huge
+</td>
+<td>+2
+</td>
+</tr>
+<tr>
+<td>Gargantuan
+</td>
+<td>+4
+</td>
+</tr>
+<tr>
+<td>Colossal
+</td>
+<td>+8
+</td>
+</tr>
+<tr>
+<td>Every 24 hours since the trail was made
+</td>
+<td>+1
+</td>
+</tr>
+<tr>
+<td>Every hour of rain since the trail was made
+</td>
+<td>+1
+</td>
+</tr>
+<tr>
+<td>Fresh snow cover since the trail was made
+</td>
+<td>+10
+</td>
+</tr>
+<tr>
+<td>Overcast or moonless night
+</td>
+<td>+6
+</td>
+</tr>
+<tr>
+<td>Moonlight
+</td>
+<td>+3
+</td>
+</tr>
+<tr>
+<td>Fog or precipitation
+</td>
+<td>+3
+</td>
+</tr>
+<tr>
+<td>Tracked party hides trail (and moves at half speed)
+</td>
+<td>+5
+</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+For a group of mixed sizes, apply only the modifier for the
+largest size category.
+</p>
+<p>
+This feat does not allow you to find or follow the tracks made
+by a subject of a pass without trace spell.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Without this feat, you can use the Survival skill to find tracks,
+but you can follow them only if the DC for the task is 10 or lower.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A ranger automatically has Track as a bonus feat. He need not select
+it.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard">
+<h2 id="transdimensional-spell">Transdimensional Spell</h2>
+[Metamagic]
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+A transdimensional spell has its full normal effect on incorporeal
+creatures, creatures on the Ethereal Plane or the Plane of Shadow,
+and creatures within an extradimensional space in the spell's area.
+Such creatures include ethereal creatures, creatures that are
+blinking or shadow walking, manifested ghosts, and creatures within
+the extradimensional space of a rope trick, portable hole, or
+familiar pocket.
+</p>
+<p>
+You must be able to perceive a
+creature to target it with a transdimensional spell, but you do not
+need to perceive a creature to catch it in the area of a burst,
+cone, emanation, or spread.
+</p>
+<p>
+A transdimensional spell uses up a spell
+slot one level higher than the spell's actual level.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+Only force spells and effects can affect ethereal creatures, and no
+Material Plane attack affects creatures on the Plane of Shadow or in
+an enclosed extradimensional space. There is a 50% chance that any
+spell other than a force effect fails against an incorporeal
+creature.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger Rogue">
+<h2 id="two-weapon-defense">Two-Weapon Defense</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 15
+</li>
+<li>
+<a href="#two-weapon-fighting">Two-Weapon Fighting</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When wielding a double weapon or two weapons (not including natural
+weapons or unarmed strikes), you gain a +1 shield bonus to your AC.
+</p>
+<p>
+When you are fighting defensively or using the total defense action,
+this shield bonus increases to +2.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Two-Weapon Defense as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger Rogue">
+<h2 id="two-weapon-fighting">Two-Weapon Fighting</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Dex 15
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+Your penalties on attack rolls for fighting with two weapons are
+reduced. The penalty for your primary hand lessens by 2 and the one
+for your off hand lessens by 6.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A 2nd-level ranger who has chosen the two-weapon combat style is
+treated as having Two-Weapon Fighting, even if he does not have the
+prerequisite for it, but only when he is wearing light or no armor.
+A fighter may select Two-Weapon Fighting as one of
+his fighter bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="two-weapon-pounce">Two-Weapon Pounce</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +6
+</li>
+<li>
+Dex 15
+</li>
+<li>
+<a href="#two-weapon-fighting">Two-Weapon Fighting</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you are making a charge and are two-weapon fighting, you
+can attack with both of your weapons.
+</p>
+<p>
+If you do so, you lose the
+bonus on attack rolls normally granted by a charge. The -2 penalty
+to AC from charging still applies.
+</p>
+</div>
+<div>
+<h3 id="normal">Normal</h3>
+<p>
+When making a charge, you get a single attack at the end of your
+movement.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter can select Two-Weapon Pounce as one of his fighter bonus
+feats.
+</p>
+<p>
+A ranger who has chosen the two weapon combat style can select
+Two-Weapon Pounce as long as he has a base attack bonus of +6 and is
+wearing light armor or no armor.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="unquenchable-flame-of-life">Unquenchable Flame of Life</h2>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +2 bonus on all saves against the extraordinary or
+supernatural abilities of undead creatures.
+</p>
+<p>
+If you have selected undead as your favored enemy, your bonus on
+saving throws is instead equal to your favored enemy bonus against
+undead.
+</p>
+</div>
+</div>
+<div class="feat Monk">
+<h2 id="versatile-unarmed-strike">Versatile Unarmed Strike</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+<a href="#improved-unarmed-strike">Improved Unarmed Strike</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As a swift action, you can opt for your unarmed strikes to deal your
+choice of bludgeoning, piercing, or slashing damage. Once you make
+this choice, your unarmed strikes continue to deal the chosen damage
+type until you use another swift action to change it.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter can select Versatile Unarmed Strike as one of his fighter
+bonus feats.
+</p>
+</div>
+</div>
+<div class="feat Sorcerer Wizard Rogue">
+<h2 id="wand-specialist">Wand Specialist</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Ability to cast 1st level arcane spells or Use Magic Device 4 ranks.
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+When you cast a spell from a wand, you get +1 to any attack roll,
+the caster level of the wand is increased by 1 and any saving throw
+DC is increased by 1. You get +2 to use magic device checks to use wands.
+</p>
+<p>
+If the wand is wand of magic missiles, it instead fires an extra missile.
+</p>
+</div>
+</div>
+<div class="feat Rogue">
+<h2 id="wandstrike">Wandstrike</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Use Magic Device 4 ranks
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As a standard action, you can make a melee touch attack with a wand,
+expending one charge to deal 1d6 points of damage to the creature struck.
+You can activate the wand as part of the attack (with a use magic device check). Doing so does not require
+an extra charge.
+</p>
+<p>
+If the spell
+cast from the wand is a ray or a targeted spell, the creature struck
+is the spell's target (with ray spells hitting automatically).
+</p>
+<p>
+If
+the spell affects an area or creates a spread, you can designate the
+spell's point of origin at any grid intersection point of the
+creature's space (but doing so might put you in the affected area).
+</p>
+<p>
+Spells with an effect that does not cover an area (such as the
+various summon monster spells) cannot be used with a wandstrike
+attack.
+</p>
+</div>
+</div>
+<div class="feat Cleric">
+<h2 id="war-devotion">War Devotion</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Cleric with the War Domain
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+This feat sucks and needs to be redone
+<s>
+Once per day, when fighting defensively as a standard or full-round
+action, you take a -3 penalty on all attack rolls in a round and
+gain a +3 dodge bonus to AC in the same round. When you attain 7th
+level, your penalty on attack rolls drops to -2 and your dodge bonus
+increases to +4. When you attain 15th level, your penalty on attack
+rolls drops to -1 and your dodge bonus increases to +5. This bonus
+stacks with the bonus to AC granted by the Combat Expertise feat.
+This benefit is an extraordinary ability.
+</s>
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can select this feat multiple times, gaining one additional
+daily use each time you take it.
+</p>
+<p>
+If you have the ability to turn
+or rebuke undead, you gain one additional daily use of this feat for
+each three daily turn or rebuke uses you expend.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger Rogue">
+<h2 id="weapon-finesse">Weapon Finesse</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Base attack bonus +1
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+With a light weapon, rapier or whip, you may use your Dexterity modifier
+instead of your Strength modifier on attack rolls.
+</p>
+<p>
+If you carry a shield, its armor check penalty applies to your attack rolls.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Weapon Finesse as one of his fighter bonus
+feats.
+</p>
+<p>
+Natural weapons are always considered light weapons.
+</p>
+</div>
+</div>
+<div class="feat Any">
+<h2 id="weapon-focus">Weapon Focus</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Proficiency with selected weapon group
+</li>
+<li>
+base attack bonus +1
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +1 bonus on all attack rolls you make using the selected
+weapon group. The groups are as follows:
+</p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Group
+</th>
+<th>Weapons
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Axes
+</td>
+<td>Throwing axe, handaxe, battleaxe, greataxe, dwarven
+axe, orcish axe, etc.
+</td>
+</tr>
+<tr>
+<td>Bows
+</td>
+<td>shortbow, longbow, composite shortbow, and composite
+longbow.
+</td>
+</tr>
+<tr>
+<td>Crossbow
+</td>
+<td>ballista, heavy crossbow, light crossbow, repeating
+heavy crossbow, and repeating light crossbow.
+</td>
+</tr>
+<tr>
+<td>Flails
+</td>
+<td>light flail, heavy flail, dire flail.
+</td>
+</tr>
+<tr>
+<td>Light Blades
+</td>
+<td>dagger, rapier, and short sword.
+</td>
+</tr>
+<tr>
+<td>Maces and Clubs
+</td>
+<td>club, light mace, heavy mace, greatclub, quarterstaff,
+sap
+</td>
+</tr>
+<tr>
+<td>Peasant
+</td>
+<td>Sickle, club, quarterstaff, scythe
+</td>
+</tr>
+<tr>
+<td>Picks and Hammers
+</td>
+<td>light pick, heavy pick, light hammer, warhammer
+</td>
+</tr>
+<tr>
+<td>Polearms
+</td>
+<td>glaive, guisarme, halberd, and ranseur.
+</td>
+</tr>
+<tr>
+<td>Punching
+</td>
+<td>Unarmed strike, punching dagger, spiked gauntlet, armor
+spikes, shield bash, shield spikes
+</td>
+</tr>
+<tr>
+<td>Slings and Darts
+</td>
+<td>Slings, Darts
+</td>
+</tr>
+<tr>
+<td>Spears
+</td>
+<td>spear, javelin, lance, longspear, shortspear, and
+trident.
+</td>
+</tr>
+<tr>
+<td>Swords
+</td>
+<td>longsword, greatsword, falchion, scimitar, broadsword,
+and bastard sword
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can gain this feat multiple times. Its effects do not stack.
+Each time you take the feat, it applies to a new group of weapon.
+</p>
+<p>
+A
+fighter may select Weapon Focus as one of his fighter bonus feats.
+He must have Weapon Focus with a weapon to gain the
+Weapon Specialization feat for that group.
+</p>
+</div>
+</div>
+<div class="feat Fighter">
+<h2 id="weapon-specialization">Weapon Specialization</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+Proficiency with selected group
+</li>
+<li>
+fighter level 4th
+</li>
+<li>
+<a href="#weapon-focus">Weapon Focus</a> with selected group
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You gain a +2 bonus on all damage rolls you make using the selected
+weapon group.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+You can gain this feat multiple times. Its effects do not stack.
+Each time you take the feat, it applies to a new group of weapon.
+</p>
+<p>
+A fighter may select Weapon Specialization as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Barbarian Fighter Monk Paladin Ranger">
+<h2 id="whirlwind-attack">Whirlwind Attack</h2>
+[Fighter Bonus Feat]
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +4
+</li>
+<li>
+Dex 13
+</li>
+<li>
+Int 13
+</li>
+<li>
+<a href="#combat-expertise">Combat Expertise</a>
+</li>
+<li>
+<a href="#dodge">Dodge</a>
+</li>
+<li>
+<a href="#mobility">Mobility</a>
+</li>
+<li>
+<a href="#spring-attack">Spring Attack</a>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+As a full-round action, you can make one melee attack at your full base
+attack bonus against each opponent within reach. You cannot benefit
+from any ability that grants you extra attacks when you use this ability,
+such as cleave, improved trip or the haste spell.
+</p>
+</div>
+<div>
+<h3 id="special">Special</h3>
+<p>
+A fighter may select Whirlwind Attack as one of his fighter bonus
+feats.
+</p>
+</div>
+</div>
+<div class="feat Fighter Ranger">
+<h2 id="zen-archery">Zen Archery</h2>
+<div>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>
+base attack bonus +1
+</li>
+<li>
+Wis 13
+</li>
+</ul>
+</div>
+<div>
+<h3 id="benefit">Benefit</h3>
+<p>
+You can use your Wisdom modifier instead of your Dexterity modifier
+when making a ranged attack roll.
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
