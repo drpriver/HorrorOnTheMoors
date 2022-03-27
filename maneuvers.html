@@ -149,11 +149,11 @@ div.left {
 </style>
 <script>
 //endjs
-const name_to_info = {"Abscond":[2,1,8],"Battle Leader's Charge":[4,256,1],"Bear Claw Strike":[8,128,1],"Blistering Flourish":[2,2,1],"Blood Frenzy":[8,128,4],"Bloody Claws":[2,128,2],"Bolstering Voice":[2,256,2],"Bonecrusher":[8,64,1],"Bowling Ball":[8,64,1],"Burning Blade":[2,2,4],"Burning Brand":[4,2,4],"Charging Minotaur":[2,64,1],"Child of Shadow":[2,32,2],"Claw at the Moon":[4,128,1],"Clever Positioning":[4,64,1],"Clinging Shadow Strike":[2,32,1],"Cloak of Deception":[4,32,4],"Counter Charge":[2,64,8],"Covering Fire":[4,8,1],"Crusader's Strike":[2,4,1],"Dart and Dash":[8,1,4],"Dazing Ambush":[8,1,1],"Death Mark":[8,2,1],"Defensive Rebuke":[8,4,4],"Disappear":[2,1,4],"Disarming Strike":[4,16,1],"Distracting Ambush":[4,1,1],"Douse The Flames":[2,256,1],"Drain Vitality":[4,32,1],"Eagle Eye Stance":[8,8,2],"Emerald Razor":[4,16,1],"Escape Fate":[8,1,8],"Exorcising Blow":[4,4,1],"Exploit":[4,1,4],"Fan The Flames":[8,2,1],"Feigned Opening":[8,64,8],"Find Weak Point":[4,1,1],"Fire Riposte":[4,2,8],"First into Battle":[2,256,2],"Flame's Blessing":[2,2,2],"Flashing Sun":[4,2,1],"Foehammer":[4,4,1],"Furious Recovery":[8,16,8],"Giant Fighting Stance":[8,64,2],"Hatchling's Flame":[4,2,1],"Holocaust Cloak":[8,2,2],"Hook Kick":[2,64,1],"Intercept the Missile":[4,8,8],"Iron Guard's Glare":[2,4,2],"Iron Heart Surge":[8,16,16],"Island of Blades":[2,32,2],"Kick":[4,1,8],"Knockout":[2,1,4],"Lead From the Front":[8,256,2],"Leading The Attack":[2,256,1],"Leap to Safety":[8,128,8],"Leaping Dragon Stance":[8,128,2],"Leaping Dragon Strike":[8,128,1],"Lion's Roar":[8,256,4],"Marksman's Stance":[2,1,2],"Martial Spirit":[2,4,2],"Merciless Claws":[2,128,8],"Mighty Shove":[2,64,1],"Mobile Archery":[4,8,4],"Mountain Hammer":[4,64,1],"Overwatch":[8,8,4],"Pearl Of Black Doubt":[8,16,2],"Piercing Shot":[4,8,1],"Pouncing Lion Strike":[4,128,1],"Punishing Stance":[2,16,2],"Rabid Wolf Strike":[4,128,1],"Rally the Pack":[4,128,4],"Ranger's Stance":[2,8,2],"Relentless":[4,128,8],"Retaliation":[8,8,8],"Revitalizing Strike":[8,4,1],"Roots of the Mountain":[8,64,2],"Shadow Blade Technique":[2,32,1],"Shadow Duplicate":[4,32,4],"Shield Block":[4,4,8],"Slice and Dice":[2,1,1],"Sniper's Stance":[8,1,2],"Split the Arrow":[8,1,1],"Spot the Danger":[2,8,8],"Stance of Clarity":[2,16,2],"Steady Hands":[2,8,4],"Steel Wind":[2,16,1],"Steely Strike":[2,16,1],"Stone Bones":[2,64,1],"Stone Defense":[4,64,8],"Stone Vise":[4,64,1],"Stonefoot Stance":[2,64,2],"Sudden Leap":[2,128,4],"Tactical Strike":[4,256,1],"Thicket Of Blades":[8,4,2],"Thug's Stance":[8,1,2],"Trapfinder's Caution":[2,1,2],"Trick Shot":[2,8,1],"Vanguard Strike":[2,4,1],"Volley":[8,8,1],"Wall of Blades":[4,16,8],"White Raven Tactics":[8,256,4],"Wind Stride":[2,2,4],"Wolf Fang Strike":[2,128,1],"Zephyr Dance":[8,2,8]};
+const name_to_info = {"Abscond":[2,1,8],"Battle Leader's Charge":[4,256,1],"Bear Claw Strike":[8,128,1],"Blistering Flourish":[2,2,1],"Blood Frenzy":[8,128,4],"Bloody Claws":[2,128,2],"Bolstering Voice":[2,256,2],"Bonecrusher":[8,64,1],"Bowling Ball":[8,64,1],"Burning Blade":[2,2,4],"Burning Brand":[4,2,4],"Charging Minotaur":[2,64,1],"Child of Shadow":[2,32,2],"Claw at the Moon":[4,128,1],"Clever Positioning":[4,64,1],"Clinging Shadow Strike":[2,32,1],"Cloak of Deception":[4,32,4],"Counter Charge":[2,64,8],"Covering Fire":[4,8,1],"Crusader's Strike":[2,4,1],"Dart and Dash":[8,1,4],"Dazing Ambush":[8,1,1],"Death Mark":[8,2,1],"Defensive Rebuke":[8,4,4],"Disappear":[2,1,4],"Disarming Strike":[4,16,1],"Distracting Ambush":[4,1,1],"Douse The Flames":[2,256,1],"Drain Vitality":[4,32,1],"Eagle Eye Stance":[8,8,2],"Emerald Razor":[4,16,1],"Escape Fate":[8,1,8],"Exorcising Blow":[4,4,1],"Exploit":[4,1,4],"Fan The Flames":[8,2,1],"Feigned Opening":[8,64,8],"Find Weak Point":[4,1,1],"Fire Riposte":[4,2,8],"First into Battle":[2,256,2],"Flame's Blessing":[2,2,2],"Flashing Sun":[4,2,1],"Foehammer":[4,4,1],"Furious Recovery":[8,16,8],"Giant Fighting Stance":[8,64,2],"Hatchling's Flame":[4,2,1],"Holocaust Cloak":[8,2,2],"Hook Kick":[2,64,1],"Intercept the Missile":[4,8,8],"Iron Guard's Glare":[2,4,2],"Iron Heart Surge":[8,16,16],"Island of Blades":[2,32,2],"Kick":[4,1,8],"Knockout":[2,1,4],"Lead From the Front":[8,256,2],"Leading The Attack":[2,256,1],"Leap to Safety":[8,128,8],"Leaping Dragon Stance":[8,128,2],"Leaping Dragon Strike":[8,128,1],"Lion's Roar":[8,256,4],"Marksman's Stance":[2,1,2],"Martial Spirit":[2,4,2],"Merciless Claws":[2,128,8],"Mighty Shove":[2,64,1],"Mobile Archery":[4,8,4],"Mountain Hammer":[4,64,1],"Overwatch":[8,8,4],"Pearl Of Black Doubt":[8,16,2],"Piercing Shot":[4,8,1],"Pouncing Lion Strike":[4,128,1],"Punishing Stance":[2,16,2],"Rabid Wolf Strike":[4,128,1],"Rally the Pack":[4,128,4],"Ranger's Stance":[2,8,2],"Ready and Steady":[2,4,4],"Relentless":[4,128,8],"Retaliation":[8,8,8],"Revitalizing Strike":[8,4,1],"Roots of the Mountain":[8,64,2],"Shadow Blade Technique":[2,32,1],"Shadow Duplicate":[4,32,4],"Shield Bash":[4,4,1],"Shield Block":[4,4,8],"Slice and Dice":[2,1,1],"Sniper's Stance":[8,1,2],"Split the Arrow":[8,1,1],"Spot the Danger":[2,8,8],"Stance of Clarity":[2,16,2],"Steady Hands":[2,8,4],"Steel Wind":[2,16,1],"Steely Strike":[2,16,1],"Stone Bones":[2,64,1],"Stone Defense":[4,64,8],"Stone Vise":[4,64,1],"Stonefoot Stance":[2,64,2],"Sudden Leap":[2,128,4],"Tactical Strike":[4,256,1],"Thicket Of Blades":[8,4,2],"Thug's Stance":[8,1,2],"Trapfinder's Caution":[2,1,2],"Trick Shot":[2,8,1],"Vanguard Strike":[2,4,1],"Volley":[8,8,1],"Wall of Blades":[4,16,8],"White Raven Tactics":[8,256,4],"Wind Stride":[2,2,4],"Wolf Fang Strike":[2,128,1],"Zephyr Dance":[8,2,8]};
 
-const id_to_name = {"abscond":"Abscond","battle-leaders-charge":"Battle Leader's Charge","bear-claw-strike":"Bear Claw Strike","blistering-flourish":"Blistering Flourish","blood-frenzy":"Blood Frenzy","bloody-claws":"Bloody Claws","bolstering-voice":"Bolstering Voice","bonecrusher":"Bonecrusher","bowling-ball":"Bowling Ball","burning-blade":"Burning Blade","burning-brand":"Burning Brand","charging-minotaur":"Charging Minotaur","child-of-shadow":"Child of Shadow","claw-at-the-moon":"Claw at the Moon","clever-positioning":"Clever Positioning","clinging-shadow-strike":"Clinging Shadow Strike","cloak-of-deception":"Cloak of Deception","counter-charge":"Counter Charge","covering-fire":"Covering Fire","crusaders-strike":"Crusader's Strike","dart-and-dash":"Dart and Dash","dazing-ambush":"Dazing Ambush","death-mark":"Death Mark","defensive-rebuke":"Defensive Rebuke","disappear":"Disappear","disarming-strike":"Disarming Strike","distracting-ambush":"Distracting Ambush","douse-the-flames":"Douse The Flames","drain-vitality":"Drain Vitality","eagle-eye-stance":"Eagle Eye Stance","emerald-razor":"Emerald Razor","escape-fate":"Escape Fate","exorcising-blow":"Exorcising Blow","exploit":"Exploit","fan-the-flames":"Fan The Flames","feigned-opening":"Feigned Opening","find-weak-point":"Find Weak Point","fire-riposte":"Fire Riposte","first-into-battle":"First into Battle","flames-blessing":"Flame's Blessing","flashing-sun":"Flashing Sun","foehammer":"Foehammer","furious-recovery":"Furious Recovery","giant-fighting-stance":"Giant Fighting Stance","hatchlings-flame":"Hatchling's Flame","holocaust-cloak":"Holocaust Cloak","hook-kick":"Hook Kick","intercept-the-missile":"Intercept the Missile","iron-guards-glare":"Iron Guard's Glare","iron-heart-surge":"Iron Heart Surge","island-of-blades":"Island of Blades","kick":"Kick","knockout":"Knockout","lead-from-the-front":"Lead From the Front","leading-the-attack":"Leading The Attack","leap-to-safety":"Leap to Safety","leaping-dragon-stance":"Leaping Dragon Stance","leaping-dragon-strike":"Leaping Dragon Strike","lions-roar":"Lion's Roar","marksmans-stance":"Marksman's Stance","martial-spirit":"Martial Spirit","merciless-claws":"Merciless Claws","mighty-shove":"Mighty Shove","mobile-archery":"Mobile Archery","mountain-hammer":"Mountain Hammer","overwatch":"Overwatch","pearl-of-black-doubt":"Pearl Of Black Doubt","piercing-shot":"Piercing Shot","pouncing-lion-strike":"Pouncing Lion Strike","punishing-stance":"Punishing Stance","rabid-wolf-strike":"Rabid Wolf Strike","rally-the-pack":"Rally the Pack","rangers-stance":"Ranger's Stance","relentless":"Relentless","retaliation":"Retaliation","revitalizing-strike":"Revitalizing Strike","roots-of-the-mountain":"Roots of the Mountain","shadow-blade-technique":"Shadow Blade Technique","shadow-duplicate":"Shadow Duplicate","shield-block":"Shield Block","slice-and-dice":"Slice and Dice","snipers-stance":"Sniper's Stance","split-the-arrow":"Split the Arrow","spot-the-danger":"Spot the Danger","stance-of-clarity":"Stance of Clarity","steady-hands":"Steady Hands","steel-wind":"Steel Wind","steely-strike":"Steely Strike","stone-bones":"Stone Bones","stone-defense":"Stone Defense","stone-vise":"Stone Vise","stonefoot-stance":"Stonefoot Stance","sudden-leap":"Sudden Leap","tactical-strike":"Tactical Strike","thicket-of-blades":"Thicket Of Blades","thugs-stance":"Thug's Stance","trapfinders-caution":"Trapfinder's Caution","trick-shot":"Trick Shot","vanguard-strike":"Vanguard Strike","volley":"Volley","wall-of-blades":"Wall of Blades","white-raven-tactics":"White Raven Tactics","wind-stride":"Wind Stride","wolf-fang-strike":"Wolf Fang Strike","zephyr-dance":"Zephyr Dance"};
+const id_to_name = {"abscond":"Abscond","battle-leaders-charge":"Battle Leader's Charge","bear-claw-strike":"Bear Claw Strike","blistering-flourish":"Blistering Flourish","blood-frenzy":"Blood Frenzy","bloody-claws":"Bloody Claws","bolstering-voice":"Bolstering Voice","bonecrusher":"Bonecrusher","bowling-ball":"Bowling Ball","burning-blade":"Burning Blade","burning-brand":"Burning Brand","charging-minotaur":"Charging Minotaur","child-of-shadow":"Child of Shadow","claw-at-the-moon":"Claw at the Moon","clever-positioning":"Clever Positioning","clinging-shadow-strike":"Clinging Shadow Strike","cloak-of-deception":"Cloak of Deception","counter-charge":"Counter Charge","covering-fire":"Covering Fire","crusaders-strike":"Crusader's Strike","dart-and-dash":"Dart and Dash","dazing-ambush":"Dazing Ambush","death-mark":"Death Mark","defensive-rebuke":"Defensive Rebuke","disappear":"Disappear","disarming-strike":"Disarming Strike","distracting-ambush":"Distracting Ambush","douse-the-flames":"Douse The Flames","drain-vitality":"Drain Vitality","eagle-eye-stance":"Eagle Eye Stance","emerald-razor":"Emerald Razor","escape-fate":"Escape Fate","exorcising-blow":"Exorcising Blow","exploit":"Exploit","fan-the-flames":"Fan The Flames","feigned-opening":"Feigned Opening","find-weak-point":"Find Weak Point","fire-riposte":"Fire Riposte","first-into-battle":"First into Battle","flames-blessing":"Flame's Blessing","flashing-sun":"Flashing Sun","foehammer":"Foehammer","furious-recovery":"Furious Recovery","giant-fighting-stance":"Giant Fighting Stance","hatchlings-flame":"Hatchling's Flame","holocaust-cloak":"Holocaust Cloak","hook-kick":"Hook Kick","intercept-the-missile":"Intercept the Missile","iron-guards-glare":"Iron Guard's Glare","iron-heart-surge":"Iron Heart Surge","island-of-blades":"Island of Blades","kick":"Kick","knockout":"Knockout","lead-from-the-front":"Lead From the Front","leading-the-attack":"Leading The Attack","leap-to-safety":"Leap to Safety","leaping-dragon-stance":"Leaping Dragon Stance","leaping-dragon-strike":"Leaping Dragon Strike","lions-roar":"Lion's Roar","marksmans-stance":"Marksman's Stance","martial-spirit":"Martial Spirit","merciless-claws":"Merciless Claws","mighty-shove":"Mighty Shove","mobile-archery":"Mobile Archery","mountain-hammer":"Mountain Hammer","overwatch":"Overwatch","pearl-of-black-doubt":"Pearl Of Black Doubt","piercing-shot":"Piercing Shot","pouncing-lion-strike":"Pouncing Lion Strike","punishing-stance":"Punishing Stance","rabid-wolf-strike":"Rabid Wolf Strike","rally-the-pack":"Rally the Pack","rangers-stance":"Ranger's Stance","ready-and-steady":"Ready and Steady","relentless":"Relentless","retaliation":"Retaliation","revitalizing-strike":"Revitalizing Strike","roots-of-the-mountain":"Roots of the Mountain","shadow-blade-technique":"Shadow Blade Technique","shadow-duplicate":"Shadow Duplicate","shield-bash":"Shield Bash","shield-block":"Shield Block","slice-and-dice":"Slice and Dice","snipers-stance":"Sniper's Stance","split-the-arrow":"Split the Arrow","spot-the-danger":"Spot the Danger","stance-of-clarity":"Stance of Clarity","steady-hands":"Steady Hands","steel-wind":"Steel Wind","steely-strike":"Steely Strike","stone-bones":"Stone Bones","stone-defense":"Stone Defense","stone-vise":"Stone Vise","stonefoot-stance":"Stonefoot Stance","sudden-leap":"Sudden Leap","tactical-strike":"Tactical Strike","thicket-of-blades":"Thicket Of Blades","thugs-stance":"Thug's Stance","trapfinders-caution":"Trapfinder's Caution","trick-shot":"Trick Shot","vanguard-strike":"Vanguard Strike","volley":"Volley","wall-of-blades":"Wall of Blades","white-raven-tactics":"White Raven Tactics","wind-stride":"Wind Stride","wolf-fang-strike":"Wolf Fang Strike","zephyr-dance":"Zephyr Dance"};
 
-const name_to_id = {"abscond":"abscond","battle leader's charge":"battle-leaders-charge","bear claw strike":"bear-claw-strike","blistering flourish":"blistering-flourish","blood frenzy":"blood-frenzy","bloody claws":"bloody-claws","bolstering voice":"bolstering-voice","bonecrusher":"bonecrusher","bowling ball":"bowling-ball","burning blade":"burning-blade","burning brand":"burning-brand","charging minotaur":"charging-minotaur","child of shadow":"child-of-shadow","claw at the moon":"claw-at-the-moon","clever positioning":"clever-positioning","clinging shadow strike":"clinging-shadow-strike","cloak of deception":"cloak-of-deception","counter charge":"counter-charge","covering fire":"covering-fire","crusader's strike":"crusaders-strike","dart and dash":"dart-and-dash","dazing ambush":"dazing-ambush","death mark":"death-mark","defensive rebuke":"defensive-rebuke","disappear":"disappear","disarming strike":"disarming-strike","distracting ambush":"distracting-ambush","douse the flames":"douse-the-flames","drain vitality":"drain-vitality","eagle eye stance":"eagle-eye-stance","emerald razor":"emerald-razor","escape fate":"escape-fate","exorcising blow":"exorcising-blow","exploit":"exploit","fan the flames":"fan-the-flames","feigned opening":"feigned-opening","find weak point":"find-weak-point","fire riposte":"fire-riposte","first into battle":"first-into-battle","flame's blessing":"flames-blessing","flashing sun":"flashing-sun","foehammer":"foehammer","furious recovery":"furious-recovery","giant fighting stance":"giant-fighting-stance","hatchling's flame":"hatchlings-flame","holocaust cloak":"holocaust-cloak","hook kick":"hook-kick","intercept the missile":"intercept-the-missile","iron guard's glare":"iron-guards-glare","iron heart surge":"iron-heart-surge","island of blades":"island-of-blades","kick":"kick","knockout":"knockout","lead from the front":"lead-from-the-front","leading the attack":"leading-the-attack","leap to safety":"leap-to-safety","leaping dragon stance":"leaping-dragon-stance","leaping dragon strike":"leaping-dragon-strike","lion's roar":"lions-roar","marksman's stance":"marksmans-stance","martial spirit":"martial-spirit","merciless claws":"merciless-claws","mighty shove":"mighty-shove","mobile archery":"mobile-archery","mountain hammer":"mountain-hammer","overwatch":"overwatch","pearl of black doubt":"pearl-of-black-doubt","piercing shot":"piercing-shot","pouncing lion strike":"pouncing-lion-strike","punishing stance":"punishing-stance","rabid wolf strike":"rabid-wolf-strike","rally the pack":"rally-the-pack","ranger's stance":"rangers-stance","relentless":"relentless","retaliation":"retaliation","revitalizing strike":"revitalizing-strike","roots of the mountain":"roots-of-the-mountain","shadow blade technique":"shadow-blade-technique","shadow duplicate":"shadow-duplicate","shield block":"shield-block","slice and dice":"slice-and-dice","sniper's stance":"snipers-stance","split the arrow":"split-the-arrow","spot the danger":"spot-the-danger","stance of clarity":"stance-of-clarity","steady hands":"steady-hands","steel wind":"steel-wind","steely strike":"steely-strike","stone bones":"stone-bones","stone defense":"stone-defense","stone vise":"stone-vise","stonefoot stance":"stonefoot-stance","sudden leap":"sudden-leap","tactical strike":"tactical-strike","thicket of blades":"thicket-of-blades","thug's stance":"thugs-stance","trapfinder's caution":"trapfinders-caution","trick shot":"trick-shot","vanguard strike":"vanguard-strike","volley":"volley","wall of blades":"wall-of-blades","white raven tactics":"white-raven-tactics","wind stride":"wind-stride","wolf fang strike":"wolf-fang-strike","zephyr dance":"zephyr-dance"};
+const name_to_id = {"abscond":"abscond","battle leader's charge":"battle-leaders-charge","bear claw strike":"bear-claw-strike","blistering flourish":"blistering-flourish","blood frenzy":"blood-frenzy","bloody claws":"bloody-claws","bolstering voice":"bolstering-voice","bonecrusher":"bonecrusher","bowling ball":"bowling-ball","burning blade":"burning-blade","burning brand":"burning-brand","charging minotaur":"charging-minotaur","child of shadow":"child-of-shadow","claw at the moon":"claw-at-the-moon","clever positioning":"clever-positioning","clinging shadow strike":"clinging-shadow-strike","cloak of deception":"cloak-of-deception","counter charge":"counter-charge","covering fire":"covering-fire","crusader's strike":"crusaders-strike","dart and dash":"dart-and-dash","dazing ambush":"dazing-ambush","death mark":"death-mark","defensive rebuke":"defensive-rebuke","disappear":"disappear","disarming strike":"disarming-strike","distracting ambush":"distracting-ambush","douse the flames":"douse-the-flames","drain vitality":"drain-vitality","eagle eye stance":"eagle-eye-stance","emerald razor":"emerald-razor","escape fate":"escape-fate","exorcising blow":"exorcising-blow","exploit":"exploit","fan the flames":"fan-the-flames","feigned opening":"feigned-opening","find weak point":"find-weak-point","fire riposte":"fire-riposte","first into battle":"first-into-battle","flame's blessing":"flames-blessing","flashing sun":"flashing-sun","foehammer":"foehammer","furious recovery":"furious-recovery","giant fighting stance":"giant-fighting-stance","hatchling's flame":"hatchlings-flame","holocaust cloak":"holocaust-cloak","hook kick":"hook-kick","intercept the missile":"intercept-the-missile","iron guard's glare":"iron-guards-glare","iron heart surge":"iron-heart-surge","island of blades":"island-of-blades","kick":"kick","knockout":"knockout","lead from the front":"lead-from-the-front","leading the attack":"leading-the-attack","leap to safety":"leap-to-safety","leaping dragon stance":"leaping-dragon-stance","leaping dragon strike":"leaping-dragon-strike","lion's roar":"lions-roar","marksman's stance":"marksmans-stance","martial spirit":"martial-spirit","merciless claws":"merciless-claws","mighty shove":"mighty-shove","mobile archery":"mobile-archery","mountain hammer":"mountain-hammer","overwatch":"overwatch","pearl of black doubt":"pearl-of-black-doubt","piercing shot":"piercing-shot","pouncing lion strike":"pouncing-lion-strike","punishing stance":"punishing-stance","rabid wolf strike":"rabid-wolf-strike","rally the pack":"rally-the-pack","ranger's stance":"rangers-stance","ready and steady":"ready-and-steady","relentless":"relentless","retaliation":"retaliation","revitalizing strike":"revitalizing-strike","roots of the mountain":"roots-of-the-mountain","shadow blade technique":"shadow-blade-technique","shadow duplicate":"shadow-duplicate","shield bash":"shield-bash","shield block":"shield-block","slice and dice":"slice-and-dice","sniper's stance":"snipers-stance","split the arrow":"split-the-arrow","spot the danger":"spot-the-danger","stance of clarity":"stance-of-clarity","steady hands":"steady-hands","steel wind":"steel-wind","steely strike":"steely-strike","stone bones":"stone-bones","stone defense":"stone-defense","stone vise":"stone-vise","stonefoot stance":"stonefoot-stance","sudden leap":"sudden-leap","tactical strike":"tactical-strike","thicket of blades":"thicket-of-blades","thug's stance":"thugs-stance","trapfinder's caution":"trapfinders-caution","trick shot":"trick-shot","vanguard strike":"vanguard-strike","volley":"volley","wall of blades":"wall-of-blades","white raven tactics":"white-raven-tactics","wind stride":"wind-stride","wolf fang strike":"wolf-fang-strike","zephyr dance":"zephyr-dance"};
 
 </script>
 <script>
@@ -3814,6 +3814,46 @@ aware of the consequence of moving next to you.
 </p>
 </div>
 </details>
+<details class="maneuver" id="ready-and-steady">
+<summary style="cursor:pointer">
+Ready and Steady</summary>
+<div>
+<h2>Ready and Steady</h2>
+<p>
+Devoted Spirit (Boost)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 Swift Action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Personal</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>You</td>
+</tr>
+<tr>
+<td>Duration:</td>
+<td>1 round.</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You must be using a shield to perform this maneuver.
+</p>
+<p>
+Your shield's AC bonus increases by 2 until the start of your next turn.
+</p>
+</div>
+</details>
 <details class="maneuver" id="relentless">
 <summary style="cursor:pointer">
 Relentless</summary>
@@ -4078,6 +4118,48 @@ This maneuver is a supernatural ability.
 </p>
 </div>
 </details>
+<details class="maneuver" id="shield-bash">
+<summary style="cursor:pointer">
+Shield Bash</summary>
+<div>
+<h2>Shield Bash</h2>
+<p>
+Devoted Spirit (Strike)
+</p>
+<div class="infoblock">
+<table><tbody>
+<tr>
+<td>Level:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Prerequisite:</td>
+<td>One Devoted Spirit maneuver</td>
+</tr>
+<tr>
+<td>Action:</td>
+<td>1 standard action</td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>Melee</td>
+</tr>
+<tr>
+<td>Target:</td>
+<td>One Creature</td>
+</tr>
+</tbody></table>
+</div>
+<p>
+You bonk your opponent with your shield. Make a melee attack with your shield
+(you are proficient with this attack if you are proficient with shields and
+treat the shield as a one-handed weapon). If this attack hits, you deal
+1d6+str damage and the creature must make a Fortitude save (DC 12 + STR) or
+lose their next standard action. They are immune if they are undead or don't
+have a biology.
+</p>
+</div>
+</details>
 <details class="maneuver" id="shield-block">
 <summary style="cursor:pointer">
 Shield Block</summary>
@@ -4115,11 +4197,11 @@ With a heroic burst of effort, you thrust your shield between your defenseless
 ally and your enemy.
 </p>
 <p>
-As an immediate action, you can grant an AC bonus to an adjacent ally equal to
-your shield’s AC bonus + 4. You apply this bonus in response to a single
+As an immediate action, you can grant an AC bonus to an adjacent ally equal
+to your shield’s AC bonus + 4. You apply this bonus in response to a single
 melee or ranged attack that targets your ally. You can initiate this maneuver
-after an opponent makes his attack roll, but you must do so before you know
-whether the attack was a success or a failure.
+after an opponent makes his attack roll, but you must do so before damage is
+rolled.
 </p>
 </div>
 </details>
@@ -5177,12 +5259,14 @@ damage.
 <li><a href="#rabid-wolf-strike">Rabid Wolf Strike</a></li>
 <li><a href="#rally-the-pack">Rally the Pack</a></li>
 <li><a href="#rangers-stance">Ranger's Stance</a></li>
+<li><a href="#ready-and-steady">Ready and Steady</a></li>
 <li><a href="#relentless">Relentless</a></li>
 <li><a href="#retaliation">Retaliation</a></li>
 <li><a href="#revitalizing-strike">Revitalizing Strike</a></li>
 <li><a href="#roots-of-the-mountain">Roots of the Mountain</a></li>
 <li><a href="#shadow-blade-technique">Shadow Blade Technique</a></li>
 <li><a href="#shadow-duplicate">Shadow Duplicate</a></li>
+<li><a href="#shield-bash">Shield Bash</a></li>
 <li><a href="#shield-block">Shield Block</a></li>
 <li><a href="#slice-and-dice">Slice and Dice</a></li>
 <li><a href="#snipers-stance">Sniper's Stance</a></li>
