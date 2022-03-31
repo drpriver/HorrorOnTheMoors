@@ -115,10 +115,12 @@ div.map svg {
 }
 div.grid_container{
     display: grid;
-    grid-template-columns: 15% 85%;
-    grid-template-rows: 10% 90%;
+    grid-template-columns: 15% auto;
+    grid-template-rows: 100%;
     grid-column-gap: 4em;
-    }
+    height: 100%;
+    width: 100%;
+}
 
 nav {
     font-size: .7em;
@@ -142,22 +144,17 @@ nav {
 .left {
     grid-column: 1;
     grid-row: 1;
-    position:fixed;
-    width: 15%;
-    height:100%;
     overflow: scroll;
+}
+.center > * {
+    max-width: 44em;
 }
 .center {
     padding: 0 10px;
-    max-width: 44em;
-    /* max-width: 100%; */
     grid-column: 2;
     grid-row:1;
-    position:fixed;
     overflow: scroll;
-    left: calc(15% + 2em);
     padding-bottom: 20em;
-    height: 100%;
 }
 .center p, .center ol, .center ul {
     max-width: 40em;
