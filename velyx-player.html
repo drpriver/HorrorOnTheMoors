@@ -6,18 +6,18 @@
 <title>Velyx, Border Town on the Moors</title>
 <style>
 *{
-	box-sizing:border-box;
-	scrollbar-width: none;
+  box-sizing:border-box;
+  scrollbar-width: none;
 }
 ::-webkit-scrollbar {
-	/*display:none;*/
+  /*display:none;*/
 }
 a, img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
+  -webkit-user-drag : none;
+  -khtml-user-drag  : none;
+  -moz-user-drag    : none;
+  -o-user-drag      : none;
+  user-drag         : none;
 }
 svg > a {
   -webkit-touch-callout: none;
@@ -28,20 +28,17 @@ svg > a {
    user-select         : none;
 }
 html, body {
-	height: 100%;
-	margin: 0;
-	font-family: "Tahoma";
+  height: 100%;
+  margin: 0;
+  font-family: "Tahoma";
 }
 body {
-	/*background-color: rgb(228,223,204);*/
-}
-p {
-	text-align: justify;
+  /*background-color: rgb(228,223,204);*/
 }
 
 
 h1,h2,h3,h4,h5,h6 {
-	font-family: "Tahoma";
+  font-family: "Tahoma";
 
 }
 
@@ -49,8 +46,8 @@ h3,h4,h5 {
 color: rgb(88,24,13);
 }
 h1, h2, h3 {
-	border-bottom: 1px solid #aaaaaa;
-	max-width: 50em;
+  border-bottom: 1px solid #aaaaaa;
+  max-width: 50em;
 }
 
 
@@ -62,56 +59,76 @@ a {
 
 
 table {
-	border-collapse: collapse;
-	margin: 2rem;
-	margin-top: 0;
-	text-align: left;
-	}
+  border-collapse: collapse;
+  margin: 2rem;
+  margin-top: 0;
+  text-align: left;
+  }
 
 tr:nth-child(even){
-	background: #ccc;
+  background: #ccc;
 }
 th, td {
-	padding: .2em 1em;
-	border: 1px solid black;
-	text-align: left;
-	}
+  padding: .2em 1em;
+  border: 1px solid black;
+  text-align: left;
+  }
 table.text_table {
-	text-align: left;
+  text-align: left;
 }
 table.text_table .even {
-	background-color: initial;
+  background-color: initial;
 }
 table ul {
-	-webkit-margin-before: 0;
-	-webkit-margin-after: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
 }
 div.boxed {
-	border: 1px solid black;
-	max-width: 30em;
-	padding: 0 1em;
+  border: 1px solid black;
+  max-width: 30em;
+  padding: 0 1em;
 }
 
 div.horizontal {
-	display: flex;
+  display: flex;
 }
 .def h3, .def h4 {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 .def p{
-	padding-left: 1em;
-	margin-top: 0;
+  padding-left: 1em;
+  margin-top: 0;
 }
 .def ul {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 div.map svg {
-	background-size: 100% 100%;
+  background-size: 100% 100%;
 }
 .hexes svg a text{
-	fill: black;
-	background-color: white;
+  fill: black;
+  background-color: white;
+}
+@media (prefers-color-scheme: dark) {
+	html {
+		color-scheme: dark;
+		color: #aaa;
+		background-color: #222;
+	}
+	svg {
+		background-color: white;
+	}
+	tr:nth-child(even){
+	  background: #333;
+	}
+	h3, h4, h5 {
+		color: rgb(161, 26, 2)
+	}
+	a {
+		color: white;
+	}
+
 }
 div.grid_container{
     display: grid;
@@ -126,9 +143,6 @@ nav {
     font-size: .7em;
     height:100%;
     overflow:auto;
-}
-.center li {
-    text-align: justify;
 }
 
 .floater div.map img {
